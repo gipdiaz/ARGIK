@@ -11,19 +11,19 @@ namespace GesturesViewer
 {
     partial class MainWindow
     {
-        String archivoGesto = Path.Combine(Environment.CurrentDirectory, @"data\L.save");
-        bool primervez = true;
+        //String archivoGesto = Path.Combine(Environment.CurrentDirectory, @"data\L.save");
+        //bool primervez = true;
 
 
         void LoadCircleGestureDetector()
         {
             
-            using (Stream recordStream = File.Open(archivoGesto, FileMode.OpenOrCreate))
+            using (Stream recordStream = File.Open(circleKBPath, FileMode.OpenOrCreate))
             {
                                
                 circleGestureRecognizer = new TemplatedGestureDetector("L", recordStream);
                 circleGestureRecognizer.DisplayCanvas = gesturesCanvas;
-                circleGestureRecognizer.LearningMachine.Persist(recordStream);
+                //circleGestureRecognizer.LearningMachine.Persist(recordStream);
                 circleGestureRecognizer.OnGestureDetected += OnGestureDetected;
 
                 MouseController.Current.ClickGestureDetector = circleGestureRecognizer;

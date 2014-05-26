@@ -18,7 +18,7 @@ namespace GesturesViewer
     {
         KinectSensor kinectSensor;
 
-        //SwipeGestureDetector swipeGestureRecognizer;
+        SwipeGestureDetector swipeGestureRecognizer;
         TemplatedGestureDetector circleGestureRecognizer;
         readonly ColorStreamManager colorManager = new ColorStreamManager();
         readonly DepthStreamManager depthManager = new DepthStreamManager();
@@ -138,8 +138,8 @@ namespace GesturesViewer
             });
             kinectSensor.SkeletonFrameReady += kinectRuntime_SkeletonFrameReady;
 
-            //swipeGestureRecognizer = new SwipeGestureDetector();
-            //swipeGestureRecognizer.OnGestureDetected += OnGestureDetected;
+            swipeGestureRecognizer = new SwipeGestureDetector();
+            swipeGestureRecognizer.OnGestureDetected += OnGestureDetected;
 
             skeletonDisplayManager = new SkeletonDisplayManager(kinectSensor, kinectCanvas);
 
@@ -161,7 +161,7 @@ namespace GesturesViewer
 
             parallelCombinedGestureDetector = new ParallelCombinedGestureDetector();
             parallelCombinedGestureDetector.OnGestureDetected += OnGestureDetected;
-            //parallelCombinedGestureDetector.Add(swipeGestureRecognizer);
+            parallelCombinedGestureDetector.Add(swipeGestureRecognizer);
             parallelCombinedGestureDetector.Add(circleGestureRecognizer);
         }
 
@@ -263,7 +263,7 @@ namespace GesturesViewer
                     }
                     else if (joint.JointType == JointType.HandLeft)
                     {
-                        //swipeGestureRecognizer.Add(joint.Position, kinectSensor);
+                        swipeGestureRecognizer.Add(joint.Position, kinectSensor);
                         if (controlMouse.IsChecked == true)
                             MouseController.Current.SetHandPosition(kinectSensor, joint, skeleton);
                     }
@@ -304,7 +304,7 @@ namespace GesturesViewer
 
             if (parallelCombinedGestureDetector != null)
             {
-                //parallelCombinedGestureDetector.Remove(swipeGestureRecognizer);
+                parallelCombinedGestureDetector.Remove(swipeGestureRecognizer);
                 parallelCombinedGestureDetector.Remove(circleGestureRecognizer);
                 parallelCombinedGestureDetector = null;
             }

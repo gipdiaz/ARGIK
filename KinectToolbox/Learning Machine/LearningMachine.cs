@@ -45,6 +45,17 @@ namespace Kinect.Toolbox
         {
             path.CloseAndPrepare();
             Paths.Add(path);
+            GuardarGesto();
+        }
+        public void GuardarGesto()
+        {
+            using (Stream recordStream = File.Create(Path.Combine(System.Environment.CurrentDirectory, @"data\L.save")))
+            {
+
+                Persist(recordStream);
+            }
+
         }
     }
+
 }
