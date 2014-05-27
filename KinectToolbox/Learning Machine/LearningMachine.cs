@@ -3,13 +3,14 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using Kinect.Toolbox.Gestures.Learning_Machine;
+using Microsoft.Win32;
 
 namespace Kinect.Toolbox
 {
     public class LearningMachine
     {
         readonly List<RecordedPath> paths;
-
+       
         public LearningMachine(Stream kbStream)
         {
             if (kbStream == null || kbStream.Length == 0)
@@ -28,6 +29,7 @@ namespace Kinect.Toolbox
         {
             get { return paths; }
         }
+        public string gestoNuevo { get; set; }
 
         public bool Match(List<Vector2> entries, float threshold, float minimalScore, float minSize)
         {
@@ -49,12 +51,16 @@ namespace Kinect.Toolbox
         }
         public void GuardarGesto()
         {
-            using (Stream recordStream = File.Create(Path.Combine(System.Environment.CurrentDirectory, @"data\L.save")))
-            {
+              SaveFileDialog saveFileDialog = new SaveFileDialog { Title = "Elija nombre de gesto", Filter = "Archivos Gesto|*.save" };
+              if (saveFileDialog.ShowDialog() == true)
+              {
+                  gestoNuevo = saveFileDialog.FileName;
+                  using (Stream recordStream = File.Create(saveFileDialog.FileName))
+                  {
 
-                Persist(recordStream);
-            }
-
+                      Persist(recordStream);
+                  }
+              }
         }
     }
 

@@ -40,11 +40,6 @@ namespace GesturesViewer
             MessageBox.Show("Give me a......." + posture);
         }
 
-        private void recordT_Click(object sender, RoutedEventArgs e)
-        {
-            
-            recordNextFrameForPosture = true;
-
-        }
+       
     }
 }

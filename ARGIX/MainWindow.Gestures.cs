@@ -11,44 +11,64 @@ namespace GesturesViewer
 {
     partial class MainWindow
     {
-        //String archivoGesto = Path.Combine(Environment.CurrentDirectory, @"data\L.save");
-        //bool primervez = true;
+        String archivoGesto = "";
+               
 
 
         void LoadCircleGestureDetector()
         {
             
-            using (Stream recordStream = File.Open(circleKBPath, FileMode.OpenOrCreate))
+            OpenFileDialog openFileDialog = new OpenFileDialog {Title = "Select filename", Filter = "Save files|*.save"};
+            if (openFileDialog.ShowDialog() == true)
             {
-                               
-                circleGestureRecognizer = new TemplatedGestureDetector("L", recordStream);
-                circleGestureRecognizer.DisplayCanvas = gesturesCanvas;
-                //circleGestureRecognizer.LearningMachine.Persist(recordStream);
-                circleGestureRecognizer.OnGestureDetected += OnGestureDetected;
-
-                MouseController.Current.ClickGestureDetector = circleGestureRecognizer;
+                using (Stream recordStream = File.Open(openFileDialog.FileName, FileMode.OpenOrCreate))
+                {
+                    archivoGesto = openFileDialog.FileName;
+                    circleGestureRecognizer = new TemplatedGestureDetector(archivoGesto, recordStream);
+                    circleGestureRecognizer.DisplayCanvas = gesturesCanvas;
+                    
+                    circleGestureRecognizer.OnGestureDetected += OnGestureDetected;
+                    MouseController.Current.ClickGestureDetector = circleGestureRecognizer;
+                }
             }
         }
 
+        //Grabar el gesto
         private void recordGesture_Click(object sender, RoutedEventArgs e)
         {
+            using (Stream recordStream = File.Open(openFileDialog.FileName, FileMode.OpenOrCreate))
+            {
 
-            //if (primervez) {
-              //  SaveFileDialog saveFileDialog = new SaveFileDialog { Title = "Elija nombre de gesto", Filter = "Archivos Gesto|*.gesto" };
-                //archivoGesto = saveFileDialog.FileName;
-            //}
                 if (circleGestureRecognizer.IsRecordingPath)
                 {
-                    
-
-                        circleGestureRecognizer.EndRecordTemplate();
-                        recordGesture.Content = "Grabar Gesto";
-                        return;
-                    
+                    circleGestureRecognizer.EndRecordTemplate();
+                    recordGesture.Content = "Grabar Gesto";
+                    return;
                 }
+
                 circleGestureRecognizer.StartRecordTemplate();
                 recordGesture.Content = "Pausar Grabacion";
-            
+            }
+        }     
+    //Cargar el gesto y habilitar reconocimiento
+        
+        private void recordT_Click(object sender, RoutedEventArgs e)
+        {
+     
+            OpenFileDialog openFileDialog = new OpenFileDialog { Title = "Select filename", Filter = "Save files|*.save" };
+            if (openFileDialog.ShowDialog() == true)
+            {
+                using (Stream recordStream = File.Open(openFileDialog.FileName, FileMode.OpenOrCreate))
+                {
+                    archivoGesto = openFileDialog.FileName;
+                    circleGestureRecognizer = new TemplatedGestureDetector(archivoGesto, recordStream);
+                    circleGestureRecognizer.DisplayCanvas = gesturesCanvas;
+                    circleGestureRecognizer.OnGestureDetected += OnGestureDetected;
+
+                    MouseController.Current.ClickGestureDetector = circleGestureRecognizer;
+                    detectando = true;
+                }
+            }
         }
 
         void OnGestureDetected(string gesture)
@@ -62,12 +82,14 @@ namespace GesturesViewer
         {
             if (circleGestureRecognizer == null)
                 return;
-
-            using (Stream recordStream = File.Create(circleKBPath))
+            else
             {
-                circleGestureRecognizer.SaveState(recordStream);
+                using (Stream recordStream = File.Create(circleGestureRecognizer.LearningMachine.gestoNuevo))
+                {
+                    circleGestureRecognizer.SaveState(recordStream);
+                }
+                circleGestureRecognizer.OnGestureDetected -= OnGestureDetected;
             }
-            circleGestureRecognizer.OnGestureDetected -= OnGestureDetected;
         }
     }
 }
