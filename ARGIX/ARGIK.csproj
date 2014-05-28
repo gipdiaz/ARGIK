@@ -37,8 +37,9 @@
     <Reference Include="Coding4Fun.Kinect.Wpf">
       <HintPath>Libs\Coding4Fun.Kinect.Wpf.dll</HintPath>
     </Reference>
-    <Reference Include="Kinect.Toolbox.Voice">
-      <HintPath>..\Kinect.Toolbox.Voice\bin\Debug\Kinect.Toolbox.Voice.dll</HintPath>
+    <Reference Include="Kinect.Toolbox.Voice, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\KinectToolbox\Kinect.Toolbox.Voice\bin\Debug\Kinect.Toolbox.Voice.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Expression.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -113,12 +114,6 @@
     <Content Include="FaceTrackData.dll" />
     <Content Include="FaceTrackLib.dll" />
     <Content Include="Libs\Microsoft.Kinect.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\KinectToolbox\Kinect.Toolbox.csproj">
-      <Project>{2c84ce43-cdab-4541-a55a-7f849e8ac247}</Project>
-      <Name>Kinect.Toolbox</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

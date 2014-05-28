@@ -45,7 +45,7 @@ namespace Kinect.Toolbox.Voice
                 r.AdditionalInfo.TryGetValue("Kinect", out value);
                 return 
                     "True".Equals(value, StringComparison.InvariantCultureIgnoreCase) && 
-                    "en-US".Equals(r.Culture.Name, StringComparison.InvariantCultureIgnoreCase);
+                    "es-MX".Equals(r.Culture.Name, StringComparison.InvariantCultureIgnoreCase);
             };
 
             var recognizerInfo = SpeechRecognitionEngine.InstalledRecognizers().Where(matchingFunc).FirstOrDefault();

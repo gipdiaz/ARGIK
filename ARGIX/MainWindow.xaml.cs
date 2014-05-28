@@ -152,7 +152,7 @@ namespace GesturesViewer
 
             elevationSlider.DataContext = nuiCamera;
 
-            voiceCommander = new VoiceCommander("record", "stop");
+            voiceCommander = new VoiceCommander("grabar", "parar");
             voiceCommander.OrderDetected += voiceCommander_OrderDetected;
 
             StartVoiceCommander();
