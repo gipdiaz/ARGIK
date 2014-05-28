@@ -36,8 +36,7 @@ namespace GesturesViewer
         //Grabar el gesto
         private void recordGesture_Click(object sender, RoutedEventArgs e)
         {
-            using (Stream recordStream = File.Open(openFileDialog.FileName, FileMode.OpenOrCreate))
-            {
+            
 
                 if (circleGestureRecognizer.IsRecordingPath)
                 {
@@ -49,7 +48,7 @@ namespace GesturesViewer
                 circleGestureRecognizer.StartRecordTemplate();
                 recordGesture.Content = "Pausar Grabacion";
             }
-        }     
+             
     //Cargar el gesto y habilitar reconocimiento
         
         private void recordT_Click(object sender, RoutedEventArgs e)
