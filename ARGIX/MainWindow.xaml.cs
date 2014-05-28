@@ -17,9 +17,11 @@ namespace GesturesViewer
     public partial class MainWindow
     {
         KinectSensor kinectSensor;
-
+        bool detectando = false;
         SwipeGestureDetector swipeGestureRecognizer;
+
         TemplatedGestureDetector circleGestureRecognizer;
+        
         readonly ColorStreamManager colorManager = new ColorStreamManager();
         readonly DepthStreamManager depthManager = new DepthStreamManager();
         AudioStreamManager audioManager;
@@ -28,7 +30,9 @@ namespace GesturesViewer
         EyeTracker eyeTracker;
         ParallelCombinedGestureDetector parallelCombinedGestureDetector;
         readonly AlgorithmicPostureDetector algorithmicPostureRecognizer = new AlgorithmicPostureDetector();
+        
         TemplatedPostureDetector templatePostureDetector;
+        
         private bool recordNextFrameForPosture;
         bool displayDepth;
 
@@ -145,9 +149,9 @@ namespace GesturesViewer
 
             kinectSensor.Start();
 
-            LoadCircleGestureDetector();
+            //LoadCircleGestureDetector();
             LoadLetterTPostureDetector();
-
+           
             nuiCamera = new BindableNUICamera(kinectSensor);
 
             elevationSlider.DataContext = nuiCamera;
@@ -159,11 +163,7 @@ namespace GesturesViewer
 
             kinectDisplay.DataContext = colorManager;
 
-            parallelCombinedGestureDetector = new ParallelCombinedGestureDetector();
-            parallelCombinedGestureDetector.OnGestureDetected += OnGestureDetected;
-            parallelCombinedGestureDetector.Add(swipeGestureRecognizer);
-            parallelCombinedGestureDetector.Add(circleGestureRecognizer);
-        }
+            }
 
         void kinectSensor_DepthFrameReady(object sender, DepthImageFrameReadyEventArgs e)
         {
@@ -254,21 +254,28 @@ namespace GesturesViewer
 
                 foreach (Joint joint in skeleton.Joints)
                 {
-                    if (joint.TrackingState != JointTrackingState.Tracked)
-                        continue;
+                    if (detectando)
+                    {
+                        parallelCombinedGestureDetector = new ParallelCombinedGestureDetector();
+                        parallelCombinedGestureDetector.OnGestureDetected += OnGestureDetected;
+                        parallelCombinedGestureDetector.Add(swipeGestureRecognizer);
+                        parallelCombinedGestureDetector.Add(circleGestureRecognizer);
+        
+                        if (joint.TrackingState != JointTrackingState.Tracked)
+                            continue;
 
-                    if (joint.JointType == JointType.HandRight && kinectSensor != null)
-                    {
-                        circleGestureRecognizer.Add(joint.Position, kinectSensor);
-                    }
-                    else if (joint.JointType == JointType.HandLeft)
-                    {
-                        swipeGestureRecognizer.Add(joint.Position, kinectSensor);
-                        if (controlMouse.IsChecked == true)
-                            MouseController.Current.SetHandPosition(kinectSensor, joint, skeleton);
+                        if (joint.JointType == JointType.HandRight && kinectSensor != null)
+                        {
+                            circleGestureRecognizer.Add(joint.Position, kinectSensor);
+                        }
+                        else if (joint.JointType == JointType.HandLeft)
+                        {
+                            swipeGestureRecognizer.Add(joint.Position, kinectSensor);
+                            if (controlMouse.IsChecked == true)
+                                MouseController.Current.SetHandPosition(kinectSensor, joint, skeleton);
+                        }
                     }
                 }
-
                 algorithmicPostureRecognizer.TrackPostures(skeleton);
                 templatePostureDetector.TrackPostures(skeleton);
 
@@ -309,7 +316,7 @@ namespace GesturesViewer
                 parallelCombinedGestureDetector = null;
             }
 
-            CloseGestureDetector();
+            //CloseGestureDetector();
 
             ClosePostureDetector();
 
