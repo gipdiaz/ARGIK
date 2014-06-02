@@ -107,7 +107,7 @@ namespace GesturesViewer
                 }
 
                 if (KinectSensor.KinectSensors.Count == 0)
-                    MessageBox.Show("No Kinect found");
+                    MessageBox.Show("No se encontro un Kinect conectado");
                 else
                     Initialize();
 
@@ -245,7 +245,7 @@ namespace GesturesViewer
                 //eyeTracker.Track(skeleton);
 
                 contextTracker.Add(skeleton.Position.ToVector3(), skeleton.TrackingId);
-                stabilities.Add(skeleton.TrackingId, contextTracker.IsStableRelativeToCurrentSpeed(skeleton.TrackingId) ? "Stable" : "Non stable");
+                stabilities.Add(skeleton.TrackingId, contextTracker.IsStableRelativeToCurrentSpeed(skeleton.TrackingId) ? "Estable" : "Inestable");
                 if (!contextTracker.IsStableRelativeToCurrentSpeed(skeleton.TrackingId))
                     continue;
 
@@ -398,12 +398,12 @@ namespace GesturesViewer
 
             if (displayDepth)
             {
-                viewButton.Content = "Imagen de la cámara RGB";
+                viewButton.Content = "RGB";
                 kinectDisplay.DataContext = depthManager;
             }
             else
             {
-                viewButton.Content = "Imagen de la cámara de Profundidad";
+                viewButton.Content = "Profundidad";
                 kinectDisplay.DataContext = colorManager;
             }
         }
@@ -440,6 +440,11 @@ namespace GesturesViewer
                 return;
 
             kinectSensor.SkeletonStream.TrackingMode = SkeletonTrackingMode.Default;
+        }
+
+        private void elevationSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+
         }
     }
 }
