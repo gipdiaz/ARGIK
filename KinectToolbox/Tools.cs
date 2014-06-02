@@ -83,7 +83,7 @@ namespace Kinect.Toolbox
 
             if (sensor.ColorStream.IsEnabled)
             {
-                var colorPoint = sensor.MapSkeletonPointToColor(position, sensor.ColorStream.Format);
+                var colorPoint = sensor.CoordinateMapper.MapSkeletonPointToColorPoint(position, sensor.ColorStream.Format);
                 x = colorPoint.X;
                 y = colorPoint.Y;
 
@@ -103,7 +103,7 @@ namespace Kinect.Toolbox
             }
             else if (sensor.DepthStream.IsEnabled)
             {
-                var depthPoint = sensor.MapSkeletonPointToDepth(position, sensor.DepthStream.Format);
+                var depthPoint = sensor.CoordinateMapper.MapSkeletonPointToDepthPoint(position, sensor.DepthStream.Format);
                 x = depthPoint.X;
                 y = depthPoint.Y;
 

@@ -149,7 +149,7 @@ namespace GesturesViewer
 
             kinectSensor.Start();
 
-            //LoadCircleGestureDetector();
+            LoadCircleGestureDetector();
             LoadLetterTPostureDetector();
            
             nuiCamera = new BindableNUICamera(kinectSensor);
@@ -254,26 +254,24 @@ namespace GesturesViewer
 
                 foreach (Joint joint in skeleton.Joints)
                 {
-                    if (detectando)
-                    {
-                        parallelCombinedGestureDetector = new ParallelCombinedGestureDetector();
-                        parallelCombinedGestureDetector.OnGestureDetected += OnGestureDetected;
-                        parallelCombinedGestureDetector.Add(swipeGestureRecognizer);
-                        parallelCombinedGestureDetector.Add(circleGestureRecognizer);
+                    
+                    parallelCombinedGestureDetector = new ParallelCombinedGestureDetector();
+                    parallelCombinedGestureDetector.OnGestureDetected += OnGestureDetected;
+                    parallelCombinedGestureDetector.Add(swipeGestureRecognizer);
+                    parallelCombinedGestureDetector.Add(circleGestureRecognizer);
         
-                        if (joint.TrackingState != JointTrackingState.Tracked)
-                            continue;
+                    if (joint.TrackingState != JointTrackingState.Tracked)
+                        continue;
 
-                        if (joint.JointType == JointType.HandRight && kinectSensor != null)
-                        {
-                            circleGestureRecognizer.Add(joint.Position, kinectSensor);
-                        }
-                        else if (joint.JointType == JointType.HandLeft)
-                        {
-                            swipeGestureRecognizer.Add(joint.Position, kinectSensor);
-                            if (controlMouse.IsChecked == true)
-                                MouseController.Current.SetHandPosition(kinectSensor, joint, skeleton);
-                        }
+                    if (joint.JointType == JointType.HandRight && kinectSensor != null)
+                    {
+                        circleGestureRecognizer.Add(joint.Position, kinectSensor);
+                    }
+                    else if (joint.JointType == JointType.HandLeft)
+                    {
+                        swipeGestureRecognizer.Add(joint.Position, kinectSensor);
+                        if (controlMouse.IsChecked == true)
+                            MouseController.Current.SetHandPosition(kinectSensor, joint, skeleton);
                     }
                 }
                 algorithmicPostureRecognizer.TrackPostures(skeleton);
@@ -400,12 +398,12 @@ namespace GesturesViewer
 
             if (displayDepth)
             {
-                viewButton.Content = "View Color";
+                viewButton.Content = "Imagen de la cámara RGB";
                 kinectDisplay.DataContext = depthManager;
             }
             else
             {
-                viewButton.Content = "View Depth";
+                viewButton.Content = "Imagen de la cámara de Profundidad";
                 kinectDisplay.DataContext = colorManager;
             }
         }

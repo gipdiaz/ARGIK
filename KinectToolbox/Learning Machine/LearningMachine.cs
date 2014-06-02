@@ -55,7 +55,7 @@ namespace Kinect.Toolbox
               if (saveFileDialog.ShowDialog() == true)
               {
                   gestoNuevo = saveFileDialog.FileName;
-                  using (Stream recordStream = File.Create(saveFileDialog.FileName))
+                  using (Stream recordStream = File.Create(gestoNuevo))
                   {
 
                       Persist(recordStream);

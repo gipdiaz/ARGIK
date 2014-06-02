@@ -27,7 +27,7 @@ namespace GesturesViewer
         {
             Stream recordStream = File.Create(targetFileName);
             recorder = new KinectRecorder(KinectRecordOptions.Skeletons | KinectRecordOptions.Color, recordStream);
-            recordOption.Content = "Stop Recording";
+            recordOption.Content = "Parar Grabación";
         }
 
         void StopRecord()
@@ -36,7 +36,7 @@ namespace GesturesViewer
             {
                 recorder.Stop();
                 recorder = null;
-                recordOption.Content = "Record";
+                recordOption.Content = "Grabar Sesión";
                 return;
             }
         }

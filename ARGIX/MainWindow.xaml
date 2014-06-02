@@ -5,7 +5,7 @@
         Loaded="Window_Loaded"
         Closing="Window_Closing"        
         WindowState="Normal"    
-        Title="Gestures Viewer" Height="700" Width="1000" MinHeight="700" MinWidth="1000" MaxHeight="700" MaxWidth="1000">
+        Title="ARGIK" Height="700" Width="1000" MinHeight="700" MinWidth="1000" MaxHeight="700" MaxWidth="1000">
     <Window.Resources>
         <Style TargetType="{x:Type TextBlock}">
             <Setter Property="FontFamily" Value="Segoe UI"/>
@@ -53,7 +53,7 @@
                 <Rectangle Stroke="Black" StrokeThickness="1"/>
             </Grid>
         </Viewbox>
-        <TextBlock Text="COMMANDS" Grid.Column="1" Margin="4"/>
+        <TextBlock Text="Panel de Comandos ARGIK" Grid.Column="1" Margin="4"/>
         <Grid Margin="10" Grid.Column="1" Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition/>
@@ -65,17 +65,17 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <CheckBox Content="Audio" x:Name="audioControl" VerticalAlignment="Center" d:LayoutOverrides="Width"/>
-                <Button Content="Record" x:Name="recordOption" Click="recordOption_Click" VerticalAlignment="Center" Width="129" Margin="10,6,0,6"/>
+                <CheckBox Content="Voz" x:Name="audioControl" VerticalAlignment="Center" d:LayoutOverrides="Width"/>
+                <Button Content="Grabar Sesión" x:Name="recordOption" Click="recordOption_Click" VerticalAlignment="Center" Width="129" Margin="10,6,0,6"/>
             </StackPanel>
-            <Button Content="Replay" x:Name="replayButton" Click="replayButton_Click" VerticalAlignment="Center" Grid.Row="1" Width="Auto"/>
-            <Button Content="Capture Gesture" x:Name="recordGesture" Click="recordGesture_Click" VerticalAlignment="Center" Grid.Row="2" Width="Auto"/>
-            <Button Content="Capture T" x:Name="recordT" Click="recordT_Click" VerticalAlignment="Center" Grid.Row="3" Width="Auto"/>
-            <CheckBox Content="Near Mode" x:Name="nearMode" Grid.Row="4" VerticalContentAlignment="Top" Checked="nearMode_Checked_1" Unchecked="nearMode_Unchecked_1"/>
-            <CheckBox Content="Seated Mode" x:Name="seatedMode" Grid.Row="5" VerticalContentAlignment="Top" Checked="seatedMode_Checked_1" Unchecked="seatedMode_Unchecked_1"/>
-            <CheckBox Content="Control Mouse" x:Name="controlMouse" Grid.Row="6" VerticalContentAlignment="Top"/>
+            <Button Content="Repetir Sesion" x:Name="replayButton" Click="replayButton_Click" VerticalAlignment="Center" Grid.Row="1" Width="Auto"/>
+            <Button Content="Grabar Gesto" x:Name="recordGesture" Click="recordGesture_Click" VerticalAlignment="Center" Grid.Row="2" Width="Auto"/>
+            <Button Content="Detectar Gesto" x:Name="recordT" Click="recordT_Click" VerticalAlignment="Center" Grid.Row="3" Width="Auto"/>
+            <CheckBox Content="Modo Cerca" x:Name="nearMode" Grid.Row="4" VerticalContentAlignment="Top" Checked="nearMode_Checked_1" Unchecked="nearMode_Unchecked_1"/>
+            <CheckBox Content="Modo Sentado" x:Name="seatedMode" Grid.Row="5" VerticalContentAlignment="Top" Checked="seatedMode_Checked_1" Unchecked="seatedMode_Unchecked_1"/>
+            <CheckBox Content="Controlar Mouse" x:Name="controlMouse" Grid.Row="6" VerticalContentAlignment="Top"/>
         </Grid>
-        <TextBlock Text="DETECTED GESTURES" Grid.Column="1" Grid.Row="2" Margin="4"/>
+        <TextBlock Text="Gestos Detectados" Grid.Column="1" Grid.Row="2" Margin="4"/>
         <ListBox x:Name="detectedGestures" FontSize="20" Grid.Column="1" Margin="10,10,10,0" Grid.Row="3"/>
         <StackPanel Grid.Row="6" Margin="212,0" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Rectangle x:Name="audioBeamAngle" Height="20" Width="300" Margin="5">
@@ -93,7 +93,7 @@
             </Rectangle>
             <StackPanel Orientation="Horizontal" />
         </StackPanel>
-        <TextBlock Text="STABILITIES" Grid.Column="1" Grid.Row="4" />
+        <TextBlock Text="Estado del Esqueleto" Grid.Column="1" Grid.Row="4" />
         <ListBox x:Name="stabilitiesList" FontSize="20" Grid.Column="1" Grid.Row="5" Margin="10" Grid.RowSpan="2">
             <ListBox.ItemTemplate>
                 <DataTemplate>
@@ -106,6 +106,6 @@
             </ListBox.ItemTemplate>
         </ListBox>
         <Slider Minimum="{Binding ElevationMinimum}" Maximum="{Binding ElevationMaximum}" Value="{Binding ElevationAngle, Mode=TwoWay}" x:Name="elevationSlider" Orientation="Vertical" Grid.RowSpan="7"/>
-        <Button Grid.RowSpan="2" Content="View Depth" Margin="267,10,267,0" HorizontalAlignment="Center" VerticalAlignment="Top" Click="Button_Click" x:Name="viewButton"/>
+        <Button Grid.RowSpan="2" Content="Profundidad" Margin="267,10,267,0" HorizontalAlignment="Center" VerticalAlignment="Top" Click="Button_Click" x:Name="viewButton"/>
     </Grid>
 </Window>

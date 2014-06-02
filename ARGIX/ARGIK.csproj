@@ -81,6 +81,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ListBoxBehavior.cs" />
     <Compile Include="MainWindow.Gestures.cs" />
     <Compile Include="MainWindow.Postures.cs" />
     <Compile Include="MainWindow.Record.cs" />

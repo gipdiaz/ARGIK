@@ -17,11 +17,17 @@ namespace GesturesViewer
             Dispatcher.Invoke(new Action(() =>
             {
                 if (audioControl.IsChecked == false)
+                {
+                    System.Console.WriteLine("roto");
                     return;
+                }
+
+                System.Console.WriteLine(order);
 
                 switch (order)
                 {
                     case "grabar":
+                        System.Console.WriteLine("entro al grabar");
                         DirectRecord(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "kinectRecord" + Guid.NewGuid() + ".replay"));
                         break;
                     case "parar":
