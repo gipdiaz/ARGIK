@@ -8,6 +8,10 @@ using System.IO;
 using Microsoft.Kinect;
 using Microsoft.Win32;
 using Kinect.Toolbox.Voice;
+using System.Windows.Controls;
+using Coding4Fun.Kinect.Wpf.Controls;
+//using Coding4Fun.Toolkit.Controls;
+using System.Windows.Shapes;
 
 namespace GesturesViewer
 {
@@ -88,8 +92,8 @@ namespace GesturesViewer
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            circleKBPath = Path.Combine(Environment.CurrentDirectory, @"data\circleKB.save");
-            letterT_KBPath = Path.Combine(Environment.CurrentDirectory, @"data\t_KB.save");
+            circleKBPath = System.IO.Path.Combine(Environment.CurrentDirectory, @"data\circleKB.save");
+            letterT_KBPath = System.IO.Path.Combine(Environment.CurrentDirectory, @"data\t_KB.save");
 
             try
             {
