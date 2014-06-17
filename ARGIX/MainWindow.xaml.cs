@@ -8,6 +8,9 @@ using System.IO;
 using Microsoft.Kinect;
 using Microsoft.Win32;
 using Kinect.Toolbox.Voice;
+using System.Windows.Controls;
+using Coding4Fun.Kinect.Wpf.Controls;
+using System.Windows.Shapes;
 
 namespace GesturesViewer
 {
@@ -16,7 +19,12 @@ namespace GesturesViewer
     /// </summary>
     public partial class MainWindow
     {
+
         KinectSensor kinectSensor;
+        //PARA BOTON
+        List<Button> buttons;
+        static Button selected;
+        //
         bool detectando = false;
         SwipeGestureDetector swipeGestureRecognizer;
 
@@ -88,8 +96,8 @@ namespace GesturesViewer
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            circleKBPath = Path.Combine(Environment.CurrentDirectory, @"data\circleKB.save");
-            letterT_KBPath = Path.Combine(Environment.CurrentDirectory, @"data\t_KB.save");
+            circleKBPath = System.IO.Path.Combine(Environment.CurrentDirectory, @"data\circleKB.save");
+            letterT_KBPath = System.IO.Path.Combine(Environment.CurrentDirectory, @"data\t_KB.save");
 
             try
             {
@@ -146,7 +154,7 @@ namespace GesturesViewer
             swipeGestureRecognizer.OnGestureDetected += OnGestureDetected;
 
             skeletonDisplayManager = new SkeletonDisplayManager(kinectSensor, kinectCanvas);
-
+            //kinectButton.Click += new RoutedEventHandler(kinectButton_Clicked);
             kinectSensor.Start();
 
             LoadCircleGestureDetector();
@@ -211,6 +219,7 @@ namespace GesturesViewer
 
         void kinectRuntime_SkeletonFrameReady(object sender, SkeletonFrameReadyEventArgs e)
         {
+            
             if (replay != null && !replay.IsFinished)
                 return;
 
@@ -226,9 +235,10 @@ namespace GesturesViewer
 
                 if (skeletons.All(s => s.TrackingState == SkeletonTrackingState.NotTracked))
                     return;
-
+                
                 ProcessFrame(frame);
             }
+            
         }
 
         void ProcessFrame(ReplaySkeletonFrame frame)
@@ -251,6 +261,7 @@ namespace GesturesViewer
 
                 //if (eyeTracker.IsLookingToSensor.HasValue && eyeTracker.IsLookingToSensor == false)
                 //    continue;
+                //CheckButton(kinectButton, boton);
 
                 foreach (Joint joint in skeleton.Joints)
                 {
@@ -392,6 +403,83 @@ namespace GesturesViewer
             ProcessFrame(e.SkeletonFrame);
         }
 
+        //PARA BOTON 
+        //void kinectButton_Clicked(object sender, RoutedEventArgs e)
+        //{
+        //    TextBlock textBlock = new TextBlock();
+        //    textBlock.Text = "Triggered";
+        //    textBlock.FontSize = 42;
+        //    theGrid.Children.Add(textBlock);
+        //}
+
+        //private static void CheckButton(HoverButton button, Ellipse thumbStick)
+        //{
+        //    if (IsItemMidpointInContainer(button, thumbStick))
+        //    {
+        //        button.Hovering();
+        //    }
+        //    else
+        //    {
+        //        button.Release();
+        //    }
+        //}
+        private bool isHandOver(FrameworkElement hand, List<Button> buttonslist)
+        {
+            var handTopLeft = new Point(Canvas.GetLeft(hand), Canvas.GetTop(hand));
+            var handX = handTopLeft.X + hand.ActualWidth / 2;
+            var handY = handTopLeft.Y + hand.ActualHeight / 2;
+
+            foreach (Button target in buttonslist)
+            {
+
+                if (target != null)
+                {
+                    Point targetTopLeft = new Point(Canvas.GetLeft(target), Canvas.GetTop(target));
+                    if (handX > targetTopLeft.X &&
+                        handX < targetTopLeft.X + target.Width &&
+                        handY > targetTopLeft.Y &&
+                        handY < targetTopLeft.Y + target.Height)
+                    {
+                        selected = target;
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+        private void TrackHand(Joint hand)
+        {
+            if (hand.TrackingState == JointTrackingState.NotTracked)
+            {
+                kinectButton.Visibility = System.Windows.Visibility.Collapsed;
+            }
+            else
+            {
+                kinectButton.Visibility = System.Windows.Visibility.Visible;
+
+                DepthImagePoint point = kinectSensor.CoordinateMapper.MapSkeletonPointToDepthPoint(hand.Position, DepthImageFormat.Resolution640x480Fps30);
+                //Donde dice Layout Root va el nombre del Grid
+                var handX = (int)((point.X * theGrid.ActualWidth / kinectSensor.DepthStream.FrameWidth) -
+                    (kinectButton.ActualWidth / 2.0));
+                var handY = (int)((point.Y * theGrid.ActualHeight / kinectSensor.DepthStream.FrameHeight) -
+                    (kinectButton.ActualHeight / 2.0));
+                Canvas.SetLeft(kinectButton, handX);
+                Canvas.SetTop(kinectButton, handY);
+
+                if (isHandOver(kinectButton, buttons)) kinectButton.Hovering();
+                else kinectButton.Release();
+                if (hand.JointType == JointType.HandRight)
+                {
+                    kinectButton.ImageSource = "/Recursos/RedButton-Hover.png";
+                    kinectButton.ActiveImageSource = "/Recursos/RedButton-Active.png";
+                }
+                else
+                {
+                    kinectButton.ImageSource = "/WpfApplication1;component/Images/myhand.png";
+                    kinectButton.ActiveImageSource = "/WpfApplication1;component/Images/myhand.png";
+                }
+            }
+        }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             displayDepth = !displayDepth;
@@ -441,5 +529,14 @@ namespace GesturesViewer
 
             kinectSensor.SkeletonStream.TrackingMode = SkeletonTrackingMode.Default;
         }
+
+        private void elevationSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+
+        }
+
+       
+
+        
     }
 }
