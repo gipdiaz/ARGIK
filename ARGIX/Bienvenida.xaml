@@ -1,0 +1,14 @@
+﻿<Page x:Class="ARGIK.Bienvenida"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+      d:DesignHeight="700" d:DesignWidth="1000"
+	Title="Menu Principal ARGIK">
+
+    <Grid ClipToBounds="True" Margin="271,63,250,102" >
+        <Image x:Name="logo" Source="/ARGIK;component/images/Logo 2.jpg" VerticalAlignment="Top" HorizontalAlignment="Center" Width="400" Height="118" Margin="41,0,38,0"/>
+
+    </Grid>
+</Page>

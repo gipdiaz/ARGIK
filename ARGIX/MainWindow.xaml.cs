@@ -10,6 +10,8 @@ using Microsoft.Win32;
 using Kinect.Toolbox.Voice;
 using System.Windows.Controls;
 using Coding4Fun.Kinect.Wpf.Controls;
+//using Coding4Fun.Toolkit.Controls;
+
 using System.Windows.Shapes;
 
 namespace GesturesViewer
@@ -23,8 +25,11 @@ namespace GesturesViewer
         KinectSensor kinectSensor;
         //PARA BOTON
         List<Button> buttons;
-        static Button selected;
-        //
+        static HoverButton selected;
+        
+        
+
+
         bool detectando = false;
         SwipeGestureDetector swipeGestureRecognizer;
 
@@ -55,6 +60,7 @@ namespace GesturesViewer
         private Skeleton[] skeletons;
 
         VoiceCommander voiceCommander;
+        
 
         public MainWindow()
         {
@@ -115,7 +121,7 @@ namespace GesturesViewer
                 }
 
                 if (KinectSensor.KinectSensors.Count == 0)
-                    MessageBox.Show("No Kinect found");
+                    MessageBox.Show("No se encontro un Kinect conectado");
                 else
                     Initialize();
 
@@ -133,6 +139,9 @@ namespace GesturesViewer
 
             audioManager = new AudioStreamManager(kinectSensor.AudioSource);
             audioBeamAngle.DataContext = audioManager;
+
+            kinectButton.Click += new RoutedEventHandler(kinectButton_Clicked);
+            botonGesto.Click += new RoutedEventHandler(botonGesto_Clicked);
 
             kinectSensor.ColorStream.Enable(ColorImageFormat.RgbResolution640x480Fps30);
             kinectSensor.ColorFrameReady += kinectRuntime_ColorFrameReady;
@@ -255,7 +264,7 @@ namespace GesturesViewer
                 //eyeTracker.Track(skeleton);
 
                 contextTracker.Add(skeleton.Position.ToVector3(), skeleton.TrackingId);
-                stabilities.Add(skeleton.TrackingId, contextTracker.IsStableRelativeToCurrentSpeed(skeleton.TrackingId) ? "Stable" : "Non stable");
+                stabilities.Add(skeleton.TrackingId, contextTracker.IsStableRelativeToCurrentSpeed(skeleton.TrackingId) ? "Estable" : "Inestable");
                 if (!contextTracker.IsStableRelativeToCurrentSpeed(skeleton.TrackingId))
                     continue;
 
@@ -277,6 +286,8 @@ namespace GesturesViewer
                     if (joint.JointType == JointType.HandRight && kinectSensor != null)
                     {
                         circleGestureRecognizer.Add(joint.Position, kinectSensor);
+                        //PARA BOTON
+                        TrackHand(joint);
                     }
                     else if (joint.JointType == JointType.HandLeft)
                     {
@@ -285,19 +296,25 @@ namespace GesturesViewer
                             MouseController.Current.SetHandPosition(kinectSensor, joint, skeleton);
                     }
                 }
+
                 algorithmicPostureRecognizer.TrackPostures(skeleton);
                 templatePostureDetector.TrackPostures(skeleton);
+                
 
+                
+                
                 if (recordNextFrameForPosture)
                 {
                     templatePostureDetector.AddTemplate(skeleton);
                     recordNextFrameForPosture = false;
                 }
             }
+           
 
             skeletonDisplayManager.Draw(frame.Skeletons, seatedMode.IsChecked == true);
 
             stabilitiesList.ItemsSource = stabilities;
+            
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -403,95 +420,123 @@ namespace GesturesViewer
             ProcessFrame(e.SkeletonFrame);
         }
 
-        //PARA BOTON 
-        //void kinectButton_Clicked(object sender, RoutedEventArgs e)
+        
+         
+        //PARA BOTON
+
+        
+        //private bool isHandOver(Joint hand, HoverButton buttonslist)
         //{
-        //    TextBlock textBlock = new TextBlock();
-        //    textBlock.Text = "Triggered";
-        //    textBlock.FontSize = 42;
-        //    theGrid.Children.Add(textBlock);
+        //    var handTopLeft = new Point(hand.Position.X, hand.Position.Y);
+        //    var handX = handTopLeft.X ;
+        //    var handY = handTopLeft.Y ;
+
+
+
+        //    if (buttonslist != null)
+        //    {
+        //        Point targetTopLeft = new Point(Canvas.GetLeft(buttonslist), Canvas.GetTop(buttonslist));
+        //        if (handX > targetTopLeft.X &&
+        //            handX < targetTopLeft.X + buttonslist.Width &&
+        //            handY > targetTopLeft.Y &&
+        //            handY < targetTopLeft.Y + buttonslist.Height)
+        //        {
+        //            selected = buttonslist;
+        //            return true;
+        //        }
+        //    }
+
+        //    return false;
         //}
 
-        //private static void CheckButton(HoverButton button, Ellipse thumbStick)
-        //{
-        //    if (IsItemMidpointInContainer(button, thumbStick))
-        //    {
-        //        button.Hovering();
-        //    }
-        //    else
-        //    {
-        //        button.Release();
-        //    }
-        //}
-        private bool isHandOver(FrameworkElement hand, List<Button> buttonslist)
+        void botonGesto_Clicked(object sender, RoutedEventArgs e)
         {
-            var handTopLeft = new Point(Canvas.GetLeft(hand), Canvas.GetTop(hand));
-            var handX = handTopLeft.X + hand.ActualWidth / 2;
-            var handY = handTopLeft.Y + hand.ActualHeight / 2;
+            System.Console.WriteLine("AZUUUUUUUUUUUUL");
 
-            foreach (Button target in buttonslist)
-            {
-
-                if (target != null)
-                {
-                    Point targetTopLeft = new Point(Canvas.GetLeft(target), Canvas.GetTop(target));
-                    if (handX > targetTopLeft.X &&
-                        handX < targetTopLeft.X + target.Width &&
-                        handY > targetTopLeft.Y &&
-                        handY < targetTopLeft.Y + target.Height)
-                    {
-                        selected = target;
-                        return true;
-                    }
-                }
-            }
-            return false;
         }
-        private void TrackHand(Joint hand)
+
+        void kinectButton_Clicked(object sender, RoutedEventArgs e)
+ 
         {
-            if (hand.TrackingState == JointTrackingState.NotTracked)
+            if (kinectButton.IsChecked)
             {
-                kinectButton.Visibility = System.Windows.Visibility.Collapsed;
+                DirectRecord(System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "kinectRecord" + Guid.NewGuid() + ".replay"));
             }
             else
             {
-                kinectButton.Visibility = System.Windows.Visibility.Visible;
-
-                DepthImagePoint point = kinectSensor.CoordinateMapper.MapSkeletonPointToDepthPoint(hand.Position, DepthImageFormat.Resolution640x480Fps30);
-                //Donde dice Layout Root va el nombre del Grid
-                var handX = (int)((point.X * theGrid.ActualWidth / kinectSensor.DepthStream.FrameWidth) -
-                    (kinectButton.ActualWidth / 2.0));
-                var handY = (int)((point.Y * theGrid.ActualHeight / kinectSensor.DepthStream.FrameHeight) -
-                    (kinectButton.ActualHeight / 2.0));
-                Canvas.SetLeft(kinectButton, handX);
-                Canvas.SetTop(kinectButton, handY);
-
-                if (isHandOver(kinectButton, buttons)) kinectButton.Hovering();
-                else kinectButton.Release();
-                if (hand.JointType == JointType.HandRight)
-                {
-                    kinectButton.ImageSource = "/Recursos/RedButton-Hover.png";
-                    kinectButton.ActiveImageSource = "/Recursos/RedButton-Active.png";
-                }
-                else
-                {
-                    kinectButton.ImageSource = "/WpfApplication1;component/Images/myhand.png";
-                    kinectButton.ActiveImageSource = "/WpfApplication1;component/Images/myhand.png";
-                }
+                StopRecord();
             }
+            
         }
+
+        private void TrackHand(Joint hand)
+        {
+                kinectButton.Visibility = System.Windows.Visibility.Visible;
+                botonGesto.Visibility = System.Windows.Visibility.Visible;
+                
+                
+                //kinectButton.ImageSource = "/images/RedButton-Hover.png";
+                //kinectButton.ActiveImageSource = "/images/RedButton-Active.png";
+
+                DepthImagePoint puntoMano = kinectSensor.CoordinateMapper.MapSkeletonPointToDepthPoint(hand.Position, DepthImageFormat.Resolution640x480Fps30);
+
+               
+                
+                var transform = kinectButton.TransformToVisual(LayoutRoot);
+                var transform2 = botonGesto.TransformToVisual(LayoutRoot);
+                
+
+                Point topLeftRojo = transform.Transform(new Point(0, 0));
+                Point topLeftAzul = transform2.Transform(new Point(0, 0));;
+
+                //.Console.WriteLine(absolutePosition);
+
+                
+                //System.Console.WriteLine(absolutePosition2);
+
+                //System.Console.WriteLine(puntoMano.Y + "Y");
+
+                //System.Console.WriteLine(topLeftRojo.X + "BOTON X");
+                //System.Console.WriteLine(topLeftRojo.Y + "BOTON Y");
+                
+                
+                if ( Math.Abs(puntoMano.X -  (topLeftRojo.X + kinectButton.Width))  < 30 && 
+                           Math.Abs(puntoMano.Y  - topLeftRojo.Y)  < 30 )
+                {
+                    kinectButton.Hovering();
+                }
+                else kinectButton.Release();
+
+                if (Math.Abs(puntoMano.X -  (topLeftAzul.X + botonGesto.Width))  < 30 && 
+                           Math.Abs(puntoMano.Y  - topLeftAzul.Y)  < 30 )         {
+                    botonGesto.Hovering();
+                }
+                else botonGesto.Release();
+
+            ////Donde dice Layout Root va el nombre del Grid
+                //var handX = (int)((point.X * LayoutRoot.ActualWidth / kinectSensor.DepthStream.FrameWidth) -
+                //    (kinectButton.ActualWidth / 2.0));
+                //var handY = (int)((point.Y * LayoutRoot.ActualHeight / kinectSensor.DepthStream.FrameHeight) -
+                //    (kinectButton.ActualHeight / 2.0));
+                //Canvas.SetLeft(kinectButton, handX);
+                //Canvas.SetTop(kinectButton, handY);
+            //    if (isHandOver(hand,kinectButton)) 
+                                
+            }
+        
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             displayDepth = !displayDepth;
 
             if (displayDepth)
             {
-                viewButton.Content = "Imagen de la cámara RGB";
+                viewButton.Content = "RGB";
                 kinectDisplay.DataContext = depthManager;
             }
             else
             {
-                viewButton.Content = "Imagen de la cámara de Profundidad";
+                viewButton.Content = "Profundidad";
                 kinectDisplay.DataContext = colorManager;
             }
         }
@@ -535,8 +580,5 @@ namespace GesturesViewer
 
         }
 
-       
-
-        
     }
 }

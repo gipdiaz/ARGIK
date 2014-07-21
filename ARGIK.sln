@@ -2,6 +2,10 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ARGIK", "ARGIX\ARGIK.csproj", "{397C7576-9DF4-40A2-8BC4-AE13029E6797}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2C84CE43-CDAB-4541-A55A-7F849E8AC247} = {2C84CE43-CDAB-4541-A55A-7F849E8AC247}
+		{09DAE56B-715F-4069-BB66-A110D876A772} = {09DAE56B-715F-4069-BB66-A110D876A772}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kinect.Toolbox.Voice", "KinectToolbox\Kinect.Toolbox.Voice\Kinect.Toolbox.Voice.csproj", "{09DAE56B-715F-4069-BB66-A110D876A772}"
 EndProject
