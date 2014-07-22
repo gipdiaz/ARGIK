@@ -12,17 +12,84 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Kinect;
+using Kinect.Toolbox;
+using Kinect.Toolbox.Record;
+using System.IO;
+using Microsoft.Win32;
+using Kinect.Toolbox.Voice;
+using Coding4Fun.Kinect.Wpf.Controls;
 
-namespace ARGIK
+namespace GesturesViewer
 {
     /// <summary>
-    /// Lógica de interacción para Bienvenida.xaml
+    /// Pantalla de la aplicacion que permite seleccionar el Joint al cual se le realizara el seguimiento
+    /// 
     /// </summary>
-    public partial class Bienvenida : Page
+    /// 
+
+    public partial class Bienvenida 
     {
+        String jointSeleccionada;
+        
         public Bienvenida()
         {
-            InitializeComponent();
+            InitializeComponent();   
+            mostrarJoints();
+ 
         }
+
+        
+
+        /// <summary>
+        ///Llena el comboBox con las opciones. Por Default aparecera seleccionada la Mano Derecha. 
+        /// </summary>
+
+        public void mostrarJoints()
+        {
+            jointSeleccion.Items.Add("Cabeza");
+            jointSeleccion.Items.Add("Mano Derecha");
+            jointSeleccion.Items.Add("Mano Izquierda");
+            jointSeleccion.Items.Add("Muñeca Derecha");
+            jointSeleccion.Items.Add("Muñeca Izquierda");
+            jointSeleccion.Items.Add("Rodilla Derecha");
+            jointSeleccion.Items.Add("Rodilla Izquierda");
+            jointSeleccion.Items.Add("Pie Derecho");
+            jointSeleccion.Items.Add("Pie Izquierdo");
+            jointSeleccion.SelectedItem = "Mano Derecha";   
+         }
+        
+        /// <summary>
+        /// Metodo que es llamado cuando se realiza el evento de seleccionar una opcion del comboBox. 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// 
+        public void jointSeleccion_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // Obtener el  ComboBox.
+            var comboBox = sender as ComboBox;
+
+            // obtener el item seleccionado como String.
+            jointSeleccionada = comboBox.SelectedItem.ToString();
+
+            }
+
+        /// <summary>
+        /// Metodo que es llamado al clickear el boton de iniciar. 
+        /// Invoca a la ventana principal pasandole como parametro el nombre del joint que selecciono el usuario
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+
+        public void iniciar_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow window = new MainWindow(jointSeleccionada);
+            this.Close();
+            window.Show();
+        }
+        
+
+         
     }
 }

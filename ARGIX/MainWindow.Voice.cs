@@ -3,15 +3,25 @@ using System.IO;
 
 namespace GesturesViewer
 {
+    /// <summary>
+    /// Esta parte de la clase se encarga de manejar los comandos por voz
+    /// </summary>
     partial class MainWindow
     {
-        void StartVoiceCommander()
+        /// <summary>
+        /// Inicializa el comando por voz
+        /// </summary>
+        public void StartVoiceCommander()
         {
             System.Console.WriteLine("Inicio del voice commander");
             voiceCommander.Start(kinectSensor);
         }
 
-        void voiceCommander_OrderDetected(string order)
+        /// <summary>
+        /// Verifica si se detecto una orden y realiza la accion correspondiente.
+        /// </summary>
+        /// <param name="order"></param>
+        public void voiceCommander_OrderDetected(string order)
         {
             System.Console.WriteLine("entro al speech");
             Dispatcher.Invoke(new Action(() =>

@@ -9,51 +9,63 @@ using Microsoft.Win32;
 
 namespace GesturesViewer
 {
+    /// <summary>
+    /// Esta parte de la clase se encarga del manejo de la deteccion/grabacion de gestos. 
+    /// </summary>
+    
     partial class MainWindow
     {
-        String archivoGesto = "";
-
-        void LoadCircleGestureDetector()
+       
+        /// <summary>
+        /// Se inicializa el detector de gestos con un Stream default
+        /// </summary>
+        public void CargarDetectorGestos()
         {
 
             using (Stream recordStream = new MemoryStream())
             {
 
-                circleGestureRecognizer = new TemplatedGestureDetector("Gesto", recordStream);
-                circleGestureRecognizer.DisplayCanvas = gesturesCanvas;
-                //circleGestureRecognizer.OnGestureDetected += OnGestureDetected;
-
-                MouseController.Current.ClickGestureDetector = circleGestureRecognizer;
+                reconocedorGesto = new TemplatedGestureDetector("Gesto", recordStream);
+                reconocedorGesto.DisplayCanvas = gesturesCanvas;
+                //reconocedorGesto.OnGestureDetected += OnGestureDetected;
+                MouseController.Current.ClickGestureDetector = reconocedorGesto;
                 //recordStream.Close();
             }
 
         }
 
-        //Grabar el gesto
-        private void recordGesture_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Se activa la grabacion del gesto
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void grabarGesto_Click(object sender, RoutedEventArgs e)
         {
 
 
-            if (circleGestureRecognizer.IsRecordingPath)
+            if (reconocedorGesto.IsRecordingPath)
             {
-                circleGestureRecognizer.EndRecordTemplate();
-                recordGesture.Content = "Grabar Gesto";
+                reconocedorGesto.EndRecordTemplate();
+                botonGrabarGesto.Content = "Grabar Gesto";
 
             }
             else
             {
-                circleGestureRecognizer.OnGestureDetected -= OnGestureDetected;
-                LoadCircleGestureDetector();
-                circleGestureRecognizer.StartRecordTemplate();
-                recordGesture.Content = "Pausar Grabacion";
+                reconocedorGesto.OnGestureDetected -= OnGestureDetected;
+                CargarDetectorGestos();
+                reconocedorGesto.StartRecordTemplate();
+                botonGrabarGesto.Content = "Pausar Grabacion";
             }
         }
 
-        //Cargar el gesto y habilitar reconocimiento
-
-        private void recordT_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Se activa la deteccion del gesto seleccionado
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void deteccionGesto_Click(object sender, RoutedEventArgs e)
         {
-            if (recordT.Content.ToString() == "Detectar Gesto")
+            if (botonDetectarGesto.Content.ToString() == "Detectar Gesto")
             {
                 OpenFileDialog openFileDialog = new OpenFileDialog { Title = "Select filename", Filter = "Gestos files|*.save" };
 
@@ -62,33 +74,32 @@ namespace GesturesViewer
                     Stream recordStream = new FileStream(openFileDialog.FileName, FileMode.Open);
 
 
-                    circleGestureRecognizer = new TemplatedGestureDetector(openFileDialog.FileName, recordStream);
-                    circleGestureRecognizer.DisplayCanvas = gesturesCanvas;
-                    circleGestureRecognizer.OnGestureDetected += OnGestureDetected;
+                    reconocedorGesto = new TemplatedGestureDetector(openFileDialog.FileName, recordStream);
+                    reconocedorGesto.DisplayCanvas = gesturesCanvas;
+                    reconocedorGesto.OnGestureDetected += OnGestureDetected;
 
-                    MouseController.Current.ClickGestureDetector = circleGestureRecognizer;
-                    detectando = true;
-                    recordT.Content = "Pausar Detección";
+                    MouseController.Current.ClickGestureDetector = reconocedorGesto;
+                    
+                    botonDetectarGesto.Content = "Pausar Detección";
                 }
 
             }
             else
             {
-                detectando = false;
-
-                recordT.Content = "Detectar Gesto";
+                botonDetectarGesto.Content = "Detectar Gesto";
             }
         }
 
-
-        void OnGestureDetected(string gesture)
+        /// <summary>
+        /// Si se detecta el gesto seleccionado se muestra cuando se lo realiza correctamente
+        /// </summary>
+        /// <param name="gesture"></param>
+        public void OnGestureDetected(string gesture)
 
 
         {
-            //gesture.ToString;
 
-
-            
+            gesture = Path.GetFileNameWithoutExtension(gesture);
             int pos = detectedGestures.Items.Add(string.Format("{0} : {1}", gesture, DateTime.Now));
 
             object item = detectedGestures.Items[pos];
@@ -97,18 +108,21 @@ namespace GesturesViewer
 
         }
 
-        void CloseGestureDetector()
+        /// <summary>
+        /// Limpia los recursos utilizados para la deteccion/grabacion de gestos
+        /// </summary>
+        public void CerrarDetectorGestos()
         {
-            if (circleGestureRecognizer == null)
+            if (reconocedorGesto == null)
                 return;
             else
             {
-                using (Stream recordStream = File.Create(circleGestureRecognizer.LearningMachine.gestoNuevo))
+                using (Stream recordStream = File.Create(reconocedorGesto.LearningMachine.gestoNuevo))
                 {
-                    circleGestureRecognizer.SaveState(recordStream);
+                    reconocedorGesto.SaveState(recordStream);
                     recordStream.Close();
                 }
-                circleGestureRecognizer.OnGestureDetected -= OnGestureDetected;
+                reconocedorGesto.OnGestureDetected -= OnGestureDetected;
             }
         }
     }

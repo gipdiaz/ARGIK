@@ -82,7 +82,7 @@
 
                 <Image x:Name="kinectDisplay" Source="{Binding Bitmap}"/>
                 <Image x:Name="logo" Source="/ARGIK;component/images/Logo 2.jpg" VerticalAlignment="Top" HorizontalAlignment="Left" Width="200"/>
-                <Controls:HoverButton Visibility="Visible" x:Name="kinectButton" ImageSize="100" ImageSource="/ARGIK;component/images/RedButton-Active.png" ActiveImageSource="/ARGIK;component/images/RedButton-Hover.png"   TimeInterval="3000"  HorizontalAlignment="Right" Height="60" Width="60"  Margin="0,30,0,350"/>
+                <Controls:HoverButton Visibility="Visible" x:Name="botonGrabar" ImageSize="100" ImageSource="/ARGIK;component/images/RedButton-Active.png" ActiveImageSource="/ARGIK;component/images/RedButton-Hover.png"   TimeInterval="3000"  HorizontalAlignment="Right" Height="60" Width="60"  Margin="0,30,0,350"/>
                 <Controls:HoverButton Visibility="Visible" x:Name="botonGesto" ImageSize="100" ImageSource="/ARGIK;component/images/BlueButton-Active.png" ActiveImageSource="/ARGIK;component/images/BlueButton-Hover.png"   TimeInterval="3000"   HorizontalAlignment="Right" Height="60" Width="60"  Margin="0,163,1,257" />
                 
 
@@ -119,8 +119,8 @@
                 <Button Style="{StaticResource Blue}" Content="Grabar Sesión" x:Name="recordOption" Click="recordOption_Click" VerticalAlignment="Center" Width="169" Margin="10,9,0,9"/>
             </StackPanel>
             <Button Style="{StaticResource Blue}" Content="Repetir Sesion" x:Name="replayButton" Click="replayButton_Click" VerticalAlignment="Center" Grid.Row="1" Width="Auto"/>
-            <Button Style="{StaticResource Blue}" Content="Grabar Gesto" x:Name="recordGesture" Click="recordGesture_Click" VerticalAlignment="Center" Grid.Row="2" Width="Auto"/>
-            <Button Style="{StaticResource Blue}" Content="Detectar Gesto" x:Name="recordT" Click="recordT_Click" VerticalAlignment="Center" Grid.Row="3" Width="Auto"/>
+            <Button Style="{StaticResource Blue}" Content="Grabar Gesto" x:Name="botonGrabarGesto" Click="grabarGesto_Click" VerticalAlignment="Center" Grid.Row="2" Width="Auto"/>
+            <Button Style="{StaticResource Blue}" Content="Detectar Gesto" x:Name="botonDetectarGesto" Click="deteccionGesto_Click" VerticalAlignment="Center" Grid.Row="3" Width="Auto"/>
             <CheckBox Content="Modo Cerca" x:Name="nearMode" Grid.Row="4" VerticalContentAlignment="Top" Checked="nearMode_Checked_1" Unchecked="nearMode_Unchecked_1"/>
             <CheckBox Content="Modo Sentado" x:Name="seatedMode" Grid.Row="5" VerticalContentAlignment="Top" Checked="seatedMode_Checked_1" Unchecked="seatedMode_Unchecked_1"/>
             <CheckBox Content="Controlar Mouse" x:Name="controlMouse" Grid.Row="6" VerticalContentAlignment="Top"/>
@@ -157,8 +157,8 @@
         </ListBox>
 
 
-        <Slider Minimum="{Binding ElevationMinimum}" Maximum="{Binding ElevationMaximum}" Value="{Binding ElevationAngle, Mode=TwoWay}" x:Name="elevationSlider" Orientation="Vertical" Grid.RowSpan="7" ValueChanged="elevationSlider_ValueChanged"/>
-        <Button Grid.RowSpan="2" Content="Profundidad" Margin="267,10,267,0" HorizontalAlignment="Center" VerticalAlignment="Top" Click="Button_Click" x:Name="viewButton"/>
+        <Slider Minimum="{Binding ElevationMinimum}" Maximum="{Binding ElevationMaximum}" Value="{Binding ElevationAngle, Mode=TwoWay}" x:Name="elevacionCamara" Orientation="Vertical" Grid.RowSpan="7"/>
+        <Button Grid.RowSpan="2" Content="Profundidad" Margin="267,10,267,0" HorizontalAlignment="Center" VerticalAlignment="Top" Click="Depth_RGB_Click" x:Name="viewButton"/>
         
 
     </Grid>

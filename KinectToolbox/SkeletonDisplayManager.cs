@@ -47,7 +47,7 @@ namespace Kinect.Toolbox
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Top,
                 StrokeThickness = 4.0,
-                Stroke = new SolidColorBrush(Colors.Green),
+                Stroke = new SolidColorBrush(Colors.LightBlue),
                 StrokeLineJoin = PenLineJoin.Round
             };
 
@@ -78,7 +78,7 @@ namespace Kinect.Toolbox
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Top,
                 StrokeThickness = 4.0,
-                Stroke = new SolidColorBrush(Colors.Green),
+                Stroke = new SolidColorBrush(Colors.LightBlue),
                 StrokeLineJoin = PenLineJoin.Round
             };
 
@@ -109,7 +109,7 @@ namespace Kinect.Toolbox
                                 HorizontalAlignment = HorizontalAlignment.Left,
                                 VerticalAlignment = VerticalAlignment.Top,
                                 StrokeThickness = 4.0,                                
-                                Stroke = new SolidColorBrush(Colors.Green),
+                                Stroke = new SolidColorBrush(Colors.LightBlue),
                                 StrokeLineJoin = PenLineJoin.Round
                             };
 

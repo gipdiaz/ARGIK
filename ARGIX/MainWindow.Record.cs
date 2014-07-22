@@ -5,9 +5,18 @@ using Microsoft.Win32;
 
 namespace GesturesViewer
 {
+    /// <summary>
+    /// Esta parte de la clase se encarga de manejar la grabacion de la sesion
+    /// </summary>
     partial class MainWindow
     {
-        private void recordOption_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Permite ponerle un nombre al archivo de la sesion que se graba.
+        /// Graba la sesion
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void recordOption_Click(object sender, RoutedEventArgs e)
         {
             if (recorder != null)
             {
@@ -23,14 +32,21 @@ namespace GesturesViewer
             }
         }
 
-        void DirectRecord(string targetFileName)
+        /// <summary>
+        /// Graba la sesion y la guarda en el archivo con el nombre correspondiente.
+        /// </summary>
+        /// <param name="targetFileName"></param>
+        public void DirectRecord(string targetFileName)
         {
             Stream recordStream = File.Create(targetFileName);
             recorder = new KinectRecorder(KinectRecordOptions.Skeletons | KinectRecordOptions.Color, recordStream);
             recordOption.Content = "Parar Grabación";
         }
 
-        void StopRecord()
+        /// <summary>
+        /// Detiene la grabacion
+        /// </summary>
+        public void StopRecord()
         {
             if (recorder != null)
             {

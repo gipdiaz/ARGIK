@@ -9,7 +9,7 @@ namespace GesturesViewer
     partial class MainWindow
     {
         String archivoPostura = Path.Combine(Environment.CurrentDirectory, @"data\abc.save");
-        void LoadLetterTPostureDetector()
+        void CargarDetectorPosturas()
         {
            
             using (Stream recordStream = File.Open(archivoPostura, FileMode.OpenOrCreate))
