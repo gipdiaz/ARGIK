@@ -85,16 +85,8 @@
                 <Controls:HoverButton Visibility="Visible" x:Name="botonGrabar" ImageSize="100" ImageSource="/ARGIK;component/images/RedButton-Active.png" ActiveImageSource="/ARGIK;component/images/RedButton-Hover.png"   TimeInterval="3000"  HorizontalAlignment="Right" Height="60" Width="60"  Margin="0,30,0,350"/>
                 <Controls:HoverButton Visibility="Visible" x:Name="botonGesto" ImageSize="100" ImageSource="/ARGIK;component/images/BlueButton-Active.png" ActiveImageSource="/ARGIK;component/images/BlueButton-Hover.png"   TimeInterval="3000"   HorizontalAlignment="Right" Height="60" Width="60"  Margin="0,163,1,257" />
                 
-
-
                 <Canvas x:Name="kinectCanvas" Background="Transparent"/>
-
-
-
-
-
-
-
+                
                 <Canvas x:Name="gesturesCanvas"/>
                 <Rectangle Stroke="Black" StrokeThickness="1"/>
                 <!--<Button Height="50" Width="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>-->
@@ -121,7 +113,7 @@
             <Button Style="{StaticResource Blue}" Content="Repetir Sesion" x:Name="replayButton" Click="replayButton_Click" VerticalAlignment="Center" Grid.Row="1" Width="Auto"/>
             <Button Style="{StaticResource Blue}" Content="Grabar Gesto" x:Name="botonGrabarGesto" Click="grabarGesto_Click" VerticalAlignment="Center" Grid.Row="2" Width="Auto"/>
             <Button Style="{StaticResource Blue}" Content="Detectar Gesto" x:Name="botonDetectarGesto" Click="deteccionGesto_Click" VerticalAlignment="Center" Grid.Row="3" Width="Auto"/>
-            <CheckBox Content="Modo Cerca" x:Name="nearMode" Grid.Row="4" VerticalContentAlignment="Top" Checked="nearMode_Checked_1" Unchecked="nearMode_Unchecked_1"/>
+            <CheckBox Content="Detectar Gesto Deslizar" x:Name="botonDeslizar" Grid.Row="4" VerticalContentAlignment="Top" />
             <CheckBox Content="Modo Sentado" x:Name="seatedMode" Grid.Row="5" VerticalContentAlignment="Top" Checked="seatedMode_Checked_1" Unchecked="seatedMode_Unchecked_1"/>
             <CheckBox Content="Controlar Mouse" x:Name="controlMouse" Grid.Row="6" VerticalContentAlignment="Top"/>
         </Grid>

@@ -37,7 +37,7 @@ namespace Kinect.Toolbox
         {
             this.windowSize = windowSize;
             MinimalPeriodBetweenGestures = 0;
-            DisplayColor = Colors.Red;
+            DisplayColor = Colors.Green;
         }
 
         protected List<Entry> Entries
@@ -76,7 +76,7 @@ namespace Kinect.Toolbox
 
                 Canvas.SetLeft(newEntry.DisplayEllipse, x - newEntry.DisplayEllipse.Width / 2);
                 Canvas.SetTop(newEntry.DisplayEllipse, y - newEntry.DisplayEllipse.Height / 2);
-
+                
                 DisplayCanvas.Children.Add(newEntry.DisplayEllipse);
             }
 

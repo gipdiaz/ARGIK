@@ -33,15 +33,26 @@ namespace GesturesViewer
                 }
 
                 System.Console.WriteLine(order);
-
                 switch (order)
                 {
                     case "grabar":
-                        System.Console.WriteLine("entro al grabar");
                         DirectRecord(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "kinectRecord" + Guid.NewGuid() + ".replay"));
                         break;
                     case "parar":
                         StopRecord();
+                        break;
+                    case "grabar gesto":
+                        reconocedorGesto.OnGestureDetected -= OnGestureDetected;
+                        CargarDetectorGestos();
+                        reconocedorGesto.StartRecordTemplate();
+                        botonGrabarGesto.Content = "Pausar Grabacion";
+                        break;
+                    case "parar gesto":
+                        if (reconocedorGesto.IsRecordingPath)
+                        {
+                            reconocedorGesto.EndRecordTemplate();
+                            botonGrabarGesto.Content = "Grabar Gesto";
+                        } 
                         break;
                 }
             }));

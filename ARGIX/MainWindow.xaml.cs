@@ -23,6 +23,7 @@ namespace GesturesViewer
         //Sensor del Kinect
         KinectSensor kinectSensor;
        
+        
 
         //Joint que se trackea
         String jointSeleccionada;
@@ -84,6 +85,7 @@ namespace GesturesViewer
 
         }
 
+        
         /// <summary>
         /// Actua dependendiendo del estado del Kinect
         /// </summary>
@@ -205,13 +207,15 @@ namespace GesturesViewer
             elevacionCamara.DataContext = nuiCamera;
 
             //Comandos que podran ser reconocidos por voz
-            voiceCommander = new VoiceCommander("grabar", "parar");
+            voiceCommander = new VoiceCommander("grabar", "parar", "grabar gesto","parar gesto");
             voiceCommander.OrderDetected += voiceCommander_OrderDetected;
             StartVoiceCommander();
 
             //Mostrar en pantalla la imagen a color
             kinectDisplay.DataContext = colorManager;
 
+            //Deshabilitar el boton de deteccion hasta que no haya un esqueleto
+            botonGrabarGesto.IsEnabled = false;
             }
 
         /// <summary>
@@ -291,9 +295,14 @@ namespace GesturesViewer
 
                 frame.GetSkeletons(ref skeletons);
 
+                //Si no hay esqueletos frente al sensor se deshabilitan opciones y se limpian los canvas
                 if (skeletons.All(s => s.TrackingState == SkeletonTrackingState.NotTracked))
+                {
+                    botonGrabarGesto.IsEnabled = false;
+                    gesturesCanvas.Children.Clear();
+                    kinectCanvas.Children.Clear();
                     return;
-                
+                }
                 ProcessFrame(frame);
             }
             
@@ -308,72 +317,78 @@ namespace GesturesViewer
         {
             Dictionary<int, string> stabilities = new Dictionary<int, string>();
             JointType articulacion = verificarJoint(jointSeleccionada);
-            foreach (var skeleton in frame.Skeletons)
+            
+            //Si hay esqueletos en la lista
+            if (frame.Skeletons.Length > 0)
             {
-                if (skeleton.TrackingState != SkeletonTrackingState.Tracked)
-                    continue;
-
-               
-                contextTracker.Add(skeleton.Position.ToVector3(), skeleton.TrackingId);
-                stabilities.Add(skeleton.TrackingId, contextTracker.IsStableRelativeToCurrentSpeed(skeleton.TrackingId) ? "Estable" : "Inestable");
-                if (!contextTracker.IsStableRelativeToCurrentSpeed(skeleton.TrackingId))
-                    continue;
-
-                foreach (Joint joint in skeleton.Joints)
+                botonGrabarGesto.IsEnabled = true;
+                foreach (var skeleton in frame.Skeletons)
                 {
-                    if (kinectSensor != null)
+                    if (skeleton.TrackingState != SkeletonTrackingState.Tracked)
+                        continue;
+
+
+                    contextTracker.Add(skeleton.Position.ToVector3(), skeleton.TrackingId);
+                    stabilities.Add(skeleton.TrackingId, contextTracker.IsStableRelativeToCurrentSpeed(skeleton.TrackingId) ? "Estable" : "Inestable");
+                    if (!contextTracker.IsStableRelativeToCurrentSpeed(skeleton.TrackingId))
+                        continue;
+
+                    foreach (Joint joint in skeleton.Joints)
                     {
-
-                        parallelCombinedGestureDetector = new ParallelCombinedGestureDetector();
-                        parallelCombinedGestureDetector.OnGestureDetected += OnGestureDetected;
-                        parallelCombinedGestureDetector.Add(deslizarManoIzquierda);
-                        parallelCombinedGestureDetector.Add(reconocedorGesto);
-
-                        if (joint.TrackingState != JointTrackingState.Tracked)
-                            continue;
-
-                        //Si es la Joint seleccionada para detectar o generar el gesto inicializa la deteccion 
-                        if (joint.JointType == articulacion)
+                        if (kinectSensor != null)
                         {
-                            reconocedorGesto.Add(joint.Position, kinectSensor);
 
+                            parallelCombinedGestureDetector = new ParallelCombinedGestureDetector();
+                            parallelCombinedGestureDetector.OnGestureDetected += OnGestureDetected;
+                            parallelCombinedGestureDetector.Add(deslizarManoIzquierda);
+                            parallelCombinedGestureDetector.Add(reconocedorGesto);
 
+                            if (joint.TrackingState != JointTrackingState.Tracked)
+                                continue;
 
-                        }
+                            //Si es la Joint seleccionada para detectar o generar el gesto inicializa la deteccion 
+                            if (joint.JointType == articulacion)
+                            {
+                                reconocedorGesto.Add(joint.Position, kinectSensor);
 
-                        //verifica si la mano está dentro del boton
-                        if (joint.JointType == JointType.HandRight)
-                        {
-                            TrackHand(joint);
-                        }
+                            }
 
-                        //Si la Joint es la mano izquierda detecta el Swipe hacia izquierda o derecha
-                        else if (joint.JointType == JointType.HandLeft)
-                        {
-                            deslizarManoIzquierda.Add(joint.Position, kinectSensor);
+                            //verifica si la mano está dentro del boton
+                            if (joint.JointType == JointType.HandRight)
+                            {
+                                TrackHand(joint);
+                            }
 
-                            //Habilita (si esta activada en la GUI) el manejo del mouse con la mano izquierda
-                            if (controlMouse.IsChecked == true)
-                                MouseController.Current.SetHandPosition(kinectSensor, joint, skeleton);
+                            //Si la Joint es la mano izquierda detecta el Swipe hacia izquierda o derecha
+                            else if (joint.JointType == JointType.HandLeft)
+                            {
+                                if (botonDeslizar.IsChecked == true)
+                                    deslizarManoIzquierda.Add(joint.Position, kinectSensor);
+
+                                //Habilita (si esta activada en la GUI) el manejo del mouse con la mano izquierda
+                                if (controlMouse.IsChecked == true)
+                                    MouseController.Current.SetHandPosition(kinectSensor, joint, skeleton);
+                            }
                         }
                     }
-                 }
 
-                //Inicializa las posturas
-                algorithmicPostureRecognizer.TrackPostures(skeleton);
-                templatePostureDetector.TrackPostures(skeleton);
-                
-                if (recordNextFrameForPosture)
-                {
-                    templatePostureDetector.AddTemplate(skeleton);
-                    recordNextFrameForPosture = false;
+                    //Inicializa las posturas
+                    algorithmicPostureRecognizer.TrackPostures(skeleton);
+                    templatePostureDetector.TrackPostures(skeleton);
+
+                    if (recordNextFrameForPosture)
+                    {
+                        templatePostureDetector.AddTemplate(skeleton);
+                        recordNextFrameForPosture = false;
+                    }
                 }
+
+                //Dibuja el esqueleto en la GUI
+                skeletonDisplayManager.Draw(frame.Skeletons, seatedMode.IsChecked == true);
+                stabilitiesList.ItemsSource = stabilities;
+
             }
-           
-            //Dibuja el esqueleto en la GUI
-            skeletonDisplayManager.Draw(frame.Skeletons, seatedMode.IsChecked == true);
-            stabilitiesList.ItemsSource = stabilities;
-            
+
         }
 
         /// <summary>
@@ -633,12 +648,12 @@ namespace GesturesViewer
             }
         }
         /// <summary>
-        /// Activa el modo "Cerca" del sensor
+        /// Activa deteccion del gesto deslizar
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
 
-        public void nearMode_Checked_1(object sender, RoutedEventArgs e)
+        public void botonDeslizar_Checked_1(object sender, RoutedEventArgs e)
         {
             if (kinectSensor == null)
                 return;
@@ -648,18 +663,17 @@ namespace GesturesViewer
         }
 
         /// <summary>
-        /// Desactiva el modo "Cerca" del sensor
+        /// Desactiva deteccion del gesto deslizar
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public void nearMode_Unchecked_1(object sender, RoutedEventArgs e)
+        public void botonDeslizar_Unchecked_1(object sender, RoutedEventArgs e)
         {
             if (kinectSensor == null)
                 return;
 
-            kinectSensor.DepthStream.Range = DepthRange.Default;
-            kinectSensor.SkeletonStream.EnableTrackingInNearRange = false;
-        }
+
+            }
 
         /// <summary>
         /// Activa el modo  "sentado" de la aplicacion

@@ -61,6 +61,7 @@ namespace Kinect.Toolbox
                       Persist(recordStream);
                   }
               }
+
         }
     }
 
