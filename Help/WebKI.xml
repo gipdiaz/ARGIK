@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HelpKI>
+  <HelpKINode Title="App class">
+    <HelpKINode Title="App Class" Url="html/6bf23b57-bc1a-0f49-307d-6bda7f4868b2.htm" />
+    <HelpKINode Title="about App class" Url="html/6bf23b57-bc1a-0f49-307d-6bda7f4868b2.htm" />
+    <HelpKINode Title="constructor" Url="html/47da7f4f-f99e-95ee-da55-58da7ecf9052.htm" />
+    <HelpKINode Title="events" Url="html/d0667606-1b25-ad68-eb86-5659e88fb1ff.htm" />
+    <HelpKINode Title="methods" Url="html/99cb256f-68ec-f49e-56e7-774c97c06abb.htm" />
+    <HelpKINode Title="properties" Url="html/dafa41cf-8b19-bafb-e17b-34d3487a4ad6.htm" />
+  </HelpKINode>
+  <HelpKINode Title="App.App constructor" Url="html/47da7f4f-f99e-95ee-da55-58da7ecf9052.htm" />
+  <HelpKINode Title="App.InitializeComponent method" Url="html/6c6938ef-9005-294e-4e01-7660769908b8.htm" />
+  <HelpKINode Title="App.Main method" Url="html/92da6d51-5bc2-e71f-0bb0-7b87624cf4ed.htm" />
+  <HelpKINode Title="Bienvenida class">
+    <HelpKINode Title="Bienvenida Class" Url="html/0457b272-983e-ecfc-3b55-52a8d53646bc.htm" />
+    <HelpKINode Title="about Bienvenida class" Url="html/0457b272-983e-ecfc-3b55-52a8d53646bc.htm" />
+    <HelpKINode Title="constructor" Url="html/e37b5ba1-3f9c-10d9-26bb-e3f318861de2.htm" />
+    <HelpKINode Title="events" Url="html/1717e4b8-8e6e-b7d5-7ba5-802257dcd97e.htm" />
+    <HelpKINode Title="methods" Url="html/61941acd-60a1-3774-e1eb-83143a22f6ec.htm" />
+    <HelpKINode Title="properties" Url="html/30d8d706-e6b8-8117-e837-76c6fe646de6.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Bienvenida.Bienvenida constructor" Url="html/e37b5ba1-3f9c-10d9-26bb-e3f318861de2.htm" />
+  <HelpKINode Title="Bienvenida.iniciar_Click method" Url="html/a71762dc-9a43-5c65-956c-b67b5c7783d1.htm" />
+  <HelpKINode Title="Bienvenida.InitializeComponent method" Url="html/1af3280e-2125-a178-8a69-cd5778098bb4.htm" />
+  <HelpKINode Title="Bienvenida.jointSeleccion_SelectionChanged method" Url="html/822e7b57-941c-f1ba-d8f0-3437e3139fb2.htm" />
+  <HelpKINode Title="Bienvenida.mostrarJoints method" Url="html/78dd1228-e6b2-7398-81f8-2d9ce45f2df2.htm" />
+  <HelpKINode Title="botonGesto_Clicked method" Url="html/f944152f-558b-7462-f6b0-7c80c06f47a6.htm" />
+  <HelpKINode Title="botonGrabar_Clicked method" Url="html/9478d949-6ef8-72e0-96d8-bf30e8dde8c4.htm" />
+  <HelpKINode Title="CargarDetectorGestos method" Url="html/3ff8acb2-98cc-7d43-bb83-0a7f0c23fcc4.htm" />
+  <HelpKINode Title="CerrarDetectorGestos method" Url="html/c8439c9b-22b1-317a-dc81-eca2ca1ea853.htm" />
+  <HelpKINode Title="Clean method" Url="html/ce846a9a-d81b-17eb-d0e0-86e0694324ee.htm" />
+  <HelpKINode Title="Depth_RGB_Click method" Url="html/865f95a1-8c22-b880-3a58-2547e843f85b.htm" />
+  <HelpKINode Title="deteccionGesto_Click method" Url="html/27c5aae0-073f-f548-8a9a-eb89e723e313.htm" />
+  <HelpKINode Title="DirectRecord method" Url="html/37f736d4-e3e3-8ed0-0d0b-30aef41b890c.htm" />
+  <HelpKINode Title="GesturesViewer namespace" Url="html/a300a891-09f1-87b2-5972-cba7c4f886e7.htm" />
+  <HelpKINode Title="GesturesViewer.Bienvenida class" Url="html/0457b272-983e-ecfc-3b55-52a8d53646bc.htm" />
+  <HelpKINode Title="GesturesViewer.MainWindow class" Url="html/b92f50ea-4162-5840-629d-381f35ee7deb.htm" />
+  <HelpKINode Title="grabarGesto_Click method" Url="html/40cbda48-909d-1485-143f-b60ac25515db.htm" />
+  <HelpKINode Title="iniciar_Click method" Url="html/a71762dc-9a43-5c65-956c-b67b5c7783d1.htm" />
+  <HelpKINode Title="Initialize method" Url="html/f7887e99-e628-39a9-24b8-55ded4734ed0.htm" />
+  <HelpKINode Title="InitializeComponent method">
+    <HelpKINode Title="App.InitializeComponent Method " Url="html/6c6938ef-9005-294e-4e01-7660769908b8.htm" />
+    <HelpKINode Title="Bienvenida.InitializeComponent Method " Url="html/1af3280e-2125-a178-8a69-cd5778098bb4.htm" />
+    <HelpKINode Title="MainWindow.InitializeComponent Method " Url="html/0f935ff3-814f-97d4-410d-05f8853f8d79.htm" />
+  </HelpKINode>
+  <HelpKINode Title="jointSeleccion_SelectionChanged method" Url="html/822e7b57-941c-f1ba-d8f0-3437e3139fb2.htm" />
+  <HelpKINode Title="kinectRuntime_ColorFrameReady method" Url="html/bef546f5-2f33-3f32-9ae6-b774536ff39b.htm" />
+  <HelpKINode Title="kinectRuntime_SkeletonFrameReady method" Url="html/b4a20e46-d37f-fc8d-178c-72a92338be3d.htm" />
+  <HelpKINode Title="kinectSensor_DepthFrameReady method" Url="html/d14c2376-62b0-8484-2c82-5cd4e19150ca.htm" />
+  <HelpKINode Title="Kinects_StatusChanged method" Url="html/4a9d9730-dddb-9a6f-fcdc-5a0a75a06146.htm" />
+  <HelpKINode Title="Main method" Url="html/92da6d51-5bc2-e71f-0bb0-7b87624cf4ed.htm" />
+  <HelpKINode Title="MainWindow class">
+    <HelpKINode Title="MainWindow Class" Url="html/b92f50ea-4162-5840-629d-381f35ee7deb.htm" />
+    <HelpKINode Title="about MainWindow class" Url="html/b92f50ea-4162-5840-629d-381f35ee7deb.htm" />
+    <HelpKINode Title="constructor" Url="html/1ba09a98-d373-9a56-1a05-b5c04824f9f7.htm" />
+    <HelpKINode Title="events" Url="html/22e741c2-be98-447b-ec70-5c441fad1c7f.htm" />
+    <HelpKINode Title="methods" Url="html/ede75871-7781-6029-158a-df54547f35e9.htm" />
+    <HelpKINode Title="properties" Url="html/1971bc7e-3ff8-d95e-cc66-ec691d6c5ede.htm" />
+  </HelpKINode>
+  <HelpKINode Title="MainWindow.botonGesto_Clicked method" Url="html/f944152f-558b-7462-f6b0-7c80c06f47a6.htm" />
+  <HelpKINode Title="MainWindow.botonGrabar_Clicked method" Url="html/9478d949-6ef8-72e0-96d8-bf30e8dde8c4.htm" />
+  <HelpKINode Title="MainWindow.CargarDetectorGestos method" Url="html/3ff8acb2-98cc-7d43-bb83-0a7f0c23fcc4.htm" />
+  <HelpKINode Title="MainWindow.CerrarDetectorGestos method" Url="html/c8439c9b-22b1-317a-dc81-eca2ca1ea853.htm" />
+  <HelpKINode Title="MainWindow.Clean method" Url="html/ce846a9a-d81b-17eb-d0e0-86e0694324ee.htm" />
+  <HelpKINode Title="MainWindow.Depth_RGB_Click method" Url="html/865f95a1-8c22-b880-3a58-2547e843f85b.htm" />
+  <HelpKINode Title="MainWindow.deteccionGesto_Click method" Url="html/27c5aae0-073f-f548-8a9a-eb89e723e313.htm" />
+  <HelpKINode Title="MainWindow.DirectRecord method" Url="html/37f736d4-e3e3-8ed0-0d0b-30aef41b890c.htm" />
+  <HelpKINode Title="MainWindow.grabarGesto_Click method" Url="html/40cbda48-909d-1485-143f-b60ac25515db.htm" />
+  <HelpKINode Title="MainWindow.Initialize method" Url="html/f7887e99-e628-39a9-24b8-55ded4734ed0.htm" />
+  <HelpKINode Title="MainWindow.InitializeComponent method" Url="html/0f935ff3-814f-97d4-410d-05f8853f8d79.htm" />
+  <HelpKINode Title="MainWindow.kinectRuntime_ColorFrameReady method" Url="html/bef546f5-2f33-3f32-9ae6-b774536ff39b.htm" />
+  <HelpKINode Title="MainWindow.kinectRuntime_SkeletonFrameReady method" Url="html/b4a20e46-d37f-fc8d-178c-72a92338be3d.htm" />
+  <HelpKINode Title="MainWindow.kinectSensor_DepthFrameReady method" Url="html/d14c2376-62b0-8484-2c82-5cd4e19150ca.htm" />
+  <HelpKINode Title="MainWindow.Kinects_StatusChanged method" Url="html/4a9d9730-dddb-9a6f-fcdc-5a0a75a06146.htm" />
+  <HelpKINode Title="MainWindow.MainWindow constructor" Url="html/1ba09a98-d373-9a56-1a05-b5c04824f9f7.htm" />
+  <HelpKINode Title="MainWindow.nearMode_Checked_1 method" Url="html/0e6c4a5e-9665-6d9f-5d42-226f4a7d4242.htm" />
+  <HelpKINode Title="MainWindow.nearMode_Unchecked_1 method" Url="html/3d89a65f-805e-38ce-21e6-85ee0065b9ab.htm" />
+  <HelpKINode Title="MainWindow.OnGestureDetected method" Url="html/a907ef3c-83b7-542d-48e9-1697c6d44a9d.htm" />
+  <HelpKINode Title="MainWindow.ProcessFrame method" Url="html/ca7e092e-1e6b-7a5c-e958-74b72ccce5ca.htm" />
+  <HelpKINode Title="MainWindow.recordOption_Click method" Url="html/9e114973-e17e-81fe-11ea-e8b2ff177f18.htm" />
+  <HelpKINode Title="MainWindow.replayButton_Click method" Url="html/87b84745-d2cf-9c95-115e-bf94ed1e4ed2.htm" />
+  <HelpKINode Title="MainWindow.replay_ColorImageFrameReady method" Url="html/3345d37f-8339-5af2-1775-c004b1633c70.htm" />
+  <HelpKINode Title="MainWindow.replay_DepthImageFrameReady method" Url="html/0296bd61-d24e-261f-fb26-fb7247dfc94c.htm" />
+  <HelpKINode Title="MainWindow.replay_SkeletonFrameReady method" Url="html/dd19161e-87b1-f50e-2c66-4f041269d5ab.htm" />
+  <HelpKINode Title="MainWindow.seatedMode_Checked_1 method" Url="html/56e4d615-ffa4-5b3a-73d5-394145ae5f96.htm" />
+  <HelpKINode Title="MainWindow.seatedMode_Unchecked_1 method" Url="html/4630eeac-e050-e0d2-f2dd-cb3685d28662.htm" />
+  <HelpKINode Title="MainWindow.StartVoiceCommander method" Url="html/100ed533-742b-3a91-c8c3-03bf0fb4cb76.htm" />
+  <HelpKINode Title="MainWindow.StopRecord method" Url="html/5a54c776-07d1-3a57-c17a-3077a7ae7d1c.htm" />
+  <HelpKINode Title="MainWindow.TrackHand method" Url="html/04cca56f-c38b-2c25-5f7e-5ae4f105d540.htm" />
+  <HelpKINode Title="MainWindow.verificarJoint method" Url="html/e8f89c2e-1e91-ae95-53fd-b907a048b4ea.htm" />
+  <HelpKINode Title="MainWindow.voiceCommander_OrderDetected method" Url="html/2eb89e30-20d3-71f6-004b-fda957529b1f.htm" />
+  <HelpKINode Title="MainWindow.Window_Closing method" Url="html/188d42b0-46ac-2ae0-f51d-fc08e9cadc6a.htm" />
+  <HelpKINode Title="MainWindow.Window_Loaded method" Url="html/b968b2ff-4480-1d71-e3a9-5bf3a0c8e9a5.htm" />
+  <HelpKINode Title="mostrarJoints method" Url="html/78dd1228-e6b2-7398-81f8-2d9ce45f2df2.htm" />
+  <HelpKINode Title="nearMode_Checked_1 method" Url="html/0e6c4a5e-9665-6d9f-5d42-226f4a7d4242.htm" />
+  <HelpKINode Title="nearMode_Unchecked_1 method" Url="html/3d89a65f-805e-38ce-21e6-85ee0065b9ab.htm" />
+  <HelpKINode Title="OnGestureDetected method" Url="html/a907ef3c-83b7-542d-48e9-1697c6d44a9d.htm" />
+  <HelpKINode Title="ProcessFrame method" Url="html/ca7e092e-1e6b-7a5c-e958-74b72ccce5ca.htm" />
+  <HelpKINode Title="recordOption_Click method" Url="html/9e114973-e17e-81fe-11ea-e8b2ff177f18.htm" />
+  <HelpKINode Title="replayButton_Click method" Url="html/87b84745-d2cf-9c95-115e-bf94ed1e4ed2.htm" />
+  <HelpKINode Title="replay_ColorImageFrameReady method" Url="html/3345d37f-8339-5af2-1775-c004b1633c70.htm" />
+  <HelpKINode Title="replay_DepthImageFrameReady method" Url="html/0296bd61-d24e-261f-fb26-fb7247dfc94c.htm" />
+  <HelpKINode Title="replay_SkeletonFrameReady method" Url="html/dd19161e-87b1-f50e-2c66-4f041269d5ab.htm" />
+  <HelpKINode Title="seatedMode_Checked_1 method" Url="html/56e4d615-ffa4-5b3a-73d5-394145ae5f96.htm" />
+  <HelpKINode Title="seatedMode_Unchecked_1 method" Url="html/4630eeac-e050-e0d2-f2dd-cb3685d28662.htm" />
+  <HelpKINode Title="StartVoiceCommander method" Url="html/100ed533-742b-3a91-c8c3-03bf0fb4cb76.htm" />
+  <HelpKINode Title="StopRecord method" Url="html/5a54c776-07d1-3a57-c17a-3077a7ae7d1c.htm" />
+  <HelpKINode Title="TestearToolbox namespace" Url="html/43c09c10-1228-65d9-7654-0fc8194ec801.htm" />
+  <HelpKINode Title="TestearToolbox.App class" Url="html/6bf23b57-bc1a-0f49-307d-6bda7f4868b2.htm" />
+  <HelpKINode Title="TrackHand method" Url="html/04cca56f-c38b-2c25-5f7e-5ae4f105d540.htm" />
+  <HelpKINode Title="verificarJoint method" Url="html/e8f89c2e-1e91-ae95-53fd-b907a048b4ea.htm" />
+  <HelpKINode Title="voiceCommander_OrderDetected method" Url="html/2eb89e30-20d3-71f6-004b-fda957529b1f.htm" />
+  <HelpKINode Title="Window_Closing method" Url="html/188d42b0-46ac-2ae0-f51d-fc08e9cadc6a.htm" />
+  <HelpKINode Title="Window_Loaded method" Url="html/b968b2ff-4480-1d71-e3a9-5bf3a0c8e9a5.htm" />
+</HelpKI>

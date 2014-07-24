@@ -3,9 +3,7 @@ using System.IO;
 
 namespace GesturesViewer
 {
-    /// <summary>
-    /// Esta parte de la clase se encarga de manejar los comandos por voz
-    /// </summary>
+    // Esta parte de la clase se encarga de manejar los comandos por voz
     partial class MainWindow
     {
         /// <summary>
@@ -20,7 +18,7 @@ namespace GesturesViewer
         /// <summary>
         /// Verifica si se detecto una orden y realiza la accion correspondiente.
         /// </summary>
-        /// <param name="order"></param>
+        /// <param name="order">La orden.</param>
         public void voiceCommander_OrderDetected(string order)
         {
             System.Console.WriteLine("entro al speech");
@@ -31,9 +29,7 @@ namespace GesturesViewer
                     System.Console.WriteLine("roto");
                     return;
                 }
-
                 System.Console.WriteLine(order);
-
                 switch (order)
                 {
                     case "grabar":

@@ -121,7 +121,7 @@
             <Button Style="{StaticResource Blue}" Content="Repetir Sesion" x:Name="replayButton" Click="replayButton_Click" VerticalAlignment="Center" Grid.Row="1" Width="Auto"/>
             <Button Style="{StaticResource Blue}" Content="Grabar Gesto" x:Name="botonGrabarGesto" Click="grabarGesto_Click" VerticalAlignment="Center" Grid.Row="2" Width="Auto"/>
             <Button Style="{StaticResource Blue}" Content="Detectar Gesto" x:Name="botonDetectarGesto" Click="deteccionGesto_Click" VerticalAlignment="Center" Grid.Row="3" Width="Auto"/>
-            <CheckBox Content="Modo Cerca" x:Name="nearMode" Grid.Row="4" VerticalContentAlignment="Top" Checked="nearMode_Checked_1" Unchecked="nearMode_Unchecked_1"/>
+            <Button Style="{StaticResource Blue}" Content="Grabar Postura" x:Name="botonGrabarPostura" Click="grabarPostura_Click" VerticalAlignment="Center" Grid.Row="4" Width="Auto"/>
             <CheckBox Content="Modo Sentado" x:Name="seatedMode" Grid.Row="5" VerticalContentAlignment="Top" Checked="seatedMode_Checked_1" Unchecked="seatedMode_Unchecked_1"/>
             <CheckBox Content="Controlar Mouse" x:Name="controlMouse" Grid.Row="6" VerticalContentAlignment="Top"/>
         </Grid>

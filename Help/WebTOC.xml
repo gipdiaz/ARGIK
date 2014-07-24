@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HelpTOC>
+
+  <HelpTOCNode Id="e417d12b-2fcd-45b8-83bf-32b885e00510" Title="GesturesViewer" Url="html/a300a891-09f1-87b2-5972-cba7c4f886e7.htm">
+    <HelpTOCNode Id="2363aa62-4a38-44bc-880d-d1469b89bf92" Title="Bienvenida Class" Url="html/0457b272-983e-ecfc-3b55-52a8d53646bc.htm">
+      <HelpTOCNode Title="Bienvenida Constructor " Url="html/e37b5ba1-3f9c-10d9-26bb-e3f318861de2.htm" />
+      <HelpTOCNode Id="3e187958-1436-400f-a90c-be5b2e3b56ab" Title="Bienvenida Methods" Url="html/61941acd-60a1-3774-e1eb-83143a22f6ec.htm">
+        <HelpTOCNode Title="iniciar_Click Method " Url="html/a71762dc-9a43-5c65-956c-b67b5c7783d1.htm" />
+        <HelpTOCNode Title="InitializeComponent Method " Url="html/1af3280e-2125-a178-8a69-cd5778098bb4.htm" />
+        <HelpTOCNode Title="jointSeleccion_SelectionChanged Method " Url="html/822e7b57-941c-f1ba-d8f0-3437e3139fb2.htm" />
+        <HelpTOCNode Title="mostrarJoints Method " Url="html/78dd1228-e6b2-7398-81f8-2d9ce45f2df2.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="Bienvenida Properties" Url="html/30d8d706-e6b8-8117-e837-76c6fe646de6.htm" />
+      <HelpTOCNode Title="Bienvenida Events" Url="html/1717e4b8-8e6e-b7d5-7ba5-802257dcd97e.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="919a276c-4a20-4b36-9aa3-4a3d9818c20f" Title="MainWindow Class" Url="html/b92f50ea-4162-5840-629d-381f35ee7deb.htm">
+      <HelpTOCNode Title="MainWindow Constructor " Url="html/1ba09a98-d373-9a56-1a05-b5c04824f9f7.htm" />
+      <HelpTOCNode Id="3a22e52c-e0af-4f3e-88b6-eca0e7c70366" Title="MainWindow Methods" Url="html/ede75871-7781-6029-158a-df54547f35e9.htm">
+        <HelpTOCNode Title="botonGesto_Clicked Method " Url="html/f944152f-558b-7462-f6b0-7c80c06f47a6.htm" />
+        <HelpTOCNode Title="botonGrabar_Clicked Method " Url="html/9478d949-6ef8-72e0-96d8-bf30e8dde8c4.htm" />
+        <HelpTOCNode Title="CargarDetectorGestos Method " Url="html/3ff8acb2-98cc-7d43-bb83-0a7f0c23fcc4.htm" />
+        <HelpTOCNode Title="CerrarDetectorGestos Method " Url="html/c8439c9b-22b1-317a-dc81-eca2ca1ea853.htm" />
+        <HelpTOCNode Title="Clean Method " Url="html/ce846a9a-d81b-17eb-d0e0-86e0694324ee.htm" />
+        <HelpTOCNode Title="Depth_RGB_Click Method " Url="html/865f95a1-8c22-b880-3a58-2547e843f85b.htm" />
+        <HelpTOCNode Title="deteccionGesto_Click Method " Url="html/27c5aae0-073f-f548-8a9a-eb89e723e313.htm" />
+        <HelpTOCNode Title="DirectRecord Method " Url="html/37f736d4-e3e3-8ed0-0d0b-30aef41b890c.htm" />
+        <HelpTOCNode Title="grabarGesto_Click Method " Url="html/40cbda48-909d-1485-143f-b60ac25515db.htm" />
+        <HelpTOCNode Title="Initialize Method " Url="html/f7887e99-e628-39a9-24b8-55ded4734ed0.htm" />
+        <HelpTOCNode Title="InitializeComponent Method " Url="html/0f935ff3-814f-97d4-410d-05f8853f8d79.htm" />
+        <HelpTOCNode Title="kinectRuntime_ColorFrameReady Method " Url="html/bef546f5-2f33-3f32-9ae6-b774536ff39b.htm" />
+        <HelpTOCNode Title="kinectRuntime_SkeletonFrameReady Method " Url="html/b4a20e46-d37f-fc8d-178c-72a92338be3d.htm" />
+        <HelpTOCNode Title="Kinects_StatusChanged Method " Url="html/4a9d9730-dddb-9a6f-fcdc-5a0a75a06146.htm" />
+        <HelpTOCNode Title="kinectSensor_DepthFrameReady Method " Url="html/d14c2376-62b0-8484-2c82-5cd4e19150ca.htm" />
+        <HelpTOCNode Title="nearMode_Checked_1 Method " Url="html/0e6c4a5e-9665-6d9f-5d42-226f4a7d4242.htm" />
+        <HelpTOCNode Title="nearMode_Unchecked_1 Method " Url="html/3d89a65f-805e-38ce-21e6-85ee0065b9ab.htm" />
+        <HelpTOCNode Title="OnGestureDetected Method " Url="html/a907ef3c-83b7-542d-48e9-1697c6d44a9d.htm" />
+        <HelpTOCNode Title="ProcessFrame Method " Url="html/ca7e092e-1e6b-7a5c-e958-74b72ccce5ca.htm" />
+        <HelpTOCNode Title="recordOption_Click Method " Url="html/9e114973-e17e-81fe-11ea-e8b2ff177f18.htm" />
+        <HelpTOCNode Title="replay_ColorImageFrameReady Method " Url="html/3345d37f-8339-5af2-1775-c004b1633c70.htm" />
+        <HelpTOCNode Title="replay_DepthImageFrameReady Method " Url="html/0296bd61-d24e-261f-fb26-fb7247dfc94c.htm" />
+        <HelpTOCNode Title="replay_SkeletonFrameReady Method " Url="html/dd19161e-87b1-f50e-2c66-4f041269d5ab.htm" />
+        <HelpTOCNode Title="replayButton_Click Method " Url="html/87b84745-d2cf-9c95-115e-bf94ed1e4ed2.htm" />
+        <HelpTOCNode Title="seatedMode_Checked_1 Method " Url="html/56e4d615-ffa4-5b3a-73d5-394145ae5f96.htm" />
+        <HelpTOCNode Title="seatedMode_Unchecked_1 Method " Url="html/4630eeac-e050-e0d2-f2dd-cb3685d28662.htm" />
+        <HelpTOCNode Title="StartVoiceCommander Method " Url="html/100ed533-742b-3a91-c8c3-03bf0fb4cb76.htm" />
+        <HelpTOCNode Title="StopRecord Method " Url="html/5a54c776-07d1-3a57-c17a-3077a7ae7d1c.htm" />
+        <HelpTOCNode Title="TrackHand Method " Url="html/04cca56f-c38b-2c25-5f7e-5ae4f105d540.htm" />
+        <HelpTOCNode Title="verificarJoint Method " Url="html/e8f89c2e-1e91-ae95-53fd-b907a048b4ea.htm" />
+        <HelpTOCNode Title="voiceCommander_OrderDetected Method " Url="html/2eb89e30-20d3-71f6-004b-fda957529b1f.htm" />
+        <HelpTOCNode Title="Window_Closing Method " Url="html/188d42b0-46ac-2ae0-f51d-fc08e9cadc6a.htm" />
+        <HelpTOCNode Title="Window_Loaded Method " Url="html/b968b2ff-4480-1d71-e3a9-5bf3a0c8e9a5.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="MainWindow Properties" Url="html/1971bc7e-3ff8-d95e-cc66-ec691d6c5ede.htm" />
+      <HelpTOCNode Title="MainWindow Events" Url="html/22e741c2-be98-447b-ec70-5c441fad1c7f.htm" />
+    </HelpTOCNode>
+  </HelpTOCNode>
+  <HelpTOCNode Id="514f03af-500b-453b-954a-21886243c714" Title="TestearToolbox" Url="html/43c09c10-1228-65d9-7654-0fc8194ec801.htm">
+    <HelpTOCNode Id="6eb33b26-42da-4257-92e5-eb88c01e3385" Title="App Class" Url="html/6bf23b57-bc1a-0f49-307d-6bda7f4868b2.htm">
+      <HelpTOCNode Title="App Constructor " Url="html/47da7f4f-f99e-95ee-da55-58da7ecf9052.htm" />
+      <HelpTOCNode Id="43c37ca6-9d85-498e-a884-eaf2280f1edd" Title="App Methods" Url="html/99cb256f-68ec-f49e-56e7-774c97c06abb.htm">
+        <HelpTOCNode Title="InitializeComponent Method " Url="html/6c6938ef-9005-294e-4e01-7660769908b8.htm" />
+        <HelpTOCNode Title="Main Method " Url="html/92da6d51-5bc2-e71f-0bb0-7b87624cf4ed.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="App Properties" Url="html/dafa41cf-8b19-bafb-e17b-34d3487a4ad6.htm" />
+      <HelpTOCNode Title="App Events" Url="html/d0667606-1b25-ad68-eb86-5659e88fb1ff.htm" />
+    </HelpTOCNode>
+  </HelpTOCNode>
+</HelpTOC>

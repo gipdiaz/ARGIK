@@ -29,6 +29,7 @@ namespace Kinect.Toolbox
         public override void TrackPostures(Skeleton skeleton)
         {
             if (LearningMachine.Match(skeleton.Joints.ToListOfVector2(), Epsilon, MinimalScore, MinimalSize))
+                System.Console.WriteLine("trakeando el skeleto");
                 RaisePostureDetected(postureName);
         }
 
@@ -38,7 +39,7 @@ namespace Kinect.Toolbox
 
             recordedPath.Points.AddRange(skeleton.Joints.ToListOfVector2());
 
-            LearningMachine.AddPath(recordedPath);
+            LearningMachine.AddPathPosture(recordedPath);
         }
 
         public void SaveState(Stream kbStream)

@@ -10,7 +10,7 @@ namespace Kinect.Toolbox
     public class LearningMachine
     {
         readonly List<RecordedPath> paths;
-       
+
         public LearningMachine(Stream kbStream)
         {
             if (kbStream == null || kbStream.Length == 0)
@@ -19,7 +19,7 @@ namespace Kinect.Toolbox
                 return;
             }
 
-            BinaryFormatter formatter = new BinaryFormatter {Binder = new CustomBinder()};
+            BinaryFormatter formatter = new BinaryFormatter { Binder = new CustomBinder() };
 
 
             paths = (List<RecordedPath>)formatter.Deserialize(kbStream);
@@ -30,6 +30,8 @@ namespace Kinect.Toolbox
             get { return paths; }
         }
         public string gestoNuevo { get; set; }
+
+        public string posturaNuevo { get; set; }
 
         public bool Match(List<Vector2> entries, float threshold, float minimalScore, float minSize)
         {
@@ -49,18 +51,37 @@ namespace Kinect.Toolbox
             Paths.Add(path);
             GuardarGesto();
         }
+
         public void GuardarGesto()
         {
-              SaveFileDialog saveFileDialog = new SaveFileDialog { Title = "Elija nombre de gesto", Filter = "Archivos Gesto|*.save" };
-              if (saveFileDialog.ShowDialog() == true)
-              {
-                  gestoNuevo = saveFileDialog.FileName;
-                  using (Stream recordStream = File.Create(gestoNuevo))
-                  {
+            SaveFileDialog saveFileDialog = new SaveFileDialog { Title = "Elija nombre de gesto", Filter = "Gestos|*.save" };
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                gestoNuevo = saveFileDialog.FileName;
+                using (Stream recordStream = File.Create(gestoNuevo))
+                {
+                    Persist(recordStream);
+                }
+            }
+        }
 
-                      Persist(recordStream);
-                  }
-              }
+        public void AddPathPosture(RecordedPath path)
+        {
+            path.CloseAndPrepare();
+            Paths.Add(path);
+            //GuardarPostura();
+        }
+        public void GuardarPostura()
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog { Title = "Elija nombre de la postura", Filter = "Posturas|*.save" };
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                posturaNuevo = saveFileDialog.FileName;
+                using (Stream recordStream = File.Create(posturaNuevo))
+                {
+                    Persist(recordStream);
+                }
+            }
         }
     }
 
