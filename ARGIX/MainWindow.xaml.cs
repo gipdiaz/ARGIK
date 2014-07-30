@@ -41,12 +41,16 @@ namespace GesturesViewer
 
         //Manejador del audio
         AudioStreamManager audioManager;
-        
+
+        //Texto que se muestra en pantalla con el nombre del gesto
+        TextBlock nombreGesto = new TextBlock();
+
         //Trackeador del contexto
         readonly ContextTracker contextTracker = new ContextTracker();
         
         //Detector de la combinacion de gestos
         ParallelCombinedGestureDetector parallelCombinedGestureDetector;
+        SerialCombinedGestureDetector serialCombinedGestureDetector;
         readonly AlgorithmicPostureDetector algorithmicPostureRecognizer = new AlgorithmicPostureDetector();
         
         //Postura
@@ -198,7 +202,12 @@ namespace GesturesViewer
             //Encender el sensor
             kinectSensor.Start();
 
+            //Se añade el texto al grid para que muestre el nombre del texto
+           
+            nombreGesto.Text = "";
+            LayoutRoot.Children.Add(nombreGesto);
             //Configura la deteccion de gestos y posturas
+
             CargarDetectorGestos();
             CargarDetectorPosturas();
            
@@ -338,10 +347,16 @@ namespace GesturesViewer
                         if (kinectSensor != null)
                         {
 
-                            parallelCombinedGestureDetector = new ParallelCombinedGestureDetector();
-                            parallelCombinedGestureDetector.OnGestureDetected += OnGestureDetected;
-                            parallelCombinedGestureDetector.Add(deslizarManoIzquierda);
-                            parallelCombinedGestureDetector.Add(reconocedorGesto);
+                            //parallelCombinedGestureDetector = new ParallelCombinedGestureDetector();
+                            //parallelCombinedGestureDetector.OnGestureDetected += OnGestureDetected;
+                            //parallelCombinedGestureDetector.Add(deslizarManoIzquierda);
+                            //parallelCombinedGestureDetector.Add(reconocedorGesto);
+                            serialCombinedGestureDetector = new SerialCombinedGestureDetector();
+                            serialCombinedGestureDetector.OnGestureDetected += OnGestureDetected;
+                            
+                            serialCombinedGestureDetector.Add(deslizarManoIzquierda);
+                            serialCombinedGestureDetector.Add(reconocedorGesto);
+                          
 
                             if (joint.TrackingState != JointTrackingState.Tracked)
                                 continue;

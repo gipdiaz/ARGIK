@@ -18,22 +18,15 @@ namespace GesturesViewer
     
     partial class MainWindow
     {
-        TextBlock nombreGesto = new TextBlock();
-        System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+        
+        
         /// <summary>
         /// Se inicializa el detector de gestos con un Stream default
         /// </summary>
         public void CargarDetectorGestos()
         {
-
-            //Establece en 3 segundos el tiempo para mostrar el nombre del gesto en pantalla. 
-            dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 3);
-                
-
             using (Stream recordStream = new MemoryStream())
             {
-
                 reconocedorGesto = new TemplatedGestureDetector("Gesto", recordStream);
                 reconocedorGesto.DisplayCanvas = gesturesCanvas;
                 MouseController.Current.ClickGestureDetector = reconocedorGesto;
@@ -42,7 +35,7 @@ namespace GesturesViewer
 
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
-            LayoutRoot.Children.Remove(nombreGesto);
+            nombreGesto.Text = "";
         }
 
         /// <summary>
@@ -50,6 +43,7 @@ namespace GesturesViewer
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+        
         public void grabarGesto_Click(object sender, RoutedEventArgs e)
         {
             if (reconocedorGesto.IsRecordingPath)
@@ -71,12 +65,12 @@ namespace GesturesViewer
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+        
         public void deteccionGesto_Click(object sender, RoutedEventArgs e)
         {
             if (botonDetectarGesto.Content.ToString() == "Detectar Gesto")
             {
-                
-
+ 
                 OpenFileDialog openFileDialog = new OpenFileDialog { Title = "Select filename", Filter = "Gestos files|*.save" };
                 if (openFileDialog.ShowDialog() == true)
                 {
@@ -90,7 +84,6 @@ namespace GesturesViewer
                 }
                 //Limpiar puntos cuando cierra el cuadro de dialogo
                 gesturesCanvas.Children.Clear();
-              
             }
             else
             {
@@ -104,12 +97,9 @@ namespace GesturesViewer
         /// </summary>
         /// <param name="gesture"></param>
         public void OnGestureDetected(string gesture)
-
-
         {
             //Obtener nombre del gesto sin extension
             gesture = Path.GetFileNameWithoutExtension(gesture);
-            
             
             nombreGesto.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
             nombreGesto.VerticalAlignment = System.Windows.VerticalAlignment.Center;
@@ -118,12 +108,12 @@ namespace GesturesViewer
             nombreGesto.Foreground = new SolidColorBrush(Colors.Red);
             nombreGesto.Text = gesture;
             nombreGesto.Visibility = System.Windows.Visibility.Visible;
-            LayoutRoot.Children.Add (nombreGesto);
             
-           
+            System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+            //Establece en 3 segundos el tiempo para mostrar el nombre del gesto en pantalla. 
+            dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 2);
             dispatcherTimer.Start(); 
-
-            
 
             int pos = detectedGestures.Items.Add(string.Format("{0} ---- {1}", gesture, DateTime.Now));
             object item = detectedGestures.Items[pos];

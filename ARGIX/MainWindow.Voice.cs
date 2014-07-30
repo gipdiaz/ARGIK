@@ -35,10 +35,10 @@ namespace GesturesViewer
                 System.Console.WriteLine(order);
                 switch (order)
                 {
-                    case "grabar":
+                    case "grabar sesion":
                         DirectRecord(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "kinectRecord" + Guid.NewGuid() + ".replay"));
                         break;
-                    case "parar":
+                    case "parar sesion":
                         StopRecord();
                         break;
                     case "grabar gesto":
@@ -54,6 +54,7 @@ namespace GesturesViewer
                             botonGrabarGesto.Content = "Grabar Gesto";
                         } 
                         break;
+
                 }
             }));
         }

@@ -10,7 +10,7 @@ namespace Kinect.Toolbox
         DateTime? previousGestureTime;
         List<string> detectedGesturesName = new List<string>();
 
-        public SerialCombinedGestureDetector(double epsilon = 1000)
+        public SerialCombinedGestureDetector(double epsilon = 500)
             : base(epsilon)
         {
         }
@@ -30,7 +30,7 @@ namespace Kinect.Toolbox
 
             if (detectedGesturesName.Count == GestureDetectorsCount)
             {
-                RaiseGestureDetected(string.Join(">", detectedGesturesName));
+                RaiseGestureDetected(string.Join("$", detectedGesturesName));
                 previousGestureTime = null;
             }
         }
