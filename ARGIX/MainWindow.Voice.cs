@@ -42,17 +42,10 @@ namespace GesturesViewer
                         StopRecord();
                         break;
                     case "grabar gesto":
-                        reconocedorGesto.OnGestureDetected -= OnGestureDetected;
-                        CargarDetectorGestos();
-                        reconocedorGesto.StartRecordTemplate();
-                        botonGrabarGesto.Content = "Pausar Grabacion";
+                        grabarListaGestos();
                         break;
-                    case "parar gesto":
-                        if (reconocedorGesto.IsRecordingPath)
-                        {
-                            reconocedorGesto.EndRecordTemplate();
-                            botonGrabarGesto.Content = "Grabar Gesto";
-                        } 
+                    case "detener gesto":
+                        grabarListaGestos();
                         break;
 
                 }

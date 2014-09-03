@@ -39,6 +39,7 @@ namespace Kinect.Toolbox
             recordedPath.Points.AddRange(skeleton.Joints.ToListOfVector2());
 
             LearningMachine.AddPath(recordedPath);
+            
         }
 
         public void SaveState(Stream kbStream)

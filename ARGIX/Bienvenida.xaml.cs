@@ -19,6 +19,7 @@ using System.IO;
 using Microsoft.Win32;
 using Kinect.Toolbox.Voice;
 using Coding4Fun.Kinect.Wpf.Controls;
+using System.Xml.Serialization;
 
 namespace GesturesViewer
 {
@@ -30,8 +31,8 @@ namespace GesturesViewer
 
     public partial class Bienvenida 
     {
-        String jointSeleccionada;
-        
+        public string jointSeleccionada { get; set; }
+        public SerializableDictionary<string, List<string>> b { get; set; } 
         public Bienvenida()
         {
             InitializeComponent();   
@@ -84,7 +85,31 @@ namespace GesturesViewer
 
         public void iniciar_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow window = new MainWindow(jointSeleccionada);
+            
+            //Serializar el diccionario
+            b = new SerializableDictionary<string, List<string>>();
+            List <string> medico = new List<string> ();
+            medico.Add("German Leschevich");
+            List <string> paciente = new List<string> ();
+            paciente.Add ("Gaston Diaz");
+            List <string> precision = new List<string> ();
+            precision.Add ("Media");
+            List<string> gestos = new List<string>();
+            
+
+            b.Add("Medico", medico);
+            b.Add("Paciente", paciente);
+            b.Add("Precision", precision);
+            b.Add("Gestos", gestos);
+
+
+            
+
+            
+
+            //Arranca la aplicacion posta
+
+            MainWindow window = new MainWindow(this);
             this.Close();
             window.Show();
         }

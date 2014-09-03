@@ -33,7 +33,7 @@ namespace Kinect.Toolbox
             set;
         }
 
-        protected GestureDetector(int windowSize = 20)
+        protected GestureDetector(int windowSize = 500)
         {
             this.windowSize = windowSize;
             MinimalPeriodBetweenGestures = 0;

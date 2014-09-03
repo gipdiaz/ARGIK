@@ -112,8 +112,9 @@
             </StackPanel>
             <Button Style="{StaticResource Blue}" Content="Repetir Sesion" x:Name="replayButton" Click="replayButton_Click" VerticalAlignment="Center" Grid.Row="1" Width="Auto"/>
             <Button Style="{StaticResource Blue}" Content="Grabar Gesto" x:Name="botonGrabarGesto" Click="grabarGesto_Click" VerticalAlignment="Center" Grid.Row="2" Width="Auto"/>
-            <Button Style="{StaticResource Blue}" Content="Detectar Gesto" x:Name="botonDetectarGesto" Click="deteccionGesto_Click" VerticalAlignment="Center" Grid.Row="3" Width="Auto"/>
-            <CheckBox Content="Detectar Gesto Deslizar" x:Name="botonDeslizar" Grid.Row="4" VerticalContentAlignment="Top" />
+            <Button Style="{StaticResource Blue}" Content="Grabar Gesto Viejo" x:Name="botonGrabarGestoViejo" Click="grabarGestoViejo_Click" VerticalAlignment="Center" Grid.Row="3" Width="Auto"/>
+            <Button Style="{StaticResource Blue}" Content="Detectar Gesto" x:Name="botonDetectarGesto" Click="deteccionGesto_Click" VerticalAlignment="Center" Grid.Row="4" Width="Auto"/>
+            <!--<CheckBox Content="Detectar Gesto Deslizar" x:Name="botonDeslizar" Grid.Row="4" VerticalContentAlignment="Top" />-->
             <CheckBox Content="Modo Sentado" x:Name="seatedMode" Grid.Row="5" VerticalContentAlignment="Top" Checked="seatedMode_Checked_1" Unchecked="seatedMode_Unchecked_1"/>
             <CheckBox Content="Controlar Mouse" x:Name="controlMouse" Grid.Row="6" VerticalContentAlignment="Top"/>
         </Grid>

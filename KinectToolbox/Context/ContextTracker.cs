@@ -13,7 +13,7 @@ namespace Kinect.Toolbox
 
         public float Threshold { get; set; }
 
-        public ContextTracker(int windowSize = 40, float threshold = 0.05f)
+        public ContextTracker(int windowSize = 40, float threshold = 0.09f)
         {
             this.windowSize = windowSize;
             Threshold = threshold;

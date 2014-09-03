@@ -64,6 +64,7 @@ namespace Kinect.Toolbox.Voice
 
             source.AutomaticGainControlEnabled = false;
             source.BeamAngleMode = BeamAngleMode.Adaptive;
+            source.EchoCancellationMode = EchoCancellationMode.CancellationAndSuppression;
 
             using (Stream sourceStream = source.Start())
             {

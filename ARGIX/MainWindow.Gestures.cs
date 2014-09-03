@@ -7,6 +7,7 @@ using Microsoft.Kinect;
 using Microsoft.Win32;
 using System.Windows.Controls;
 using System.Threading;
+using System.Collections.Generic;
 
 
 
@@ -19,7 +20,8 @@ namespace GesturesViewer
     partial class MainWindow
     {
         
-        
+        int nroGesto = 0;
+        string nombreSesion;
         /// <summary>
         /// Se inicializa el detector de gestos con un Stream default
         /// </summary>
@@ -30,13 +32,11 @@ namespace GesturesViewer
                 reconocedorGesto = new TemplatedGestureDetector("Gesto", recordStream);
                 reconocedorGesto.DisplayCanvas = gesturesCanvas;
                 MouseController.Current.ClickGestureDetector = reconocedorGesto;
-            }
+
+            }   
         }
 
-        private void dispatcherTimer_Tick(object sender, EventArgs e)
-        {
-            nombreGesto.Text = "";
-        }
+        
 
         /// <summary>
         /// Se activa la grabacion del gesto
@@ -46,10 +46,19 @@ namespace GesturesViewer
         
         public void grabarGesto_Click(object sender, RoutedEventArgs e)
         {
+            grabarListaGestos();
+        }
+        public void grabarListaGestos()
+        {
+            
             if (reconocedorGesto.IsRecordingPath)
             {
+                StopRecord();
                 reconocedorGesto.EndRecordTemplate();
-                botonGrabarGesto.Content = "Grabar Gesto";
+                gesturesCanvas.Children.Clear();
+                //System.IO.File.Move(nombreSesion, System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "sesion_" + Path.GetFileNameWithoutExtension(reconocedorGesto.LearningMachine.gestoNuevo)+ ".replay"));
+                armarListaGestos();
+                
             }
             else
             {
@@ -57,6 +66,50 @@ namespace GesturesViewer
                 CargarDetectorGestos();
                 reconocedorGesto.StartRecordTemplate();
                 botonGrabarGesto.Content = "Pausar Grabacion";
+                nroGesto = nroGesto + 1;
+                nombreSesion = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "sesion"+ nroGesto +".replay");
+                DirectRecord(nombreSesion);
+            }
+        }
+
+        public void armarListaGestos()
+        {
+            List<string> lista = new List<string>();
+            diccionario.TryGetValue("Gestos", out lista);
+            //lista.Add(Path.GetFileNameWithoutExtension(reconocedorGesto.LearningMachine.gestoNuevo));
+            lista.Add(reconocedorGesto.LearningMachine.gestoNuevo);
+            lista.Add(reconocedorGesto.LearningMachine.repeticion);
+            lista.Add("Mano Derecha");
+            lista.Add(nombreSesion);
+            diccionario.Remove("Gestos");
+            diccionario.Add("Gestos", lista);
+
+            botonGrabarGesto.Content = "Grabar Gesto";
+            for (int i = 0; i < (lista.Count); i++)
+            {
+                System.Console.WriteLine(lista[i]);
+            }
+
+        }
+        /// <summary>
+        /// Se activa la grabacion del gesto
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+
+        public void grabarGestoViejo_Click(object sender, RoutedEventArgs e)
+        {
+            if (reconocedorGesto.IsRecordingPath)
+            {
+                reconocedorGesto.EndRecordTemplate();
+                botonGrabarGestoViejo.Content = "Grabar Gesto Viejo";
+            }
+            else
+            {
+                reconocedorGesto.OnGestureDetected -= OnGestureDetected;
+                CargarDetectorGestos();
+                reconocedorGesto.StartRecordTemplate();
+                botonGrabarGestoViejo.Content = "Pausar Grabacion Viejo";
             }
         }
 
@@ -70,12 +123,13 @@ namespace GesturesViewer
         {
             if (botonDetectarGesto.Content.ToString() == "Detectar Gesto")
             {
- 
+           
                 OpenFileDialog openFileDialog = new OpenFileDialog { Title = "Select filename", Filter = "Gestos files|*.save" };
                 if (openFileDialog.ShowDialog() == true)
                 {
                     Stream recordStream = new FileStream(openFileDialog.FileName, FileMode.Open);
                     reconocedorGesto = new TemplatedGestureDetector(openFileDialog.FileName, recordStream);
+                    
                     reconocedorGesto.OnGestureDetected += OnGestureDetected;
                     MouseController.Current.ClickGestureDetector = reconocedorGesto;
 
@@ -99,26 +153,22 @@ namespace GesturesViewer
         public void OnGestureDetected(string gesture)
         {
             //Obtener nombre del gesto sin extension
-            gesture = Path.GetFileNameWithoutExtension(gesture);
+            //gesture = Path.GetFileNameWithoutExtension(gesture);
             
-            nombreGesto.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
-            nombreGesto.VerticalAlignment = System.Windows.VerticalAlignment.Center;
-            nombreGesto.FontSize = 75;
-            nombreGesto.Margin = new Thickness(30, 0, 0, 0);
-            nombreGesto.Foreground = new SolidColorBrush(Colors.Red);
-            nombreGesto.Text = gesture;
-            nombreGesto.Visibility = System.Windows.Visibility.Visible;
-            
-            System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
-            //Establece en 3 segundos el tiempo para mostrar el nombre del gesto en pantalla. 
-            dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 2);
-            dispatcherTimer.Start(); 
+                repeticion_gesto = repeticion_gesto - 1;
+                nombreGesto.Text = repeticion_gesto.ToString();
+                int pos = detectedGestures.Items.Add(string.Format("{0} ---- {1}", gesture, DateTime.Now));
 
-            int pos = detectedGestures.Items.Add(string.Format("{0} ---- {1}", gesture, DateTime.Now));
-            object item = detectedGestures.Items[pos];
-            detectedGestures.ScrollIntoView(item);
-            detectedGestures.SelectedItem = item;
+                object item = detectedGestures.Items[pos];
+                detectedGestures.ScrollIntoView(item);
+                detectedGestures.SelectedItem = item;
+
+                if (repeticion_gesto == 0)
+                {
+                    reconocedorGesto.OnGestureDetected -= OnGestureDetected;
+                    cargarReplay();
+                }
+            
 
         }
 

@@ -8,10 +8,13 @@ namespace Kinect.Toolbox
     {
         public float Epsilon { get; set; }
         public float MinimalScore { get; set; }
+        public float MinimalScore2 { get; set; }
         public float MinimalSize { get; set; }
         readonly LearningMachine learningMachine;
         RecordedPath path;
         readonly string gestureName;
+        //string gestureName;
+       
 
         public bool IsRecordingPath
         {
@@ -23,13 +26,15 @@ namespace Kinect.Toolbox
             get { return learningMachine; }
         }
 
-        public TemplatedGestureDetector(string gestureName, Stream kbStream, int windowSize = 60)
+        public TemplatedGestureDetector(string gestureName, Stream kbStream, int windowSize = 100)
             : base(windowSize)
         {
+            //Epsilon = 0.035f;
             Epsilon = 0.035f;
             MinimalScore = 0.80f;
+            MinimalScore2 = 0.70f;
             MinimalSize = 0.1f;
-            this.gestureName = gestureName;
+            this.gestureName = Path.GetFileNameWithoutExtension(gestureName);
             learningMachine = new LearningMachine(kbStream);
         }
 
@@ -46,18 +51,24 @@ namespace Kinect.Toolbox
         protected override void LookForGesture()
         {
             if (LearningMachine.Match(Entries.Select(e => new Vector2(e.Position.X, e.Position.Y)).ToList(), Epsilon, MinimalScore, MinimalSize))
-                RaiseGestureDetected(gestureName);
-        }
+            {
+                            RaiseGestureDetected(gestureName);
+            }
+           
+
+         }
 
         public void StartRecordTemplate()
         {
             path = new RecordedPath(WindowSize);
         }
 
-        public void EndRecordTemplate()
+        public void  EndRecordTemplate()
         {
             LearningMachine.AddPath(path);
+            
             path = null;
+            
         }
 
         public void SaveState(Stream kbStream)
