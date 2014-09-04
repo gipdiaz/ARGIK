@@ -5,12 +5,18 @@ using System.Runtime.Serialization.Formatters.Binary;
 using Kinect.Toolbox.Gestures.Learning_Machine;
 using Microsoft.Win32;
 
+
 namespace Kinect.Toolbox
 {
     public class LearningMachine
     {
         readonly List<RecordedPath> paths;
+<<<<<<< HEAD
 
+=======
+        
+       
+>>>>>>> 167a4048b095f27733f0c2be509807dd9e20e33d
         public LearningMachine(Stream kbStream)
         {
             if (kbStream == null || kbStream.Length == 0)
@@ -30,6 +36,7 @@ namespace Kinect.Toolbox
             get { return paths; }
         }
         public string gestoNuevo { get; set; }
+        public string repeticion { get; set; }
 
         public string posturaNuevo { get; set; }
 
@@ -50,6 +57,7 @@ namespace Kinect.Toolbox
             path.CloseAndPrepare();
             Paths.Add(path);
             GuardarGesto();
+            
         }
 
         public void GuardarGesto()
@@ -63,6 +71,7 @@ namespace Kinect.Toolbox
                     Persist(recordStream);
                 }
             }
+            repeticion = Microsoft.VisualBasic.Interaction.InputBox("Ingrese cantidad de repeticiones: ");
         }
 
         public void AddPathPosture(RecordedPath path)

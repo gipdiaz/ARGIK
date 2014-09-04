@@ -32,13 +32,19 @@ namespace GesturesViewer
                 System.Console.WriteLine(order);
                 switch (order)
                 {
-                    case "grabar":
-                        System.Console.WriteLine("entro al grabar");
+                    case "grabar sesion":
                         DirectRecord(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "kinectRecord" + Guid.NewGuid() + ".replay"));
                         break;
-                    case "parar":
+                    case "parar sesion":
                         StopRecord();
                         break;
+                    case "grabar gesto":
+                        grabarListaGestos();
+                        break;
+                    case "detener gesto":
+                        grabarListaGestos();
+                        break;
+
                 }
             }));
         }

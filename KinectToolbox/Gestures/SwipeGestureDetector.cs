@@ -52,7 +52,7 @@ namespace Kinect.Toolbox
                 (p1, p2) => Math.Abs(p2.X - p1.X) > SwipeMinimalLength, // Length
                 SwipeMininalDuration, SwipeMaximalDuration)) // Duration
             {
-                RaiseGestureDetected("SwipeToRight");
+                RaiseGestureDetected("Deslizar a Derecha");
                 return;
             }
 
@@ -62,7 +62,7 @@ namespace Kinect.Toolbox
                 (p1, p2) => Math.Abs(p2.X - p1.X) > SwipeMinimalLength, // Length
                 SwipeMininalDuration, SwipeMaximalDuration))// Duration
             {
-                RaiseGestureDetected("SwipeToLeft");
+                RaiseGestureDetected("Deslizar a Izquierda");
                 return;
             }
         }
