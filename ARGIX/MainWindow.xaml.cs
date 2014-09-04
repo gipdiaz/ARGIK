@@ -33,10 +33,10 @@ namespace GesturesViewer
         SerializableDictionary<string, List<string>> diccionarioPaciente;
         //Sensor del Kinect
         KinectSensor kinectSensor;
-       
+
         //Joint que se trackea
         String jointSeleccionada;
-        
+
         //Gesto de la mano izquierda
         SwipeGestureDetector deslizarManoIzquierda;
 
@@ -93,7 +93,7 @@ namespace GesturesViewer
         /// <param name="bienvenida">The bienvenida.</param>
         public MainWindow(Bienvenida bienvenida)
         {
-            this.jointSeleccionada = bienvenida.jointSeleccionada;
+            this.articulacion_gesto = bienvenida.jointSeleccionada;
             this.diccionario = bienvenida.b;
             InitializeComponent();
         }
@@ -220,7 +220,7 @@ namespace GesturesViewer
             elevacionCamara.DataContext = nuiCamera;
 
             //Comandos que podran ser reconocidos por voz
-            voiceCommander = new VoiceCommander("grabar", "parar", "grabar gesto","parar gesto");
+            voiceCommander = new VoiceCommander("grabar gesto", "detener gesto");
             voiceCommander.OrderDetected += voiceCommander_OrderDetected;
             StartVoiceCommander();
 
@@ -325,60 +325,6 @@ namespace GesturesViewer
         {
             Dictionary<int, string> stabilities = new Dictionary<int, string>();
             JointType articulacion = verificarJoint(jointSeleccionada);
-
-            System.Console.WriteLine(frame.Skeletons.Count());
-            foreach (var skeleton in frame.Skeletons)
-            {
-                if (skeleton.TrackingState != SkeletonTrackingState.Tracked)
-                    continue;
-                contextTracker.Add(skeleton.Position.ToVector3(), skeleton.TrackingId);
-                stabilities.Add(skeleton.TrackingId, contextTracker.IsStableRelativeToCurrentSpeed(skeleton.TrackingId) ? "Estable" : "Inestable");
-                if (!contextTracker.IsStableRelativeToCurrentSpeed(skeleton.TrackingId))
-                    continue;
-
-                foreach (Joint joint in skeleton.Joints)
-                {
-                    if (kinectSensor != null)
-                    {
-                        parallelCombinedGestureDetector = new ParallelCombinedGestureDetector();
-                        parallelCombinedGestureDetector.OnGestureDetected += OnGestureDetected;
-                        parallelCombinedGestureDetector.Add(deslizarManoIzquierda);
-                        parallelCombinedGestureDetector.Add(reconocedorGesto);
-                        if (joint.TrackingState != JointTrackingState.Tracked)
-                            continue;
-                        //Si es la Joint seleccionada para detectar o generar el gesto inicializa la deteccion 
-                        if (joint.JointType == articulacion)
-                        {
-                            reconocedorGesto.Add(joint.Position, kinectSensor);
-                        }
-                        //verifica si la mano está dentro del boton
-                        if (joint.JointType == JointType.HandRight)
-                        {
-                            TrackHand(joint);
-                        }
-                        //Si la Joint es la mano izquierda detecta el Swipe hacia izquierda o derecha
-                        else if (joint.JointType == JointType.HandLeft)
-                        {
-                            deslizarManoIzquierda.Add(joint.Position, kinectSensor);
-                            //Habilita (si esta activada en la GUI) el manejo del mouse con la mano izquierda
-                            if (controlMouse.IsChecked == true)
-                                MouseController.Current.SetHandPosition(kinectSensor, joint, skeleton);
-                        }
-                    }
-                 }
-                //Inicializa las posturas
-                algorithmicPostureRecognizer.TrackPostures(skeleton);
-                //templatePostureDetector.TrackPostures(skeleton);
-                
-                //if (recordNextFrameForPosture)
-                //{
-                //    templatePostureDetector.AddTemplate(skeleton);
-                //}
-            }           
-            //Dibuja el esqueleto en la GUI
-            skeletonDisplayManager.Draw(frame.Skeletons, seatedMode.IsChecked == true);
-            stabilitiesList.ItemsSource = stabilities;            
-
             
             //Si hay esqueletos en la lista
             if (frame.Skeletons.Length > 0)
@@ -400,18 +346,7 @@ namespace GesturesViewer
                     {
                         if (kinectSensor != null)
                         {
-
-                            //parallelCombinedGestureDetector = new ParallelCombinedGestureDetector();
-                            //parallelCombinedGestureDetector.OnGestureDetected += OnGestureDetected;
-                            //parallelCombinedGestureDetector.Add(deslizarManoIzquierda);
-                            //parallelCombinedGestureDetector.Add(reconocedorGesto);
-                            //serialCombinedGestureDetector = new SerialCombinedGestureDetector();
-                            //serialCombinedGestureDetector.OnGestureDetected += OnGestureDetected;
-                            
-                            //serialCombinedGestureDetector.Add(deslizarManoIzquierda);
-                            //serialCombinedGestureDetector.Add(reconocedorGesto);
-                          
-
+                                                    
                             if (joint.TrackingState != JointTrackingState.Tracked)
                                 continue;
 
@@ -422,6 +357,8 @@ namespace GesturesViewer
                                     cargarGesto();
                                 reconocedorGesto.Add(joint.Position, kinectSensor);
                             }
+                            if (joint.JointType == articulacion && grabando)
+                                reconocedorGesto.Add(joint.Position, kinectSensor);
 
                             //verifica si la mano está dentro del boton
                             if (joint.JointType == JointType.HandRight)
@@ -609,6 +546,7 @@ namespace GesturesViewer
         {
 
             //Desearilzar el diccionario
+            grabando = false;
             XmlSerializer serializer = new XmlSerializer(typeof(SerializableDictionary<string, List<string>>));
             TextReader textReader = new StreamReader(@"Gaston Diaz.xml");
             diccionarioPaciente = (SerializableDictionary<string, List <string>>)serializer.Deserialize(textReader);
@@ -631,7 +569,7 @@ namespace GesturesViewer
         public void cargarGesto()
         {
             detectando = true;
-            System.Console.WriteLine("Entre al Cargar");
+            
             List<string> lista = new List<string>();
             if (diccionarioPaciente.TryGetValue("Gestos", out lista))
             {
@@ -666,10 +604,11 @@ namespace GesturesViewer
                     reconocedorGesto.OnGestureDetected += OnGestureDetected;
                     nombreGesto.Text = repeticion_gesto.ToString();
                     MouseController.Current.ClickGestureDetector = reconocedorGesto;
+                    //gesturesCanvas.Children.Clear();
                     reconocedorGesto.DisplayCanvas = gesturesCanvas;
-
-                    
                 }
+                else
+                    nombreGesto.Text = "¡BIEN HECHO!";
             }
         }
 
@@ -679,7 +618,7 @@ namespace GesturesViewer
         public void cargarReplay()
         {
             detectando = false;
-            System.Console.WriteLine("Entre al Replay");
+            grabando = false;
             List<string> lista = new List<string>();
             if (diccionarioPaciente.TryGetValue("Gestos", out lista))
             {
@@ -719,7 +658,7 @@ namespace GesturesViewer
                     replay.DepthImageFrameReady += replay_DepthImageFrameReady;
 
                     reconocedorGesto.OnGestureDetected -= OnGestureDetected;
-
+                    reconocedorGesto.DisplayCanvas = gesturesCanvas;
                     replay.Start();
 
                     nombreGesto.Text = "DEMO";

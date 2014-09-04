@@ -18,6 +18,7 @@ namespace GesturesViewer
        
         int nroGesto = 0;
         string nombreSesion;
+        bool grabando = false;
         /// <summary>
         /// Se inicializa el detector de gestos con un Stream default
         /// </summary>
@@ -61,6 +62,7 @@ namespace GesturesViewer
                 reconocedorGesto.OnGestureDetected -= OnGestureDetected;
                 CargarDetectorGestos();
                 reconocedorGesto.StartRecordTemplate();
+                grabando = true;
                 botonGrabarGesto.Content = "Pausar Grabacion";
                 nroGesto = nroGesto + 1;
                 nombreSesion = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "sesion"+ nroGesto +".replay");
@@ -81,11 +83,7 @@ namespace GesturesViewer
             diccionario.Add("Gestos", lista);
 
             botonGrabarGesto.Content = "Grabar Gesto";
-            for (int i = 0; i < (lista.Count); i++)
-            {
-                System.Console.WriteLine(lista[i]);
-            }
-
+            
         }
         /// <summary>
         /// Se activa la grabacion del gesto
