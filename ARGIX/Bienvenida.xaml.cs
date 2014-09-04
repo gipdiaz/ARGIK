@@ -101,7 +101,7 @@ namespace GesturesViewer
             b.Add("Paciente", paciente);
             b.Add("Precision", precision);
             b.Add("Gestos", gestos);
-
+           
 
             
 
