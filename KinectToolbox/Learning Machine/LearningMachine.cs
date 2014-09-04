@@ -11,12 +11,7 @@ namespace Kinect.Toolbox
     public class LearningMachine
     {
         readonly List<RecordedPath> paths;
-<<<<<<< HEAD
 
-=======
-        
-       
->>>>>>> 167a4048b095f27733f0c2be509807dd9e20e33d
         public LearningMachine(Stream kbStream)
         {
             if (kbStream == null || kbStream.Length == 0)

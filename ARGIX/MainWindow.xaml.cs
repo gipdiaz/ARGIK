@@ -17,7 +17,7 @@ using System.Windows.Media;
 namespace GesturesViewer
 {
     /// <summary>
-    /// Ventana Principal de la aplicacion. 
+    /// Ventana Principal de la aplicacion.
     /// Se muestra el menu de comandos y la imagen del Kinect
     /// </summary>
     public partial class MainWindow
@@ -34,11 +34,6 @@ namespace GesturesViewer
         //Sensor del Kinect
         KinectSensor kinectSensor;
        
-<<<<<<< HEAD
-=======
-        
-
->>>>>>> 167a4048b095f27733f0c2be509807dd9e20e33d
         //Joint que se trackea
         String jointSeleccionada;
         
@@ -64,11 +59,8 @@ namespace GesturesViewer
         
         //Detector de la combinacion de gestos
         ParallelCombinedGestureDetector parallelCombinedGestureDetector;
-<<<<<<< HEAD
-=======
+
         SerialCombinedGestureDetector serialCombinedGestureDetector;
-        readonly AlgorithmicPostureDetector algorithmicPostureRecognizer = new AlgorithmicPostureDetector();
->>>>>>> 167a4048b095f27733f0c2be509807dd9e20e33d
         
         //Postura
         readonly AlgorithmicPostureDetector algorithmicPostureRecognizer = new AlgorithmicPostureDetector();
@@ -94,11 +86,11 @@ namespace GesturesViewer
 
         //Para manejar los comandos por voz
         VoiceCommander voiceCommander;
-        
+
         /// <summary>
         /// Constructor de la ventana principal
         /// </summary>
-        /// <param name="jointSeleccionada"></param>
+        /// <param name="bienvenida">The bienvenida.</param>
         public MainWindow(Bienvenida bienvenida)
         {
             this.jointSeleccionada = bienvenida.jointSeleccionada;
@@ -106,12 +98,11 @@ namespace GesturesViewer
             InitializeComponent();
         }
 
-        
         /// <summary>
         /// Handles the StatusChanged event of the Kinects control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="StatusChangedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="StatusChangedEventArgs" /> instance containing the event data.</param>
         public void Kinects_StatusChanged(object sender, StatusChangedEventArgs e)
         {
             switch (e.Status)
@@ -242,10 +233,9 @@ namespace GesturesViewer
 
         /// <summary>
         /// Se encarga de manejar los frames de profundidad que llegan en tiempo real.
-        /// 
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="DepthImageFrameReadyEventArgs"/> instance containing the event data.</param>
         public void kinectSensor_DepthFrameReady(object sender, DepthImageFrameReadyEventArgs e)
         {
             if (replay != null && !replay.IsFinished)
@@ -267,8 +257,8 @@ namespace GesturesViewer
         /// <summary>
         /// Se encarga de manejar los frames a color (RGB) que llegan en tiempo real.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="ColorImageFrameReadyEventArgs"/> instance containing the event data.</param>
         public void kinectRuntime_ColorFrameReady(object sender, ColorImageFrameReadyEventArgs e)
         {
             if (replay != null && !replay.IsFinished)
@@ -295,8 +285,8 @@ namespace GesturesViewer
         /// Se encarga de manejar los frames del esqueleto que llegan en tiempo real.
         /// Llama a la funcion correspondiente para realizar el seguimiento del esqueleto
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="SkeletonFrameReadyEventArgs"/> instance containing the event data.</param>
         public void kinectRuntime_SkeletonFrameReady(object sender, SkeletonFrameReadyEventArgs e)
         {
             
@@ -335,7 +325,7 @@ namespace GesturesViewer
         {
             Dictionary<int, string> stabilities = new Dictionary<int, string>();
             JointType articulacion = verificarJoint(jointSeleccionada);
-<<<<<<< HEAD
+
             System.Console.WriteLine(frame.Skeletons.Count());
             foreach (var skeleton in frame.Skeletons)
             {
@@ -388,7 +378,7 @@ namespace GesturesViewer
             //Dibuja el esqueleto en la GUI
             skeletonDisplayManager.Draw(frame.Skeletons, seatedMode.IsChecked == true);
             stabilitiesList.ItemsSource = stabilities;            
-=======
+
             
             //Si hay esqueletos en la lista
             if (frame.Skeletons.Length > 0)
@@ -454,13 +444,12 @@ namespace GesturesViewer
 
                     //Inicializa las posturas
                     algorithmicPostureRecognizer.TrackPostures(skeleton);
-                    templatePostureDetector.TrackPostures(skeleton);
-
-                    if (recordNextFrameForPosture)
-                    {
-                        templatePostureDetector.AddTemplate(skeleton);
-                        recordNextFrameForPosture = false;
-                    }
+                    //templatePostureDetector.TrackPostures(skeleton);
+                
+                    //if (recordNextFrameForPosture)
+                    //{
+                    //    templatePostureDetector.AddTemplate(skeleton);
+                    //}
                 }
 
                 //Dibuja el esqueleto en la GUI
@@ -469,7 +458,6 @@ namespace GesturesViewer
 
             }
 
->>>>>>> 167a4048b095f27733f0c2be509807dd9e20e33d
         }
 
         /// <summary>
@@ -498,7 +486,7 @@ namespace GesturesViewer
         /// Cierra la ventana
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.ComponentModel.CancelEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="System.ComponentModel.CancelEventArgs" /> instance containing the event data.</param>
         public void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             Clean();
@@ -556,7 +544,7 @@ namespace GesturesViewer
         /// Abre la ventana del menu Replay. Permite seleccionar el archivo de sesion a repetir.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         public void replayButton_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog {Title = "Select filename", Filter = "Replay files|*.replay" };
@@ -581,7 +569,7 @@ namespace GesturesViewer
         /// Maneja los frames de profundidad de la repeticion
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="ReplayDepthImageFrameReadyEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="ReplayDepthImageFrameReadyEventArgs" /> instance containing the event data.</param>
         public void replay_DepthImageFrameReady(object sender, ReplayDepthImageFrameReadyEventArgs e)
         {
             if (!displayDepth)
@@ -593,7 +581,7 @@ namespace GesturesViewer
         /// Maneja los frames de color (RGB) de la repeticion
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="ReplayColorImageFrameReadyEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="ReplayColorImageFrameReadyEventArgs" /> instance containing the event data.</param>
         public void replay_ColorImageFrameReady(object sender, ReplayColorImageFrameReadyEventArgs e)
         {
             if (displayDepth)
@@ -606,7 +594,7 @@ namespace GesturesViewer
         /// Maneja los frames del esqueleto de la repeticion
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="ReplaySkeletonFrameReadyEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="ReplaySkeletonFrameReadyEventArgs" /> instance containing the event data.</param>
         public void replay_SkeletonFrameReady(object sender, ReplaySkeletonFrameReadyEventArgs e)
         {
             ProcessFrame(e.SkeletonFrame);
@@ -615,15 +603,9 @@ namespace GesturesViewer
         /// <summary>
         /// Activa la grabacion del gesto mediante el boton de la GUI
         /// </summary>
-<<<<<<< HEAD
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         public void botonGesto_Clicked(object sender, RoutedEventArgs e)          
-=======
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public void botonGesto_Clicked(object sender, RoutedEventArgs e)
->>>>>>> 167a4048b095f27733f0c2be509807dd9e20e33d
         {
 
             //Desearilzar el diccionario
@@ -646,8 +628,6 @@ namespace GesturesViewer
         /// <summary>
         /// Activa la grabacion del gesto mediante el boton de la GUI
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         public void cargarGesto()
         {
             detectando = true;
@@ -693,7 +673,9 @@ namespace GesturesViewer
             }
         }
 
-
+        /// <summary>
+        /// Cargars the replay.
+        /// </summary>
         public void cargarReplay()
         {
             detectando = false;
@@ -747,28 +729,14 @@ namespace GesturesViewer
             }
         }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 167a4048b095f27733f0c2be509807dd9e20e33d
         /// <summary>
         /// Boton Rojo de RA, genera el XML con la lista.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         public void botonGrabar_Clicked(object sender, RoutedEventArgs e)
  
         {
-<<<<<<< HEAD
-            if (botonGrabar.IsChecked)
-            {
-                DirectRecord(System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "kinectRecord" + Guid.NewGuid() + ".replay"));
-            }
-            else
-            {
-                StopRecord();
-            }
-=======
             XmlSerializer serializer = new XmlSerializer(typeof(SerializableDictionary<string, List<string>>));
             TextWriter textWriter = new StreamWriter(@"Gaston Diaz.xml");
             serializer.Serialize(textWriter, diccionario);
@@ -782,7 +750,6 @@ namespace GesturesViewer
             //    
             //}
             
->>>>>>> 167a4048b095f27733f0c2be509807dd9e20e33d
         }
 
         /// <summary>
@@ -819,7 +786,7 @@ namespace GesturesViewer
         /// Muestra la imagen de profundidad o RGB segun el usuario seleccione en la GUI
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         public void Depth_RGB_Click(object sender, RoutedEventArgs e)
         {
             displayDepth = !displayDepth;
@@ -838,16 +805,9 @@ namespace GesturesViewer
         /// <summary>
         /// Activa deteccion del gesto deslizar
         /// </summary>
-<<<<<<< HEAD
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
-        public void nearMode_Checked_1(object sender, RoutedEventArgs e)
-=======
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         public void botonDeslizar_Checked_1(object sender, RoutedEventArgs e)
->>>>>>> 167a4048b095f27733f0c2be509807dd9e20e33d
         {
             if (kinectSensor == null)
                 return;
@@ -858,15 +818,9 @@ namespace GesturesViewer
         /// <summary>
         /// Desactiva deteccion del gesto deslizar
         /// </summary>
-<<<<<<< HEAD
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
-        public void nearMode_Unchecked_1(object sender, RoutedEventArgs e)
-=======
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         public void botonDeslizar_Unchecked_1(object sender, RoutedEventArgs e)
->>>>>>> 167a4048b095f27733f0c2be509807dd9e20e33d
         {
             if (kinectSensor == null)
                 return;
@@ -876,7 +830,7 @@ namespace GesturesViewer
         /// Activa el modo  "sentado" de la aplicacion
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         public void seatedMode_Checked_1(object sender, RoutedEventArgs e)
         {
             if (kinectSensor == null)
@@ -888,7 +842,7 @@ namespace GesturesViewer
         /// Desactiva el modo "sentado" de la aplicacion
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         public void seatedMode_Unchecked_1(object sender, RoutedEventArgs e)
         {
             if (kinectSensor == null)
