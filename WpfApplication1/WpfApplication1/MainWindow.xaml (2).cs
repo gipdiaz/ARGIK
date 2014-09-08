@@ -182,7 +182,7 @@ namespace GesturesViewer
             botonGrabar.Click += new RoutedEventHandler(botonGrabar_Clicked);
             botonGesto.Click += new RoutedEventHandler(botonGesto_Clicked);
 
-            kinectSensor.ColorStream.Enable(ColorImageFormat..RgbResolution640x480Fps30);
+            kinectSensor.ColorStream.Enable(ColorImageFormat.RgbResolution640x480Fps30);
             kinectSensor.ColorFrameReady += kinectRuntime_ColorFrameReady;
 
             kinectSensor.DepthStream.Enable(DepthImageFormat.Resolution320x240Fps30);
