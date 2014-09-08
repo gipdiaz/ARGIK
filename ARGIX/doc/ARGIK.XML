@@ -86,13 +86,6 @@
             <param name="sender"></param>
             <param name="e"></param>
         </member>
-        <member name="M:GesturesViewer.MainWindow.deteccionGesto_Click(System.Object,System.Windows.RoutedEventArgs)">
-            <summary>
-            Se activa la deteccion del gesto seleccionado
-            </summary>
-            <param name="sender">The source of the event.</param>
-            <param name="e">The <see cref="T:System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
-        </member>
         <member name="M:GesturesViewer.MainWindow.OnGestureDetected(System.String)">
             <summary>
             Si se detecta el gesto seleccionado se muestra cuando se lo realiza correctamente

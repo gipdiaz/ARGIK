@@ -177,12 +177,13 @@ namespace GesturesViewer
                 return;
 
             audioManager = new AudioStreamManager(kinectSensor.AudioSource);
-            audioBeamAngle.DataContext = audioManager;
+            //audioBeamAngle.DataContext = audioManager;
 
             botonGrabar.Click += new RoutedEventHandler(botonGrabar_Clicked);
             botonGesto.Click += new RoutedEventHandler(botonGesto_Clicked);
 
-            kinectSensor.ColorStream.Enable(ColorImageFormat..RgbResolution640x480Fps30);
+            //kinectSensor.ColorStream.Enable(ColorImageFormat.RgbResolution640x480Fps30);
+            kinectSensor.ColorStream.Enable(ColorImageFormat.RgbResolution640x480Fps30);
             kinectSensor.ColorFrameReady += kinectRuntime_ColorFrameReady;
 
             kinectSensor.DepthStream.Enable(DepthImageFormat.Resolution320x240Fps30);
@@ -217,7 +218,7 @@ namespace GesturesViewer
            
             //Controla la elevacion de la camara con el slider de la GUI
             nuiCamera = new BindableNUICamera(kinectSensor);
-            elevacionCamara.DataContext = nuiCamera;
+            //elevacionCamara.DataContext = nuiCamera;
 
             //Comandos que podran ser reconocidos por voz
             voiceCommander = new VoiceCommander("grabar gesto", "detener gesto");
@@ -228,7 +229,7 @@ namespace GesturesViewer
             kinectDisplay.DataContext = colorManager;
 
             //Deshabilitar el boton de deteccion hasta que no haya un esqueleto
-            botonGrabarGesto.IsEnabled = false;
+            //botonGrabarGesto.IsEnabled = false;
             }
 
         /// <summary>
@@ -306,8 +307,8 @@ namespace GesturesViewer
                 //Si no hay esqueletos frente al sensor se deshabilitan opciones y se limpian los canvas
                 if (skeletons.All(s => s.TrackingState == SkeletonTrackingState.NotTracked))
                 {
-                    botonGrabarGesto.IsEnabled = false;
-                    botonGrabarGestoViejo.IsEnabled = false;
+                    //botonGrabarGesto.IsEnabled = false;
+                    //botonGrabarGestoViejo.IsEnabled = false;
                     gesturesCanvas.Children.Clear();
                     kinectCanvas.Children.Clear();
                     return;
@@ -329,8 +330,8 @@ namespace GesturesViewer
             //Si hay esqueletos en la lista
             if (frame.Skeletons.Length > 0)
             {
-                botonGrabarGesto.IsEnabled = true;
-                botonGrabarGestoViejo.IsEnabled = true;
+                //botonGrabarGesto.IsEnabled = true;
+                //botonGrabarGestoViejo.IsEnabled = true;
                 foreach (var skeleton in frame.Skeletons)
                 {
                     if (skeleton.TrackingState != SkeletonTrackingState.Tracked)
@@ -373,8 +374,8 @@ namespace GesturesViewer
                                 //    deslizarManoIzquierda.Add(joint.Position, kinectSensor);
 
                                 //Habilita (si esta activada en la GUI) el manejo del mouse con la mano izquierda
-                                if (controlMouse.IsChecked == true)
-                                    MouseController.Current.SetHandPosition(kinectSensor, joint, skeleton);
+                                //if (controlMouse.IsChecked == true)
+                                //    MouseController.Current.SetHandPosition(kinectSensor, joint, skeleton);
                             }
                         }
                     }
@@ -390,8 +391,9 @@ namespace GesturesViewer
                 }
 
                 //Dibuja el esqueleto en la GUI
-                skeletonDisplayManager.Draw(frame.Skeletons, seatedMode.IsChecked == true);
-                stabilitiesList.ItemsSource = stabilities;
+                //skeletonDisplayManager.Draw(frame.Skeletons, seatedMode.IsChecked == true);
+                skeletonDisplayManager.Draw(frame.Skeletons, true);
+                //stabilitiesList.ItemsSource = stabilities;
 
             }
 
@@ -551,7 +553,7 @@ namespace GesturesViewer
             TextReader textReader = new StreamReader(@"Gaston Diaz.xml");
             diccionarioPaciente = (SerializableDictionary<string, List <string>>)serializer.Deserialize(textReader);
             cargarReplay();
-            botonDetectarGesto.Content = "Pausar Detección azul";
+            //botonDetectarGesto.Content = "Pausar Detección azul";
             reconocedorGesto.DisplayCanvas = gesturesCanvas;
             //Limpiar puntos cuando cierra el cuadro de dialogo
             // gesturesCanvas.Children.Clear();
@@ -731,12 +733,12 @@ namespace GesturesViewer
             displayDepth = !displayDepth;
             if (displayDepth)
             {
-                viewButton.Content = "RGB";
+                //viewButton.Content = "RGB";
                 kinectDisplay.DataContext = depthManager;
             }
             else
             {
-                viewButton.Content = "Profundidad";
+                //viewButton.Content = "Profundidad";
                 kinectDisplay.DataContext = colorManager;
             }
         }

@@ -63,7 +63,7 @@ namespace GesturesViewer
                 CargarDetectorGestos();
                 reconocedorGesto.StartRecordTemplate();
                 grabando = true;
-                botonGrabarGesto.Content = "Pausar Grabacion";
+                //botonGrabarGesto.Content = "Pausar Grabacion";
                 nroGesto = nroGesto + 1;
                 nombreSesion = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "sesion"+ nroGesto +".replay");
                 DirectRecord(nombreSesion);
@@ -82,7 +82,7 @@ namespace GesturesViewer
             diccionario.Remove("Gestos");
             diccionario.Add("Gestos", lista);
 
-            botonGrabarGesto.Content = "Grabar Gesto";
+            //botonGrabarGesto.Content = "Grabar Gesto";
             
         }
         /// <summary>
@@ -96,7 +96,7 @@ namespace GesturesViewer
             if (reconocedorGesto.IsRecordingPath)
             {
                 reconocedorGesto.EndRecordTemplate();
-                botonGrabarGestoViejo.Content = "Grabar Gesto Viejo";
+                //botonGrabarGestoViejo.Content = "Grabar Gesto Viejo";
 
             }
             else
@@ -104,7 +104,7 @@ namespace GesturesViewer
                 reconocedorGesto.OnGestureDetected -= OnGestureDetected;
                 CargarDetectorGestos();
                 reconocedorGesto.StartRecordTemplate();
-                botonGrabarGestoViejo.Content = "Pausar Grabacion Viejo";
+                //botonGrabarGestoViejo.Content = "Pausar Grabacion Viejo";
             }
         }
 
@@ -113,34 +113,34 @@ namespace GesturesViewer
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
-        public void deteccionGesto_Click(object sender, RoutedEventArgs e)
-        {
-            if (botonDetectarGesto.Content.ToString() == "Detectar Gesto")
-            {
+        //public void deteccionGesto_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (botonDetectarGesto.Content.ToString() == "Detectar Gesto")
+        //    {
            
-                OpenFileDialog openFileDialog = new OpenFileDialog { Title = "Select filename", Filter = "Gestos files|*.save" };
-                if (openFileDialog.ShowDialog() == true)
-                {
-                    Stream recordStream = new FileStream(openFileDialog.FileName, FileMode.Open);
-                    reconocedorGesto = new TemplatedGestureDetector(openFileDialog.FileName, recordStream);
+        //        OpenFileDialog openFileDialog = new OpenFileDialog { Title = "Select filename", Filter = "Gestos files|*.save" };
+        //        if (openFileDialog.ShowDialog() == true)
+        //        {
+        //            Stream recordStream = new FileStream(openFileDialog.FileName, FileMode.Open);
+        //            reconocedorGesto = new TemplatedGestureDetector(openFileDialog.FileName, recordStream);
                     
-                    reconocedorGesto.OnGestureDetected += OnGestureDetected;
+        //            reconocedorGesto.OnGestureDetected += OnGestureDetected;
 
-                    MouseController.Current.ClickGestureDetector = reconocedorGesto;
+        //            MouseController.Current.ClickGestureDetector = reconocedorGesto;
 
-                    botonDetectarGesto.Content = "Pausar Detección";
-                    reconocedorGesto.DisplayCanvas = gesturesCanvas;              
-                }
+        //            botonDetectarGesto.Content = "Pausar Detección";
+        //            reconocedorGesto.DisplayCanvas = gesturesCanvas;              
+        //        }
 
-                //Limpiar puntos cuando cierra el cuadro de dialogo
-                gesturesCanvas.Children.Clear();
-            }
-            else
-            {
-                botonDetectarGesto.Content = "Detectar Gesto";
-                reconocedorGesto.OnGestureDetected -= OnGestureDetected;
-            }
-        }
+        //        //Limpiar puntos cuando cierra el cuadro de dialogo
+        //        gesturesCanvas.Children.Clear();
+        //    }
+        //    else
+        //    {
+        //        botonDetectarGesto.Content = "Detectar Gesto";
+        //        reconocedorGesto.OnGestureDetected -= OnGestureDetected;
+        //    }
+        //}
 
         /// <summary>
         /// Si se detecta el gesto seleccionado se muestra cuando se lo realiza correctamente
@@ -154,11 +154,11 @@ namespace GesturesViewer
             
                 repeticion_gesto = repeticion_gesto - 1;
                 nombreGesto.Text = repeticion_gesto.ToString();
-                int pos = detectedGestures.Items.Add(string.Format("{0} ---- {1}", gesture, DateTime.Now));
 
-                object item = detectedGestures.Items[pos];
-                detectedGestures.ScrollIntoView(item);
-                detectedGestures.SelectedItem = item;
+                //int pos = detectedGestures.Items.Add(string.Format("{0} ---- {1}", gesture, DateTime.Now));
+                //object item = detectedGestures.Items[pos];
+                //detectedGestures.ScrollIntoView(item);
+                //detectedGestures.SelectedItem = item;
 
                 if (repeticion_gesto == 0)
                 {

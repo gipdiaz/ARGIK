@@ -24,8 +24,8 @@ namespace GesturesViewer
             System.Console.WriteLine("Orden Detectada");
             Dispatcher.Invoke(new Action(() =>
             {
-                if (audioControl.IsChecked == false)
-                    return;
+                //if (audioControl.IsChecked == false)
+                //    return;
 
                 System.Console.WriteLine(order);
                 switch (order)

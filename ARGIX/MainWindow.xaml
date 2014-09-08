@@ -10,80 +10,23 @@
         Loaded="Window_Loaded"
         Closing="Window_Closing"        
         WindowState="Maximized"    
-        Title="ARGIK" Height="700" Width="1000" MinHeight="700" MinWidth="1000" MaxHeight="700" MaxWidth="1000">
+        Title="ARGIK" Height="768" Width="1366" MinHeight="768" MinWidth="1366" MaxHeight="768" MaxWidth="1366" WindowStyle="None" ResizeMode="NoResize">
 
     <Window.Resources>
-        <ResourceDictionary>
-
-            <Style TargetType="{x:Type TextBlock}">
-                <Setter Property="FontFamily" Value="Segoe UI"/>
-                <Setter Property="FontSize" Value="20"/>
-                <Setter Property="Foreground" Value="#FF999999"/>
-            </Style>
-            <Style TargetType="{x:Type Button}">
-                <Setter Property="FontFamily" Value="Segoe UI"/>
-                <Setter Property="FontSize" Value="20"/>
-                <Setter Property="Width" Value="200"/>
-            </Style>
-            <Style TargetType="{x:Type CheckBox}">
-                <Setter Property="FontFamily" Value="Segoe UI"/>
-                <Setter Property="FontSize" Value="20"/>
-            </Style>
-            <!--<Style TargetType="{x:Type Button}">
-                <Setter Property="Button.Background">
-                    <Setter.Value>
-                        <ImageBrush ImageSource="images/circle_blue.png" />
-                    </Setter.Value>
-                </Setter>
-                <Style.Triggers>
-                    <Trigger Property="Button.IsPressed" Value="True">
-                        <Setter Property="Button.Background">
-                            <Setter.Value>
-                                <ImageBrush ImageSource="images/red_blue.png" />
-                            </Setter.Value>
-                        </Setter>
-                    </Trigger>
-                </Style.Triggers>
-            </Style>-->
-
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="ButtonResources.xaml"/>
-                <ResourceDictionary Source="GlassButton.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-
-        </ResourceDictionary>
-
     </Window.Resources>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="250"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="300"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="100"/>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="100"/>
-            <RowDefinition Height="*" MinHeight="30"/>
-        </Grid.RowDefinitions>
-        <Rectangle Grid.RowSpan="7">
-            <Rectangle.Fill>
-                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                    <GradientStop Color="#FFCECECE" Offset="0"/>
-                    <GradientStop Color="#FFDEDEDE" Offset="0.8"/>
-                    <GradientStop Color="White" Offset="1"/>
-                </LinearGradientBrush>
-            </Rectangle.Fill>
-        </Rectangle>
-        <Viewbox Margin="5" Grid.RowSpan="6">
+	<Window.Background>
+		<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+			<GradientStop Color="#FF201F29" Offset="0.017"/>
+			<GradientStop Color="#FF0A194D" Offset="1"/>
+		</LinearGradientBrush>
+	</Window.Background>
+    <Grid Width="640" Height="480" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Viewbox Margin="5" Grid.RowSpan="6" Width="640" Height="480">
             <Grid Width="640" Height="480" ClipToBounds="True" Name="LayoutRoot">
 
-                <Image x:Name="kinectDisplay" Source="{Binding Bitmap}"/>
-                <Image x:Name="logo" Source="/ARGIK;component/images/Logo 2.jpg" VerticalAlignment="Top" HorizontalAlignment="Left" Width="200"/>
-                <Controls:HoverButton Visibility="Visible" x:Name="botonGrabar" ImageSize="100" ImageSource="/ARGIK;component/images/RedButton-Active.png" ActiveImageSource="/ARGIK;component/images/RedButton-Hover.png"   TimeInterval="3000"  HorizontalAlignment="Right" Height="60" Width="60"  Margin="0,30,0,350"/>
-                <Controls:HoverButton Visibility="Visible" x:Name="botonGesto" ImageSize="100" ImageSource="/ARGIK;component/images/BlueButton-Active.png" ActiveImageSource="/ARGIK;component/images/BlueButton-Hover.png"   TimeInterval="3000"   HorizontalAlignment="Right" Height="60" Width="60"  Margin="0,163,1,257" />
+                <Image x:Name="kinectDisplay" Source="{Binding Bitmap}" Width="640" Height="480"/>
+                <Controls:HoverButton Visibility="Visible" x:Name="botonGrabar" ImageSize="100" ImageSource="/ARGIK;component/images/RedButton-Active.png" ActiveImageSource="/ARGIK;component/images/RedButton-Hover.png"   TimeInterval="3000"  HorizontalAlignment="Right" Height="60" Width="60"  Margin="0,107.975,9.261,272.025" VerticalAlignment="Center"/>
+                <Controls:HoverButton Visibility="Visible" x:Name="botonGesto" ImageSize="100" ImageSource="/ARGIK;component/images/BlueButton-Active.png" ActiveImageSource="/ARGIK;component/images/BlueButton-Hover.png"   TimeInterval="3000"   HorizontalAlignment="Right" Height="60" Width="60"  Margin="0,234.991,9.261,145.009" VerticalAlignment="Center" />
                 
                 <Canvas x:Name="kinectCanvas" Background="Transparent"/>
                 
@@ -96,62 +39,7 @@
 
             </Grid>
         </Viewbox>
-        <Grid Margin="10,51,10,4" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2">
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <CheckBox Content="Voz" x:Name="audioControl" VerticalAlignment="Center" d:LayoutOverrides="Width"/>
-                <Button Style="{StaticResource Blue}" Content="Grabar Sesión" x:Name="recordOption" Click="recordOption_Click" VerticalAlignment="Center" Width="169" Margin="10,9,0,9"/>
-            </StackPanel>
-            <Button Style="{StaticResource Blue}" Content="Repetir Sesion" x:Name="replayButton" Click="replayButton_Click" VerticalAlignment="Center" Grid.Row="1" Width="Auto"/>
-            <Button Style="{StaticResource Blue}" Content="Grabar Gesto" x:Name="botonGrabarGesto" Click="grabarGesto_Click" VerticalAlignment="Center" Grid.Row="2" Width="Auto"/>
-            <Button Style="{StaticResource Blue}" Content="Grabar Gesto Viejo" x:Name="botonGrabarGestoViejo" Click="grabarGestoViejo_Click" VerticalAlignment="Center" Grid.Row="3" Width="Auto"/>
-            <Button Style="{StaticResource Blue}" Content="Detectar Gesto" x:Name="botonDetectarGesto" Click="deteccionGesto_Click" VerticalAlignment="Center" Grid.Row="4" Width="Auto"/>
-            <!--<CheckBox Content="Detectar Gesto Deslizar" x:Name="botonDeslizar" Grid.Row="4" VerticalContentAlignment="Top" />-->
-            <CheckBox Content="Modo Sentado" x:Name="seatedMode" Grid.Row="5" VerticalContentAlignment="Top" Checked="seatedMode_Checked_1" Unchecked="seatedMode_Unchecked_1"/>
-            <CheckBox Content="Controlar Mouse" x:Name="controlMouse" Grid.Row="6" VerticalContentAlignment="Top"/>
-        </Grid>
-        <TextBlock Text="Gestos Detectados"   Grid.Column="1" Grid.Row="2" Margin="7,16,1,92" Grid.RowSpan="2"/>
-        <ListBox x:Name="detectedGestures" FontSize="20" Grid.Column="1" Margin="6,42,14,98" Grid.Row="3" Grid.RowSpan="3"/>
-        <StackPanel Grid.Row="6" Margin="212,0" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Rectangle x:Name="audioBeamAngle" Height="20" Width="300" Margin="5">
-                <Rectangle.Fill>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="1, 0">
-                        <LinearGradientBrush.GradientStops>
-                            <GradientStopCollection>
-                                <GradientStop Offset="0" Color="Black"/>
-                                <GradientStop Offset="{Binding BeamAngle}" Color="Orange"/>
-                                <GradientStop Offset="1" Color="Black"/>
-                            </GradientStopCollection>
-                        </LinearGradientBrush.GradientStops>
-                    </LinearGradientBrush>
-                </Rectangle.Fill>
-            </Rectangle>
-            <StackPanel Orientation="Horizontal" />
-        </StackPanel>
-        <TextBlock Text="Estado del Esqueleto" Grid.Column="1" Grid.Row="5" Margin="8,14,-8,56" />
-        <ListBox x:Name="stabilitiesList" FontSize="20" Grid.Column="1" Grid.Row="5" Margin="7,45,13,8">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Key}"/>
-                        <TextBlock Text=": "/>
-                        <TextBlock Text="{Binding Value}"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-
-
-        <Slider Minimum="{Binding ElevationMinimum}" Maximum="{Binding ElevationMaximum}" Value="{Binding ElevationAngle, Mode=TwoWay}" x:Name="elevacionCamara" Orientation="Vertical" Grid.RowSpan="7"/>
-        <Button Grid.RowSpan="2" Content="Profundidad" Margin="267,10,267,0" HorizontalAlignment="Center" VerticalAlignment="Top" Click="Depth_RGB_Click" x:Name="viewButton"/>
+        <Image x:Name="logo" Source="/ARGIK;component/images/Logo 2.jpg" VerticalAlignment="Top" HorizontalAlignment="Center" Width="200" Margin="220,-116.512,220,0"/>
         
 
     </Grid>

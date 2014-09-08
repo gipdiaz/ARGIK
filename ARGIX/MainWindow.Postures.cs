@@ -54,11 +54,12 @@ namespace GesturesViewer
         {
             //MessageBox.Show("Give me a......." + posture);
 
-            posture = Path.GetFileNameWithoutExtension(posture);
-            int pos = detectedGestures.Items.Add(string.Format("{0} : {1}", posture, DateTime.Now));
-            object item = detectedGestures.Items[pos];
-            detectedGestures.ScrollIntoView(item);
-            detectedGestures.SelectedItem = item;
+            // VER QUE CONCHA HACER CON ESTO
+            //posture = Path.GetFileNameWithoutExtension(posture);
+            //int pos = detectedGestures.Items.Add(string.Format("{0} : {1}", posture, DateTime.Now));
+            //object item = detectedGestures.Items[pos];
+            //detectedGestures.ScrollIntoView(item);
+            //detectedGestures.SelectedItem = item;
         }       
     }
 }
