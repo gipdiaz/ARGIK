@@ -4,6 +4,45 @@
         <name>ARGIK</name>
     </assembly>
     <members>
+        <member name="T:GesturesViewer.Joints">
+            <summary>
+            Interaction logic for Page.xaml
+            </summary>
+            <summary>
+            Joints
+            </summary>
+        </member>
+        <member name="M:GesturesViewer.Joints.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:GesturesViewer.MenuPrincipal">
+            <summary>
+            Lógica de interacción para MenuPrincipal.xaml
+            </summary>
+            <summary>
+            MenuPrincipal
+            </summary>
+        </member>
+        <member name="M:GesturesViewer.MenuPrincipal.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:GesturesViewer.VentanaPrincipal">
+            <summary>
+            Interaction logic for MainWindow.xaml
+            </summary>
+            <summary>
+            VentanaPrincipal
+            </summary>
+        </member>
+        <member name="M:GesturesViewer.VentanaPrincipal.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
         <member name="T:TestearToolbox.App">
             <summary>
             Lógica de interacción para App.xaml
