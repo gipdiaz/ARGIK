@@ -107,11 +107,9 @@ namespace GesturesViewer
 
             
 
-            //Arranca la aplicacion posta
+            
 
-            MainWindow window = new MainWindow(this);
-            this.Close();
-            window.Show();
+            
         }
         
 
