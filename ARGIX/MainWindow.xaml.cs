@@ -52,7 +52,7 @@ namespace GesturesViewer
         AudioStreamManager audioManager;
 
         //Texto que se muestra en pantalla con el nombre del gesto
-        TextBlock nombreGesto = new TextBlock();
+        TextBlock repeticionesDisplay = new TextBlock();
 
         //Trackeador del contexto
         readonly ContextTracker contextTracker = new ContextTracker();
@@ -91,10 +91,10 @@ namespace GesturesViewer
         /// Constructor de la ventana principal
         /// </summary>
         /// <param name="bienvenida">The bienvenida.</param>
-        public MainWindow(Bienvenida bienvenida)
+        public MainWindow(Joints joints)
         {
-            this.articulacion_gesto = bienvenida.jointSeleccionada;
-            this.diccionario = bienvenida.b;
+            this.articulacion_gesto = joints.jointSeleccionada;
+            this.diccionario = joints.b;
             InitializeComponent();
         }
 
@@ -181,6 +181,7 @@ namespace GesturesViewer
 
             botonGrabar.Click += new RoutedEventHandler(botonGrabar_Clicked);
             botonGesto.Click += new RoutedEventHandler(botonGesto_Clicked);
+            botonArticulacion.Click += new RoutedEventHandler(botonArticulacion_Clicked);
 
             //kinectSensor.ColorStream.Enable(ColorImageFormat.RgbResolution640x480Fps30);
             kinectSensor.ColorStream.Enable(ColorImageFormat.RgbResolution640x480Fps30);
@@ -209,8 +210,8 @@ namespace GesturesViewer
 
             //Se añade el texto al grid para que muestre el nombre del texto
            
-            nombreGesto.Text = "";
-            LayoutRoot.Children.Add(nombreGesto);
+            repeticionesDisplay.Text = "";
+            LayoutRoot.Children.Add(repeticionesDisplay);
             //Configura la deteccion de gestos y posturas
 
             CargarDetectorGestos();
@@ -590,11 +591,11 @@ namespace GesturesViewer
                     sesion_gesto = lista[3];
 
                     //Mostrar repeticiones
-                    nombreGesto.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
-                    nombreGesto.VerticalAlignment = System.Windows.VerticalAlignment.Center;
-                    nombreGesto.FontSize = 75;
-                    nombreGesto.Margin = new Thickness(30, 0, 0, 0);
-                    nombreGesto.Foreground = new SolidColorBrush(Colors.Red);
+                    repeticionesDisplay.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
+                    repeticionesDisplay.VerticalAlignment = System.Windows.VerticalAlignment.Center;
+                    repeticionesDisplay.FontSize = 75;
+                    repeticionesDisplay.Margin = new Thickness(30, 0, 0, 0);
+                    repeticionesDisplay.Foreground = new SolidColorBrush(Colors.Red);
 
                     lista.RemoveRange(0, 4);
                     diccionarioPaciente.Remove("Gestos");
@@ -604,13 +605,13 @@ namespace GesturesViewer
                     Stream recordStream = new FileStream(nombre_gesto, FileMode.Open);
                     reconocedorGesto = new TemplatedGestureDetector(nombre_gesto, recordStream);
                     reconocedorGesto.OnGestureDetected += OnGestureDetected;
-                    nombreGesto.Text = repeticion_gesto.ToString();
+                    repeticionesDisplay.Text = repeticion_gesto.ToString();
                     MouseController.Current.ClickGestureDetector = reconocedorGesto;
                     //gesturesCanvas.Children.Clear();
                     reconocedorGesto.DisplayCanvas = gesturesCanvas;
                 }
                 else
-                    nombreGesto.Text = "¡BIEN HECHO!";
+                    repeticionesDisplay.Text = "¡BIEN HECHO!";
             }
         }
 
@@ -638,11 +639,11 @@ namespace GesturesViewer
                     sesion_gesto = lista[3];
 
                     //Mostrar repeticiones
-                    nombreGesto.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
-                    nombreGesto.VerticalAlignment = System.Windows.VerticalAlignment.Center;
-                    nombreGesto.FontSize = 75;
-                    nombreGesto.Margin = new Thickness(30, 0, 0, 0);
-                    nombreGesto.Foreground = new SolidColorBrush(Colors.Red);
+                    repeticionesDisplay.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
+                    repeticionesDisplay.VerticalAlignment = System.Windows.VerticalAlignment.Center;
+                    repeticionesDisplay.FontSize = 75;
+                    repeticionesDisplay.Margin = new Thickness(30, 0, 0, 0);
+                    repeticionesDisplay.Foreground = new SolidColorBrush(Colors.Red);
 
                     //Repetir la sesion del gesto grabado 
                     if (replay != null)
@@ -663,8 +664,8 @@ namespace GesturesViewer
                     reconocedorGesto.DisplayCanvas = gesturesCanvas;
                     replay.Start();
 
-                    nombreGesto.Text = "DEMO";
-                    nombreGesto.Visibility = System.Windows.Visibility.Visible;
+                    repeticionesDisplay.Text = "DEMO";
+                    repeticionesDisplay.Visibility = System.Windows.Visibility.Visible;
 
                 }
             }
@@ -693,6 +694,13 @@ namespace GesturesViewer
             
         }
 
+        public void botonArticulacion_Clicked(object sender, RoutedEventArgs e)
+        {
+            Joints jointsNuevo = new Joints();
+            this.Close();
+            jointsNuevo.Show();
+        }
+
         /// <summary>
         /// Verifica si la mano derecha esta sobre alguno de los botones de la GUI con RA
         /// </summary>
@@ -707,9 +715,12 @@ namespace GesturesViewer
                 // Recupera la posición de los botones
                 var transform = botonGrabar.TransformToVisual(LayoutRoot);
                 var transform2 = botonGesto.TransformToVisual(LayoutRoot);
+                var transform3 = botonArticulacion.TransformToVisual(LayoutRoot);
+                
                 Point topLeftRojo = transform.Transform(new Point(0, 0));
                 Point topLeftAzul = transform2.Transform(new Point(0, 0));;
-
+                Point topLeftNegro = transform2.Transform(new Point(0, 0)); 
+                
                 // Verifica si el punto trackeado esta sobre el boton
                 if ( Math.Abs(puntoMano.X -  (topLeftRojo.X + botonGrabar.Width)) < 30 && Math.Abs(puntoMano.Y - topLeftRojo.Y) < 30 )
                     botonGrabar.Hovering();
@@ -720,8 +731,14 @@ namespace GesturesViewer
                 if (Math.Abs(puntoMano.X - (topLeftAzul.X + botonGesto.Width)) < 30 && Math.Abs(puntoMano.Y - topLeftAzul.Y) < 30 )         
                     botonGesto.Hovering();
                 else 
-                    botonGesto.Release();                               
-            }
+                    botonGesto.Release();
+
+                if (Math.Abs(puntoMano.X - (topLeftNegro.X + botonArticulacion.Width)) < 30 && Math.Abs(puntoMano.Y - topLeftNegro.Y) < 30)
+                    botonArticulacion.Hovering();
+                else
+                    botonArticulacion.Release();
+
+        }
 
         /// <summary>
         /// Muestra la imagen de profundidad o RGB segun el usuario seleccione en la GUI

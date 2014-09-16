@@ -45,6 +45,7 @@ namespace GesturesViewer
         {
             grabarListaGestos();
         }
+
         public void grabarListaGestos()
         {
             
@@ -77,7 +78,7 @@ namespace GesturesViewer
             //lista.Add(Path.GetFileNameWithoutExtension(reconocedorGesto.LearningMachine.gestoNuevo));
             lista.Add(reconocedorGesto.LearningMachine.gestoNuevo);
             lista.Add(reconocedorGesto.LearningMachine.repeticion);
-            lista.Add("Mano Derecha");
+            lista.Add(jointSeleccionada);
             lista.Add(nombreSesion);
             diccionario.Remove("Gestos");
             diccionario.Add("Gestos", lista);
@@ -153,7 +154,7 @@ namespace GesturesViewer
             //gesture = Path.GetFileNameWithoutExtension(gesture);
             
                 repeticion_gesto = repeticion_gesto - 1;
-                nombreGesto.Text = repeticion_gesto.ToString();
+                repeticionesDisplay.Text = repeticion_gesto.ToString();
 
                 //int pos = detectedGestures.Items.Add(string.Format("{0} ---- {1}", gesture, DateTime.Now));
                 //object item = detectedGestures.Items[pos];

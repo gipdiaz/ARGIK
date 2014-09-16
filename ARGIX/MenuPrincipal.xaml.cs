@@ -40,6 +40,7 @@ namespace GesturesViewer
             InitializeButtons();
             this.WindowState = System.Windows.WindowState.Maximized;
             this.WindowStyle = System.Windows.WindowStyle.None;
+           
 
             if (Generics.LoadingStatus == 0)
             {
@@ -319,7 +320,7 @@ namespace GesturesViewer
             
             UnregisterEvents();
             //Se abre la ventana siguiente, para elegir los joints
-            Joints jointMenu = new Joints(this);
+            Joints jointMenu = new Joints();
             this.Close();
             jointMenu.Show();
   
