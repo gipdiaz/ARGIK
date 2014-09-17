@@ -183,7 +183,7 @@
             </summary>
             <param name="order">La orden.</param>
         </member>
-        <member name="M:GesturesViewer.MainWindow.#ctor(GesturesViewer.Joints)">
+        <member name="M:GesturesViewer.MainWindow.#ctor">
             <summary>
             Constructor de la ventana principal
             </summary>

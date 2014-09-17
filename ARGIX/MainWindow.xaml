@@ -6,7 +6,7 @@
         xmlns:Controls="clr-namespace:Coding4Fun.Kinect.Wpf.Controls;assembly=Coding4Fun.Kinect.Wpf"
 
 
-
+        
         Loaded="Window_Loaded"
         Closing="Window_Closing"        
         WindowState="Maximized"    

@@ -29,7 +29,9 @@ namespace GesturesViewer
 
         bool detectando;
 
+
         SerializableDictionary<string, List<string>> diccionario;
+        
         SerializableDictionary<string, List<string>> diccionarioPaciente;
         //Sensor del Kinect
         KinectSensor kinectSensor;
@@ -91,10 +93,10 @@ namespace GesturesViewer
         /// Constructor de la ventana principal
         /// </summary>
         /// <param name="bienvenida">The bienvenida.</param>
-        public MainWindow(Joints joints)
+        public MainWindow()
         {
-            this.articulacion_gesto = joints.jointSeleccionada;
-            this.diccionario = joints.b;
+            //this.articulacion_gesto = joints.jointSeleccionada;
+            //this.diccionario = joints.b;
             InitializeComponent();
         }
 
@@ -168,6 +170,38 @@ namespace GesturesViewer
             }
         }
 
+        public void inicializar()
+        {
+            try
+            {
+                //Controla los eventos que tienen que ver con el cambio de estado del sensor
+                KinectSensor.KinectSensors.StatusChanged += Kinects_StatusChanged;
+
+                //Busca los sensores conectados y acciona el que ya se encuentra listo
+                foreach (KinectSensor kinect in KinectSensor.KinectSensors)
+                {
+                    if (kinect.Status == KinectStatus.Connected)
+                    {
+                        kinectSensor = kinect;
+                        break;
+                    }
+                }
+                if (KinectSensor.KinectSensors.Count == 0)
+                    MessageBox.Show("No se encontro un Kinect conectado");
+                else
+                    Initialize();
+                    
+
+                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+
+        
         /// <summary>
         /// Initializes this instance.
         /// </summary>
@@ -180,7 +214,7 @@ namespace GesturesViewer
             //audioBeamAngle.DataContext = audioManager;
 
             botonGrabar.Click += new RoutedEventHandler(botonGrabar_Clicked);
-            botonGesto.Click += new RoutedEventHandler(botonGesto_Clicked);
+            //botonGesto.Click += new RoutedEventHandler(botonGesto_Clicked);
             botonArticulacion.Click += new RoutedEventHandler(botonArticulacion_Clicked);
 
             //kinectSensor.ColorStream.Enable(ColorImageFormat.RgbResolution640x480Fps30);
@@ -326,7 +360,7 @@ namespace GesturesViewer
         public void ProcessFrame(ReplaySkeletonFrame frame)
         {
             Dictionary<int, string> stabilities = new Dictionary<int, string>();
-            JointType articulacion = verificarJoint(jointSeleccionada);
+            JointType articulacion = verificarJoint(articulacion_gesto);
             
             //Si hay esqueletos en la lista
             if (frame.Skeletons.Length > 0)
@@ -430,6 +464,67 @@ namespace GesturesViewer
         public void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             Clean();
+        }
+        public void nuevoClean()
+        {
+            if (deslizarManoIzquierda != null)
+            {
+                deslizarManoIzquierda.OnGestureDetected -= OnGestureDetected;
+            }
+
+            if (audioManager != null)
+            {
+                audioManager.Dispose();
+                audioManager = null;
+            }
+
+            if (parallelCombinedGestureDetector != null)
+            {
+                parallelCombinedGestureDetector.Remove(deslizarManoIzquierda);
+                parallelCombinedGestureDetector.Remove(reconocedorGesto);
+            }
+
+            CerrarDetectorGestos();
+
+            ClosePostureDetector();
+
+            if (voiceCommander != null)
+            {
+                voiceCommander.OrderDetected -= voiceCommander_OrderDetected;
+                voiceCommander.Stop();
+            }
+            if (recorder != null)
+            {
+                recorder.Stop();
+            }
+            if (kinectSensor != null)
+            {
+                kinectSensor.DepthFrameReady -= kinectSensor_DepthFrameReady;
+                kinectSensor.SkeletonFrameReady -= kinectRuntime_SkeletonFrameReady;
+                kinectSensor.ColorFrameReady -= kinectRuntime_ColorFrameReady;
+                kinectSensor.Stop();
+            }
+        }
+
+        public void nuevoStart()
+        {
+            deslizarManoIzquierda.OnGestureDetected -= OnGestureDetected;
+
+            audioManager = new AudioStreamManager(kinectSensor.AudioSource);
+
+            CargarDetectorGestos();
+
+            CargarDetectorPosturas();
+
+            voiceCommander.OrderDetected += voiceCommander_OrderDetected;
+            StartVoiceCommander();
+
+
+            kinectSensor.DepthFrameReady += kinectSensor_DepthFrameReady;
+            kinectSensor.SkeletonFrameReady += kinectRuntime_SkeletonFrameReady;
+            kinectSensor.ColorFrameReady += kinectRuntime_ColorFrameReady;
+            kinectSensor.Start();
+
         }
 
         /// <summary>
@@ -679,11 +774,31 @@ namespace GesturesViewer
         public void botonGrabar_Clicked(object sender, RoutedEventArgs e)
  
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(SerializableDictionary<string, List<string>>));
-            TextWriter textWriter = new StreamWriter(@"Gaston Diaz.xml");
-            serializer.Serialize(textWriter, diccionario);
-            textWriter.Close();
-            //if (botonGrabar.IsChecked)
+            if (botonGrabar.IsChecked )
+            {
+                diccionario = new SerializableDictionary<string, List<string>>();
+                List<string> medico = new List<string>();
+                medico.Add("German Leschevich");
+                List<string> paciente = new List<string>();
+                paciente.Add("Gaston Diaz");
+                List<string> precision = new List<string>();
+                precision.Add("Media");
+                List<string> gestos = new List<string>();
+
+
+                diccionario.Add("Medico", medico);
+                diccionario.Add("Paciente", paciente);
+                diccionario.Add("Precision", precision);
+                diccionario.Add("Gestos", gestos);
+            }
+            else
+            {
+
+                XmlSerializer serializer = new XmlSerializer(typeof(SerializableDictionary<string, List<string>>));
+                TextWriter textWriter = new StreamWriter(@"Gaston Diaz.xml");
+                serializer.Serialize(textWriter, diccionario);
+                textWriter.Close();
+            }//if (botonGrabar.IsChecked)
             //{
             //   
             //}
@@ -696,9 +811,27 @@ namespace GesturesViewer
 
         public void botonArticulacion_Clicked(object sender, RoutedEventArgs e)
         {
-            Joints jointsNuevo = new Joints();
-            this.Close();
-            jointsNuevo.Show();
+            //if (voiceCommander != null)
+            //{
+            //    voiceCommander.OrderDetected -= voiceCommander_OrderDetected;
+            //    voiceCommander.Stop();
+            //    voiceCommander = null;
+            //}
+            //if (audioManager != null)
+            //{
+            //    audioManager.Dispose();
+            //    audioManager = null;
+            //}
+
+            this.nuevoClean();
+            //this.Hide();
+            this.Visibility = Visibility.Collapsed;
+            Joints jointsNuevo = new Joints(this);
+            jointsNuevo.ShowDialog();
+            
+            this.Visibility = Visibility.Visible;
+            this.nuevoStart();
+            //this.Show();
         }
 
         /// <summary>
@@ -728,10 +861,10 @@ namespace GesturesViewer
                     botonGrabar.Release();
 
                 // Verifica si el punto trackeado esta sobre el boton
-                if (Math.Abs(puntoMano.X - (topLeftAzul.X + botonGesto.Width)) < 30 && Math.Abs(puntoMano.Y - topLeftAzul.Y) < 30 )         
-                    botonGesto.Hovering();
-                else 
-                    botonGesto.Release();
+                //if (Math.Abs(puntoMano.X - (topLeftAzul.X + botonGesto.Width)) < 30 && Math.Abs(puntoMano.Y - topLeftAzul.Y) < 30 )         
+                //    botonGesto.Hovering();
+                //else 
+                //    botonGesto.Release();
 
                 if (Math.Abs(puntoMano.X - (topLeftNegro.X + botonArticulacion.Width)) < 30 && Math.Abs(puntoMano.Y - topLeftNegro.Y) < 30)
                     botonArticulacion.Hovering();

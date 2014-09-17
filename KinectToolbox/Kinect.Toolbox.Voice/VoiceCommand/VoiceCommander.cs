@@ -29,16 +29,18 @@ namespace Kinect.Toolbox.Voice
             if (isRunning)
                 throw new Exception("VoiceCommander is already running");
 
-            isRunning = true;
+            //isRunning = true;
             kinectSensor = sensor;
-            workingThread = new Thread(Record) {IsBackground = true};
+            workingThread = new Thread(Record);
+            workingThread.IsBackground = true;
+            workingThread.SetApartmentState(ApartmentState.MTA);
             workingThread.Start();
         }
 
         void Record()
         {
             KinectAudioSource source = kinectSensor.AudioSource;
-
+            
             Func<RecognizerInfo, bool> matchingFunc = r =>
             {
                 string value;
@@ -70,10 +72,10 @@ namespace Kinect.Toolbox.Voice
             {
                 speechRecognitionEngine.SetInputToAudioStream(sourceStream, 
                     new SpeechAudioFormatInfo(EncodingFormat.Pcm, 16000, 16, 1, 32000, 2, null));
-
-                while (isRunning)
+                isRunning = true;
+                while (isRunning )
                 {
-                    RecognitionResult result = speechRecognitionEngine.Recognize();
+                     RecognitionResult result =  speechRecognitionEngine.Recognize();
                     if (result != null && OrderDetected != null && result.Confidence > 0.7)
                         OrderDetected(result.Text);
                 }
