@@ -24,20 +24,18 @@
         <Viewbox Margin="5" Grid.RowSpan="6" Width="640" Height="480">
             <Grid Width="640" Height="480" ClipToBounds="True" Name="LayoutRoot">
 
+                <Rectangle Stroke="Black" StrokeThickness="1"/>
+
                 <Image x:Name="kinectDisplay" Source="{Binding Bitmap}" Width="640" Height="480"/>
-                <Controls:HoverButton Visibility="Visible" x:Name="botonGrabar" ImageSize="100" ImageSource="/ARGIK;component/images/RedButton-Active.png" ActiveImageSource="/ARGIK;component/images/RedButton-Hover.png"   TimeInterval="3000"  HorizontalAlignment="Right" Height="60" Width="60"  Margin="0,32.975,39.261,347.025" VerticalAlignment="Center"/>
-                <Controls:HoverButton Visibility="Visible" x:Name="botonArticulacion" ImageSize="100" ImageSource="/ARGIK;component/images/BlueButton-Active.png" ActiveImageSource="/ARGIK;component/images/BlueButton-Hover.png"   TimeInterval="3000"   HorizontalAlignment="Right" Height="60" Width="60"  Margin="0,117.975,38.261,262.025" VerticalAlignment="Center" />
-                <Controls:HoverButton Visibility="Visible" x:Name="botonGesto" ImageSize="100" ImageSource="/ARGIK;component/images/BlackButton-Active.png" ActiveImageSource="/ARGIK;component/images/BlackButton-Hover.png"   TimeInterval="3000"   HorizontalAlignment="Right" Height="60" Width="60"  Margin="0,210.975,39.261,169.025" VerticalAlignment="Center" />
-                <Controls:HoverButton Visibility="Visible" x:Name="botonSalir" ImageSize="100" ImageSource="/ARGIK;component/images/GreenButton-Active.png" ActiveImageSource="/ARGIK;component/images/GreenButton-Hover.png"   TimeInterval="3000"   HorizontalAlignment="Right" Height="60" Width="60"  Margin="0,300.975,39.261,79.025" VerticalAlignment="Center" />
                 
                 <Canvas x:Name="kinectCanvas" Background="Transparent"/>
                 
                 <Canvas x:Name="gesturesCanvas"/>
-                <Rectangle Stroke="Black" StrokeThickness="1"/>
-                <!--<Button Height="50" Width="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>-->
 
-
-
+                <Controls:HoverButton Visibility="Visible" x:Name="botonGrabarSesion" ImageSize="100" ImageSource="/ARGIK;component/images/RedButton-Active.png" ActiveImageSource="/ARGIK;component/images/RedButton-Hover.png"   TimeInterval="3000"  HorizontalAlignment="Right" Height="60" Width="60"  Margin="0,0,40,300" VerticalAlignment="Center"/>
+                <Controls:HoverButton Visibility="Visible" x:Name="botonReproducirSesion" ImageSize="100" ImageSource="/ARGIK;component/images/BlueButton-Active.png" ActiveImageSource="/ARGIK;component/images/BlueButton-Hover.png"   TimeInterval="3000"   HorizontalAlignment="Right" Height="60" Width="60"  Margin="0,0,40,120" VerticalAlignment="Center" />
+                <Controls:HoverButton Visibility="Visible" x:Name="botonNegro" ImageSize="100" ImageSource="/ARGIK;component/images/BlackButton-Active.png" ActiveImageSource="/ARGIK;component/images/BlackButton-Hover.png"   TimeInterval="3000"   HorizontalAlignment="Right" Height="60" Width="60"  Margin="0,210.975,39.261,169.025" VerticalAlignment="Center" />
+                <Controls:HoverButton Visibility="Visible" x:Name="botonVerde" ImageSize="100" ImageSource="/ARGIK;component/images/GreenButton-Active.png" ActiveImageSource="/ARGIK;component/images/GreenButton-Hover.png"   TimeInterval="3000"   HorizontalAlignment="Right" Height="60" Width="60"  Margin="0,300.975,39.261,79.025" VerticalAlignment="Center" />
 
             </Grid>
         </Viewbox>

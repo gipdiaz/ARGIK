@@ -179,9 +179,9 @@ namespace GesturesViewer
             audioManager = new AudioStreamManager(kinectSensor.AudioSource);
             //audioBeamAngle.DataContext = audioManager;
 
-            botonGrabar.Click += new RoutedEventHandler(botonGrabar_Clicked);
-            botonGesto.Click += new RoutedEventHandler(botonGesto_Clicked);
-            botonArticulacion.Click += new RoutedEventHandler(botonArticulacion_Clicked);
+            this.botonGrabarSesion.Click += new RoutedEventHandler(botonGrabar_Clicked);
+            this.botonReproducirSesion.Click += new RoutedEventHandler(botonGesto_Clicked);
+            //botonArticulacion.Click += new RoutedEventHandler(botonArticulacion_Clicked);
 
             //kinectSensor.ColorStream.Enable(ColorImageFormat.RgbResolution640x480Fps30);
             kinectSensor.ColorStream.Enable(ColorImageFormat.RgbResolution640x480Fps30);
@@ -707,37 +707,40 @@ namespace GesturesViewer
         /// <param name="hand">The hand.</param>
         public void TrackHand(Joint hand)
         {
-                botonGrabar.Visibility = System.Windows.Visibility.Visible;
-                botonGesto.Visibility = System.Windows.Visibility.Visible;
-
+                // Recupera el punto de la mano
                 DepthImagePoint puntoMano = kinectSensor.CoordinateMapper.MapSkeletonPointToDepthPoint(hand.Position, DepthImageFormat.Resolution640x480Fps30);
     
                 // Recupera la posición de los botones
-                var transform = botonGrabar.TransformToVisual(LayoutRoot);
-                var transform2 = botonGesto.TransformToVisual(LayoutRoot);
-                var transform3 = botonArticulacion.TransformToVisual(LayoutRoot);
-                
-                Point topLeftRojo = transform.Transform(new Point(0, 0));
-                Point topLeftAzul = transform2.Transform(new Point(0, 0));;
-                Point topLeftNegro = transform2.Transform(new Point(0, 0)); 
+                var transform1 = this.botonGrabarSesion.TransformToVisual(LayoutRoot);
+                var transform2 = this.botonReproducirSesion .TransformToVisual(LayoutRoot);
+                var transform3 = this.botonNegro.TransformToVisual(LayoutRoot);
+                var transform4 = this.botonVerde.TransformToVisual(LayoutRoot);
+
+                Point puntoBotonGrabarSesion = transform1.Transform(new Point(0, 0));
+                Point puntoBotonReproducirSesion = transform2.Transform(new Point(0, 0));
+                Point puntoBotonNegro = transform3.Transform(new Point(0, 0));
+                Point puntoBotonVerde = transform4.Transform(new Point(0, 0));
                 
                 // Verifica si el punto trackeado esta sobre el boton
-                if ( Math.Abs(puntoMano.X -  (topLeftRojo.X + botonGrabar.Width)) < 30 && Math.Abs(puntoMano.Y - topLeftRojo.Y) < 30 )
-                    botonGrabar.Hovering();
+                if ( Math.Abs(puntoMano.X - (puntoBotonGrabarSesion.X + botonGrabarSesion.Width)) < 30 && Math.Abs(puntoMano.Y - puntoBotonGrabarSesion.Y) < 30 )
+                    botonGrabarSesion.Hovering();
                 else 
-                    botonGrabar.Release();
+                    botonGrabarSesion.Release();
 
-                // Verifica si el punto trackeado esta sobre el boton
-                if (Math.Abs(puntoMano.X - (topLeftAzul.X + botonGesto.Width)) < 30 && Math.Abs(puntoMano.Y - topLeftAzul.Y) < 30 )         
-                    botonGesto.Hovering();
-                else 
-                    botonGesto.Release();
-
-                if (Math.Abs(puntoMano.X - (topLeftNegro.X + botonArticulacion.Width)) < 30 && Math.Abs(puntoMano.Y - topLeftNegro.Y) < 30)
-                    botonArticulacion.Hovering();
+                if (Math.Abs(puntoMano.X - (puntoBotonReproducirSesion.X + botonReproducirSesion.Width)) < 30 && Math.Abs(puntoMano.Y - puntoBotonReproducirSesion.Y) < 30)
+                    botonReproducirSesion.Hovering();
                 else
-                    botonArticulacion.Release();
+                    botonReproducirSesion.Release();
 
+                if (Math.Abs(puntoMano.X - (puntoBotonNegro.X + botonNegro.Width)) < 30 && Math.Abs(puntoMano.Y - puntoBotonNegro.Y) < 30)
+                    botonNegro.Hovering();
+                else
+                    botonNegro.Release();
+
+                if (Math.Abs(puntoMano.X - (puntoBotonVerde.X + botonVerde.Width)) < 30 && Math.Abs(puntoMano.Y - puntoBotonVerde.Y) < 30)
+                    botonVerde.Hovering();
+                else
+                    botonVerde.Release();
         }
 
         /// <summary>
