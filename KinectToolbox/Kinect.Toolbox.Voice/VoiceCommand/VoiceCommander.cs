@@ -85,7 +85,7 @@ namespace Kinect.Toolbox.Voice
         public void Stop()
         {
             isRunning = false;
-
+            
             if (speechRecognitionEngine != null)
             {
                 speechRecognitionEngine.Dispose();
