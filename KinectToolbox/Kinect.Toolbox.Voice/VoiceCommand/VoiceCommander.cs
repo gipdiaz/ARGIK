@@ -12,7 +12,7 @@ namespace Kinect.Toolbox.Voice
     {
         Thread workingThread;
         readonly Choices choices;
-        bool isRunning;
+        public bool isRunning;
         SpeechRecognitionEngine speechRecognitionEngine;
         private KinectSensor kinectSensor;
 
@@ -31,14 +31,16 @@ namespace Kinect.Toolbox.Voice
 
             isRunning = true;
             kinectSensor = sensor;
-            workingThread = new Thread(Record) {IsBackground = true};
+            workingThread = new Thread(Record);
+            workingThread.IsBackground = true;
+            workingThread.SetApartmentState(ApartmentState.MTA);
             workingThread.Start();
         }
 
         void Record()
         {
             KinectAudioSource source = kinectSensor.AudioSource;
-
+            
             Func<RecognizerInfo, bool> matchingFunc = r =>
             {
                 string value;
@@ -70,12 +72,15 @@ namespace Kinect.Toolbox.Voice
             {
                 speechRecognitionEngine.SetInputToAudioStream(sourceStream, 
                     new SpeechAudioFormatInfo(EncodingFormat.Pcm, 16000, 16, 1, 32000, 2, null));
-
-                while (isRunning)
+                //isRunning = true;
+                while (isRunning )
                 {
-                    RecognitionResult result = speechRecognitionEngine.Recognize();
-                    if (result != null && OrderDetected != null && result.Confidence > 0.7)
-                        OrderDetected(result.Text);
+                    if (speechRecognitionEngine != null)
+                    {
+                        RecognitionResult result = speechRecognitionEngine.Recognize();
+                        if (result != null && OrderDetected != null && result.Confidence > 0.7)
+                            OrderDetected(result.Text);
+                    }
                 }
             }
         }
@@ -84,10 +89,12 @@ namespace Kinect.Toolbox.Voice
         {
             isRunning = false;
 
-            if (speechRecognitionEngine != null)
-            {
-                speechRecognitionEngine.Dispose();
-            }
+            //if (speechRecognitionEngine != null)
+            //{
+            //    speechRecognitionEngine.
+            //    speechRecognitionEngine.Dispose();
+            //    //workingThread.Abort();
+            //}
         }
     }
 }

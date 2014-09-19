@@ -33,14 +33,18 @@ namespace GesturesViewer
 
         float handX;
         float handY;
-         
+
+      
+
         public MenuPrincipal()
         { 
             InitializeComponent();
             InitializeButtons();
             this.WindowState = System.Windows.WindowState.Maximized;
             this.WindowStyle = System.Windows.WindowStyle.None;
+
            
+
 
             if (Generics.LoadingStatus == 0)
             {
@@ -315,17 +319,20 @@ namespace GesturesViewer
         }
 
         #endregion 
+        
+
         private void MEDICO_Click(object sender, RoutedEventArgs e)
         {
             
             UnregisterEvents();
             //Se abre la ventana siguiente, para elegir los joints
-            Joints jointMenu = new Joints();
+            MainWindow medico = new MainWindow();
             this.Close();
-            jointMenu.Show();
+            medico.Show();
   
             
-        } 
+        }
+ 
         private void GAME2_Click(object sender, RoutedEventArgs e)
         {
             UnregisterEvents();

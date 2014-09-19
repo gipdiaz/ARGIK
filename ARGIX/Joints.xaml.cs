@@ -35,28 +35,15 @@ namespace GesturesViewer
         float handY;
 
         public string jointSeleccionada { get; set; }
-        public SerializableDictionary <string, List<string>> b;
+        public MainWindow ventanaMedico;
 
-        public Joints()
+        public Joints(MainWindow ventanaMedico)
         {
             InitializeComponent();
             InitializeButtons();
             this.WindowState = System.Windows.WindowState.Maximized;
             this.WindowStyle = System.Windows.WindowStyle.None;
-            b = new SerializableDictionary<string, List<string>>();
-            List<string> medico = new List<string>();
-            medico.Add("German Leschevich");
-            List<string> paciente = new List<string>();
-            paciente.Add("Gaston Diaz");
-            List<string> precision = new List<string>();
-            precision.Add("Media");
-            List<string> gestos = new List<string>();
-
-
-            b.Add("Medico", medico);
-            b.Add("Paciente", paciente);
-            b.Add("Precision", precision);
-            b.Add("Gestos", gestos);
+            this.ventanaMedico = ventanaMedico;
 
             Generics.ResetHandPosition(kinectButton);
             kinectButton.Click += new RoutedEventHandler(kinectButton_Click);
@@ -329,9 +316,9 @@ namespace GesturesViewer
             jointSeleccionada = "Cabeza";
 
             //Se abre la ventana siguiente, la del medico para grabar gestos
-            MainWindow medico = new MainWindow(this);
+            
             this.Close();
-            medico.Show();
+            //ventanaMedico.Show();
         }
 
         private void MANO_DER_Click(object sender, RoutedEventArgs e)
@@ -340,10 +327,9 @@ namespace GesturesViewer
             jointSeleccionada = "Mano Derecha";
 
             //Se abre la ventana siguiente, la del medico para grabar gestos
-            MainWindow medico = new MainWindow(this);
             this.Close();
-            medico.Show();
-
+            //ventanaMedico.inicializar();
+            //ventanaMedico.Show();
 
             
         }
@@ -353,22 +339,18 @@ namespace GesturesViewer
             jointSeleccionada = "Mano Izquierda";
 
             //Se abre la ventana siguiente, la del medico para grabar gestos
-            MainWindow medico = new MainWindow(this);
             this.Close();
-            medico.Show();
-
+            ventanaMedico.Show();
         }
 
 
         private void RODILLA_DER_Click(object sender, RoutedEventArgs e)
         {
-            jointSeleccionada = "Rodilla Izquierda";
+            jointSeleccionada = "Rodilla DerechaS";
 
             //Se abre la ventana siguiente, la del medico para grabar gestos
-            MainWindow medico = new MainWindow(this);
             this.Close();
-            medico.Show();
-
+            ventanaMedico.Show();
         }
 
         private void RODILLA_IZQ_Click(object sender, RoutedEventArgs e)
@@ -376,20 +358,16 @@ namespace GesturesViewer
             jointSeleccionada = "Rodilla Izquierda";
 
             //Se abre la ventana siguiente, la del medico para grabar gestos
-            MainWindow medico = new MainWindow(this);
             this.Close();
-            medico.Show();
-
+            ventanaMedico.Show();
         }
         private void ATRAS_Click(object sender, RoutedEventArgs e)
         {
             jointSeleccionada = "Cabeza";
 
             //Se abre la ventana siguiente, la del medico para grabar gestos
-            MainWindow medico = new MainWindow(this);
             this.Close();
-            medico.Show();
-
+            ventanaMedico.Show();
         }
     }
 }
