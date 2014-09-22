@@ -24,20 +24,21 @@ namespace GesturesViewer
     {
         string nombre_gesto;
         int repeticion_gesto;
-        string articulacion_gesto;
+        bool repitiendo_gesto;
+        
         string sesion_gesto;
 
         bool detectando;
 
+
+        //Joint que se trackea
+               public string articulacion_gesto { get; set; }
 
         SerializableDictionary<string, List<string>> diccionario;
         
         SerializableDictionary<string, List<string>> diccionarioPaciente;
         //Sensor del Kinect
         KinectSensor kinectSensor;
-
-        //Joint que se trackea
-        String jointSeleccionada;
 
         //Gesto de la mano izquierda
         SwipeGestureDetector deslizarManoIzquierda;
@@ -95,7 +96,7 @@ namespace GesturesViewer
         /// <param name="bienvenida">The bienvenida.</param>
         public MainWindow()
         {
-            //this.articulacion_gesto = joints.jointSeleccionada;
+            //this.articulacion_gesto = jointSeleccionada;
             //this.diccionario = joints.b;
             InitializeComponent();
         }
@@ -170,36 +171,7 @@ namespace GesturesViewer
             }
         }
 
-        public void inicializar()
-        {
-            try
-            {
-                //Controla los eventos que tienen que ver con el cambio de estado del sensor
-                KinectSensor.KinectSensors.StatusChanged += Kinects_StatusChanged;
-
-                //Busca los sensores conectados y acciona el que ya se encuentra listo
-                foreach (KinectSensor kinect in KinectSensor.KinectSensors)
-                {
-                    if (kinect.Status == KinectStatus.Connected)
-                    {
-                        kinectSensor = kinect;
-                        break;
-                    }
-                }
-                if (KinectSensor.KinectSensors.Count == 0)
-                    MessageBox.Show("No se encontro un Kinect conectado");
-                else
-                    Initialize();
-                    
-
-                
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
+       
 
         
         /// <summary>
@@ -210,12 +182,15 @@ namespace GesturesViewer
             if (kinectSensor == null)
                 return;
 
+            repitiendo_gesto = false;
+
             audioManager = new AudioStreamManager(kinectSensor.AudioSource);
             //audioBeamAngle.DataContext = audioManager;
 
             this.botonGrabarSesion.Click += new RoutedEventHandler(botonGrabar_Clicked);
             this.botonReproducirSesion.Click += new RoutedEventHandler(botonGesto_Clicked);
-            botonNegro.Click += new RoutedEventHandler(botonArticulacion_Clicked);
+            this.botonNegro.Click += new RoutedEventHandler(botonArticulacion_Clicked);
+            this.botonVerde.Click += new RoutedEventHandler(botonRepetirGesto_Clicked);
 
             //kinectSensor.ColorStream.Enable(ColorImageFormat.RgbResolution640x480Fps30);
             kinectSensor.ColorStream.Enable(ColorImageFormat.RgbResolution640x480Fps30);
@@ -265,7 +240,15 @@ namespace GesturesViewer
 
             //Deshabilitar el boton de deteccion hasta que no haya un esqueleto
             //botonGrabarGesto.IsEnabled = false;
+            articulacion_gesto = "";
             }
+
+        private void botonRepetirGesto_Clicked(object sender, RoutedEventArgs e)
+        {
+            repitiendo_gesto = true;
+            
+            cargarReplay();
+        }
 
         /// <summary>
         /// Se encarga de manejar los frames de profundidad que llegan en tiempo real.
@@ -389,7 +372,7 @@ namespace GesturesViewer
                             //Si es la Joint seleccionada para detectar o generar el gesto inicializa la deteccion 
                             if (joint.JointType == articulacion && replay != null && replay.IsFinished)
                             {
-                                if (detectando == false)
+                                if (detectando == false && repitiendo_gesto == false)
                                     cargarGesto();
                                 reconocedorGesto.Add(joint.Position, kinectSensor);
                             }
@@ -452,6 +435,7 @@ namespace GesturesViewer
                 case "Rodilla Izquierda": return JointType.KneeLeft;
                 case "Pie Derecho": return JointType.FootRight;
                 case "Pie Izquierdo": return JointType.FootLeft;
+                
                 default: return JointType.HandRight;
             }
         }
@@ -524,6 +508,7 @@ namespace GesturesViewer
             kinectSensor.SkeletonFrameReady += kinectRuntime_SkeletonFrameReady;
             kinectSensor.ColorFrameReady += kinectRuntime_ColorFrameReady;
             kinectSensor.Start();
+            //this.articulacion_gesto = articulacion_gesto;
 
         }
 
@@ -645,6 +630,7 @@ namespace GesturesViewer
 
             //Desearilzar el diccionario
             grabando = false;
+            repeticionesDisplay.Text = "";
             XmlSerializer serializer = new XmlSerializer(typeof(SerializableDictionary<string, List<string>>));
             TextReader textReader = new StreamReader(@"Gaston Diaz.xml");
             diccionarioPaciente = (SerializableDictionary<string, List <string>>)serializer.Deserialize(textReader);
@@ -684,17 +670,18 @@ namespace GesturesViewer
                     repeticion_gesto = Convert.ToInt32(lista[1]);
                     articulacion_gesto = lista[2];
                     sesion_gesto = lista[3];
-
+                    System.Console.WriteLine(articulacion_gesto);
                     //Mostrar repeticiones
+                    
                     repeticionesDisplay.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
                     repeticionesDisplay.VerticalAlignment = System.Windows.VerticalAlignment.Center;
                     repeticionesDisplay.FontSize = 75;
                     repeticionesDisplay.Margin = new Thickness(30, 0, 0, 0);
                     repeticionesDisplay.Foreground = new SolidColorBrush(Colors.Red);
 
-                    lista.RemoveRange(0, 4);
-                    diccionarioPaciente.Remove("Gestos");
-                    diccionarioPaciente.Add("Gestos", lista);
+                    //lista.RemoveRange(0, 4);
+                    //diccionarioPaciente.Remove("Gestos");
+                    //diccionarioPaciente.Add("Gestos", lista);
 
                     //Comenzar a detectar el gesto
                     Stream recordStream = new FileStream(nombre_gesto, FileMode.Open);
@@ -717,6 +704,7 @@ namespace GesturesViewer
         {
             detectando = false;
             grabando = false;
+            repeticionesDisplay.Text = "";
             List<string> lista = new List<string>();
             if (diccionarioPaciente.TryGetValue("Gestos", out lista))
             {
@@ -727,6 +715,10 @@ namespace GesturesViewer
                     {
                         System.Console.WriteLine(lista[i] + "- Lista");
                     }
+
+                    //frenar la deteccion de gestos
+                    reconocedorGesto.OnGestureDetected -= OnGestureDetected;
+
                     //Guardar nombre de gesto, repeticiones y articulaciones
                     nombre_gesto = lista[0];
                     repeticion_gesto = Convert.ToInt32(lista[1]);
@@ -751,11 +743,11 @@ namespace GesturesViewer
                     Stream recordStreamReplay = File.OpenRead(sesion_gesto);
                     replay = new KinectReplay(recordStreamReplay);
 
-                    replay.SkeletonFrameReady += replay_SkeletonFrameReady;
+                    //replay.SkeletonFrameReady += replay_SkeletonFrameReady;
                     replay.ColorImageFrameReady += replay_ColorImageFrameReady;
-                    replay.DepthImageFrameReady += replay_DepthImageFrameReady;
+                    //replay.DepthImageFrameReady += replay_DepthImageFrameReady;
 
-                    reconocedorGesto.OnGestureDetected -= OnGestureDetected;
+                    
                     reconocedorGesto.DisplayCanvas = gesturesCanvas;
                     replay.Start();
 

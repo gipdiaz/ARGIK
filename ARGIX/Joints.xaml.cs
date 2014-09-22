@@ -34,7 +34,7 @@ namespace GesturesViewer
         float handX;
         float handY;
 
-        public string jointSeleccionada { get; set; }
+        
         public MainWindow ventanaMedico;
 
         public Joints(MainWindow ventanaMedico)
@@ -313,7 +313,7 @@ namespace GesturesViewer
         private void CABEZA_Click(object sender, RoutedEventArgs e)
         {
             UnregisterEvents();
-            jointSeleccionada = "Cabeza";
+            ventanaMedico.articulacion_gesto = "Cabeza";
 
             //Se abre la ventana siguiente, la del medico para grabar gestos
             
@@ -324,7 +324,7 @@ namespace GesturesViewer
         private void MANO_DER_Click(object sender, RoutedEventArgs e)
         {
             UnregisterEvents();
-            jointSeleccionada = "Mano Derecha";
+            ventanaMedico.articulacion_gesto = "Mano Derecha";
 
             //Se abre la ventana siguiente, la del medico para grabar gestos
             this.Close();
@@ -336,38 +336,39 @@ namespace GesturesViewer
         private void MANO_IZQ_Click(object sender, RoutedEventArgs e)
         {
             UnregisterEvents();
-            jointSeleccionada = "Mano Izquierda";
+            ventanaMedico.articulacion_gesto = "Mano Izquierda";
 
             //Se abre la ventana siguiente, la del medico para grabar gestos
             this.Close();
-            ventanaMedico.Show();
+            //ventanaMedico.Show();
         }
 
 
         private void RODILLA_DER_Click(object sender, RoutedEventArgs e)
         {
-            jointSeleccionada = "Rodilla DerechaS";
+            ventanaMedico.articulacion_gesto = "Rodilla Derecha";
 
             //Se abre la ventana siguiente, la del medico para grabar gestos
             this.Close();
-            ventanaMedico.Show();
+            //ventanaMedico.Show();
         }
 
         private void RODILLA_IZQ_Click(object sender, RoutedEventArgs e)
         {
-            jointSeleccionada = "Rodilla Izquierda";
+            ventanaMedico.articulacion_gesto = "Rodilla Izquierda";
 
             //Se abre la ventana siguiente, la del medico para grabar gestos
             this.Close();
-            ventanaMedico.Show();
+            //ventanaMedico.Show();
         }
         private void ATRAS_Click(object sender, RoutedEventArgs e)
         {
-            jointSeleccionada = "Cabeza";
 
+            MenuPrincipal menuPrincipal = new MenuPrincipal();
+            menuPrincipal.Show();
             //Se abre la ventana siguiente, la del medico para grabar gestos
             this.Close();
-            ventanaMedico.Show();
+            //ventanaMedico.Show();
         }
     }
 }

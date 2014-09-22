@@ -68,6 +68,7 @@ namespace GesturesViewer
                 nroGesto = nroGesto + 1;
                 nombreSesion = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "sesion"+ nroGesto +".replay");
                 DirectRecord(nombreSesion);
+                repeticionesDisplay.Text = "¡Grabando!";
             }
         }
 
@@ -78,7 +79,7 @@ namespace GesturesViewer
             //lista.Add(Path.GetFileNameWithoutExtension(reconocedorGesto.LearningMachine.gestoNuevo));
             lista.Add(reconocedorGesto.LearningMachine.gestoNuevo);
             lista.Add(reconocedorGesto.LearningMachine.repeticion);
-            lista.Add(jointSeleccionada);
+            lista.Add(articulacion_gesto);
             lista.Add(nombreSesion);
             diccionario.Remove("Gestos");
             diccionario.Add("Gestos", lista);
@@ -152,7 +153,9 @@ namespace GesturesViewer
 
             //Obtener nombre del gesto sin extension
             //gesture = Path.GetFileNameWithoutExtension(gesture);
-            
+
+                repitiendo_gesto = false;
+              
                 repeticion_gesto = repeticion_gesto - 1;
                 repeticionesDisplay.Text = repeticion_gesto.ToString();
 
@@ -163,6 +166,16 @@ namespace GesturesViewer
 
                 if (repeticion_gesto == 0)
                 {
+                    List<string> lista = new List<string>();
+                    if (diccionarioPaciente.TryGetValue("Gestos", out lista))
+                    {
+                        if (lista.Count != 0)
+                        {
+                            lista.RemoveRange(0, 4);
+                            diccionarioPaciente.Remove("Gestos");
+                            diccionarioPaciente.Add("Gestos", lista);
+                        }
+                    }
                     reconocedorGesto.OnGestureDetected -= OnGestureDetected;
                     cargarReplay();
                 }

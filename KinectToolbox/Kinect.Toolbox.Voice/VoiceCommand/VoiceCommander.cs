@@ -75,7 +75,7 @@ namespace Kinect.Toolbox.Voice
                 //isRunning = true;
                 while (isRunning )
                 {
-                    if (speechRecognitionEngine != null)
+                    if (speechRecognitionEngine != null )
                     {
                         RecognitionResult result = speechRecognitionEngine.Recognize();
                         if (result != null && OrderDetected != null && result.Confidence > 0.7)
