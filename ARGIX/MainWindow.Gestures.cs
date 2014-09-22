@@ -75,7 +75,6 @@ namespace GesturesViewer
         {
             List<string> lista = new List<string>();
             diccionario.TryGetValue("Gestos", out lista);
-            //lista.Add(Path.GetFileNameWithoutExtension(reconocedorGesto.LearningMachine.gestoNuevo));
             lista.Add(reconocedorGesto.LearningMachine.gestoNuevo);
             lista.Add(reconocedorGesto.LearningMachine.repeticion);
             lista.Add(jointSeleccionada);
