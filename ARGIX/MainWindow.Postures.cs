@@ -13,7 +13,7 @@ namespace GesturesViewer
         /// <summary>
         /// Cargars the detector posturas.
         /// </summary>
-        void CargarDetectorPosturas()
+        public void CargarDetectorPosturas()
         {           
             using (Stream recordStream = File.Open(archivoPostura, FileMode.OpenOrCreate))
             {       
@@ -38,7 +38,7 @@ namespace GesturesViewer
         /// <summary>
         /// Closes the posture detector.
         /// </summary>
-        void ClosePostureDetector()
+        public void ClosePostureDetector()
         {
             if (templatePostureDetector == null)
                 return;

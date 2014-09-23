@@ -18,7 +18,7 @@ namespace GesturesViewer
        
         int nroGesto = 0;
         string nombreSesion;
-        bool grabando = false;
+        public bool grabando = false;
         /// <summary>
         /// Se inicializa el detector de gestos con un Stream default
         /// </summary>
@@ -60,7 +60,7 @@ namespace GesturesViewer
             }
             else
             {
-                reconocedorGesto.OnGestureDetected -= OnGestureDetected;
+                //reconocedorGesto.OnGestureDetected -= OnGestureDetected;
                 CargarDetectorGestos();
                 reconocedorGesto.StartRecordTemplate();
                 grabando = true;
@@ -102,7 +102,7 @@ namespace GesturesViewer
             }
             else
             {
-                reconocedorGesto.OnGestureDetected -= OnGestureDetected;
+                //reconocedorGesto.OnGestureDetected -= OnGestureDetected;
                 CargarDetectorGestos();
                 reconocedorGesto.StartRecordTemplate();
                 //botonGrabarGestoViejo.Content = "Pausar Grabacion Viejo";
@@ -143,57 +143,8 @@ namespace GesturesViewer
         //    }
         //}
 
-        /// <summary>
-        /// Si se detecta el gesto seleccionado se muestra cuando se lo realiza correctamente
-        /// </summary>
-        /// <param name="gesture">The gesture.</param>
-        public void OnGestureDetected(string gesture)
-        {
+  
 
-            //Obtener nombre del gesto sin extension
-            //gesture = Path.GetFileNameWithoutExtension(gesture);
-
-                repitiendo_gesto = false;
-              
-                repeticion_gesto = repeticion_gesto - 1;
-                repeticionesDisplay.Text = repeticion_gesto.ToString();
-
-                //int pos = detectedGestures.Items.Add(string.Format("{0} ---- {1}", gesture, DateTime.Now));
-                //object item = detectedGestures.Items[pos];
-                //detectedGestures.ScrollIntoView(item);
-                //detectedGestures.SelectedItem = item;
-
-                if (repeticion_gesto == 0)
-                {
-                    List<string> lista = new List<string>();
-                    if (diccionarioPaciente.TryGetValue("Gestos", out lista))
-                    {
-                        if (lista.Count != 0)
-                        {
-                            lista.RemoveRange(0, 4);
-                            diccionarioPaciente.Remove("Gestos");
-                            diccionarioPaciente.Add("Gestos", lista);
-                        }
-                    }
-                    reconocedorGesto.OnGestureDetected -= OnGestureDetected;
-                    cargarReplay();
-                }
-            
-
+        
         }
-
-        /// <summary>
-        /// Limpia los recursos utilizados para la deteccion/grabacion de gestos
-        /// </summary>
-        public void CerrarDetectorGestos()
-        {
-            if (reconocedorGesto == null)
-                return;
-            else
-            {
-                reconocedorGesto.OnGestureDetected -= OnGestureDetected;
-                
-            }
-        }
-    }
 }

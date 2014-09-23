@@ -17,6 +17,190 @@
             InitializeComponent
             </summary>
         </member>
+        <member name="T:GesturesViewer.MainWindowPaciente">
+            <summary>
+            Lógica de interacción para MainWindowPaciente.xaml
+            </summary>
+            <summary>
+            MainWindowPaciente
+            </summary>
+        </member>
+        <member name="M:GesturesViewer.MainWindowPaciente.Kinects_StatusChanged(System.Object,Microsoft.Kinect.StatusChangedEventArgs)">
+            <summary>
+            Handles the StatusChanged event of the Kinects control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:Microsoft.Kinect.StatusChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:GesturesViewer.MainWindowPaciente.Window_Loaded(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Inicializa el sensor
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:GesturesViewer.MainWindowPaciente.Initialize">
+            <summary>
+            Initializes this instance.
+            </summary>
+        </member>
+        <member name="M:GesturesViewer.MainWindowPaciente.kinectSensor_DepthFrameReady(System.Object,Microsoft.Kinect.DepthImageFrameReadyEventArgs)">
+            <summary>
+            Se encarga de manejar los frames de profundidad que llegan en tiempo real.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:Microsoft.Kinect.DepthImageFrameReadyEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:GesturesViewer.MainWindowPaciente.kinectRuntime_ColorFrameReady(System.Object,Microsoft.Kinect.ColorImageFrameReadyEventArgs)">
+            <summary>
+            Se encarga de manejar los frames a color (RGB) que llegan en tiempo real.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:Microsoft.Kinect.ColorImageFrameReadyEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:GesturesViewer.MainWindowPaciente.kinectRuntime_SkeletonFrameReady(System.Object,Microsoft.Kinect.SkeletonFrameReadyEventArgs)">
+            <summary>
+            Se encarga de manejar los frames del esqueleto que llegan en tiempo real.
+            Llama a la funcion correspondiente para realizar el seguimiento del esqueleto
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:Microsoft.Kinect.SkeletonFrameReadyEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:GesturesViewer.MainWindowPaciente.cargarReplay">
+            <summary>
+            Cargars the replay.
+            </summary>
+        </member>
+        <member name="M:GesturesViewer.MainWindowPaciente.TrackHand(Microsoft.Kinect.Joint)">
+            <summary>
+            Verifica si la mano derecha esta sobre alguno de los botones de la GUI con RA
+            </summary>
+            <param name="hand">The hand.</param>
+        </member>
+        <member name="M:GesturesViewer.MainWindowPaciente.Depth_RGB_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Muestra la imagen de profundidad o RGB segun el usuario seleccione en la GUI
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:GesturesViewer.MainWindowPaciente.seatedMode_Checked_1(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Activa el modo  "sentado" de la aplicacion
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:GesturesViewer.MainWindowPaciente.seatedMode_Unchecked_1(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Desactiva el modo "sentado" de la aplicacion
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:GesturesViewer.MainWindowPaciente.ProcessFrame(Kinect.Toolbox.Record.ReplaySkeletonFrame)">
+            <summary>
+            Dibuja el esqueleto y el punto de seguimiento en el frame actual.
+            Inicializa la deteccion del gesto del Joint correspondiente.
+            </summary>
+            <param name="frame">The frame.</param>
+        </member>
+        <member name="M:GesturesViewer.MainWindowPaciente.verificarJoint(System.String)">
+            <summary>
+            Devuelve la joint que selecciono el usuario para el seguimiento
+            </summary>
+            <param name="jointSeleccionada">The joint seleccionada.</param>
+            <returns></returns>
+        </member>
+        <member name="M:GesturesViewer.MainWindowPaciente.Clean">
+            <summary>
+            Libera recursos
+            </summary>
+        </member>
+        <member name="M:GesturesViewer.MainWindowPaciente.Window_Closing(System.Object,System.ComponentModel.CancelEventArgs)">
+            <summary>
+            Cierra la ventana
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.ComponentModel.CancelEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:GesturesViewer.MainWindowPaciente.replay_DepthImageFrameReady(System.Object,Kinect.Toolbox.Record.ReplayDepthImageFrameReadyEventArgs)">
+            <summary>
+            Maneja los frames de profundidad de la repeticion
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:Kinect.Toolbox.Record.ReplayDepthImageFrameReadyEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:GesturesViewer.MainWindowPaciente.replay_ColorImageFrameReady(System.Object,Kinect.Toolbox.Record.ReplayColorImageFrameReadyEventArgs)">
+            <summary>
+            Maneja los frames de color (RGB) de la repeticion
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:Kinect.Toolbox.Record.ReplayColorImageFrameReadyEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:GesturesViewer.MainWindowPaciente.replay_SkeletonFrameReady(System.Object,Kinect.Toolbox.Record.ReplaySkeletonFrameReadyEventArgs)">
+            <summary>
+            Maneja los frames del esqueleto de la repeticion
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:Kinect.Toolbox.Record.ReplaySkeletonFrameReadyEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:GesturesViewer.MainWindowPaciente.botonGesto_Clicked(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Activa la grabacion del gesto mediante el boton de la GUI
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:GesturesViewer.MainWindowPaciente.cargarGesto">
+            <summary>
+            Activa la grabacion del gesto mediante el boton de la GUI
+            </summary>
+        </member>
+        <member name="M:GesturesViewer.MainWindowPaciente.OnGestureDetected(System.String)">
+            <summary>
+            Si se detecta el gesto seleccionado se muestra cuando se lo realiza correctamente
+            </summary>
+            <param name="gesture">The gesture.</param>
+        </member>
+        <member name="M:GesturesViewer.MainWindowPaciente.CargarDetectorGestos">
+            <summary>
+            Se inicializa el detector de gestos con un Stream default
+            </summary>
+        </member>
+        <member name="M:GesturesViewer.MainWindowPaciente.CerrarDetectorGestos">
+            <summary>
+            Limpia los recursos utilizados para la deteccion/grabacion de gestos
+            </summary>
+        </member>
+        <member name="M:GesturesViewer.MainWindowPaciente.StartVoiceCommander">
+            <summary>
+            Inicializa el comando por voz
+            </summary>
+        </member>
+        <member name="M:GesturesViewer.MainWindowPaciente.voiceCommander_OrderDetected(System.String)">
+            <summary>
+            Verifica si se detecto una orden y realiza la accion correspondiente.
+            </summary>
+            <param name="order">La orden.</param>
+        </member>
+        <member name="M:GesturesViewer.MainWindowPaciente.grabarPostura_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Handles the Click event of the grabarPostura control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:GesturesViewer.MainWindowPaciente.ClosePostureDetector">
+            <summary>
+            Closes the posture detector.
+            </summary>
+        </member>
+        <member name="M:GesturesViewer.MainWindowPaciente.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
         <member name="T:GesturesViewer.MenuPrincipal">
             <summary>
             Lógica de interacción para MenuPrincipal.xaml
@@ -124,17 +308,6 @@
             </summary>
             <param name="sender"></param>
             <param name="e"></param>
-        </member>
-        <member name="M:GesturesViewer.MainWindow.OnGestureDetected(System.String)">
-            <summary>
-            Si se detecta el gesto seleccionado se muestra cuando se lo realiza correctamente
-            </summary>
-            <param name="gesture">The gesture.</param>
-        </member>
-        <member name="M:GesturesViewer.MainWindow.CerrarDetectorGestos">
-            <summary>
-            Limpia los recursos utilizados para la deteccion/grabacion de gestos
-            </summary>
         </member>
         <member name="M:GesturesViewer.MainWindow.CargarDetectorPosturas">
             <summary>
@@ -283,23 +456,6 @@
             </summary>
             <param name="sender">The source of the event.</param>
             <param name="e">The <see cref="T:Kinect.Toolbox.Record.ReplaySkeletonFrameReadyEventArgs"/> instance containing the event data.</param>
-        </member>
-        <member name="M:GesturesViewer.MainWindow.botonGesto_Clicked(System.Object,System.Windows.RoutedEventArgs)">
-            <summary>
-            Activa la grabacion del gesto mediante el boton de la GUI
-            </summary>
-            <param name="sender">The source of the event.</param>
-            <param name="e">The <see cref="T:System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
-        </member>
-        <member name="M:GesturesViewer.MainWindow.cargarGesto">
-            <summary>
-            Activa la grabacion del gesto mediante el boton de la GUI
-            </summary>
-        </member>
-        <member name="M:GesturesViewer.MainWindow.cargarReplay">
-            <summary>
-            Cargars the replay.
-            </summary>
         </member>
         <member name="M:GesturesViewer.MainWindow.botonGrabar_Clicked(System.Object,System.Windows.RoutedEventArgs)">
             <summary>
