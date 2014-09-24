@@ -333,10 +333,13 @@ namespace GesturesViewer
             
         }
  
-        private void GAME2_Click(object sender, RoutedEventArgs e)
+        private void PACIENTE_Click(object sender, RoutedEventArgs e)
         {
             UnregisterEvents();
-            (Application.Current.MainWindow.FindName("_mainFrame") as Frame).Source = new Uri("Game2.xaml", UriKind.Relative); 
+            //Se abre la ventana siguiente, para que el paciente pueda hacer su sesion
+            MainWindowPaciente paciente = new MainWindowPaciente();
+            this.Close();
+            paciente.Show();
         } 
         private void GAME3_Click(object sender, RoutedEventArgs e)
         {

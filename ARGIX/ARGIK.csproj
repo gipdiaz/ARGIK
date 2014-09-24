@@ -86,13 +86,6 @@
     <Compile Include="MenuPrincipal.xaml.cs">
       <DependentUpon>MenuPrincipal.xaml</DependentUpon>
     </Compile>
-    <Compile Include="VentanaPrincipal.xaml.cs">
-      <DependentUpon>VentanaPrincipal.xaml</DependentUpon>
-    </Compile>
-    <Page Include="Bienvenida.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Joints.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -104,9 +97,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Bienvenida.xaml.cs">
-      <DependentUpon>Bienvenida.xaml</DependentUpon>
     </Compile>
     <Compile Include="SerializableDictionary.cs" />
     <Compile Include="MainWindow.Gestures.cs" />
@@ -122,10 +112,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MenuPrincipal.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="VentanaPrincipal.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

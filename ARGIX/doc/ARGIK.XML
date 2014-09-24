@@ -147,7 +147,7 @@
         </member>
         <member name="M:GesturesViewer.MainWindowPaciente.botonGesto_Clicked(System.Object,System.Windows.RoutedEventArgs)">
             <summary>
-            Activa la grabacion del gesto mediante el boton de la GUI
+            Inicia la sesion del paciente cargando los gestos a realizar (boton rojo RA)
             </summary>
             <param name="sender">The source of the event.</param>
             <param name="e">The <see cref="T:System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
@@ -214,19 +214,6 @@
             InitializeComponent
             </summary>
         </member>
-        <member name="T:GesturesViewer.VentanaPrincipal">
-            <summary>
-            Interaction logic for MainWindow.xaml
-            </summary>
-            <summary>
-            VentanaPrincipal
-            </summary>
-        </member>
-        <member name="M:GesturesViewer.VentanaPrincipal.InitializeComponent">
-            <summary>
-            InitializeComponent
-            </summary>
-        </member>
         <member name="T:TestearToolbox.App">
             <summary>
             Lógica de interacción para App.xaml
@@ -243,42 +230,6 @@
         <member name="M:TestearToolbox.App.Main">
             <summary>
             Application Entry Point.
-            </summary>
-        </member>
-        <member name="T:GesturesViewer.Bienvenida">
-            <summary>
-            Pantalla de la aplicacion que permite seleccionar el Joint al cual se le realizara el seguimiento
-            
-            </summary>
-            
-            <summary>
-            Bienvenida
-            </summary>
-        </member>
-        <member name="M:GesturesViewer.Bienvenida.mostrarJoints">
-             <summary>
-            Llena el comboBox con las opciones. Por Default aparecera seleccionada la Mano Derecha. 
-             </summary>
-        </member>
-        <member name="M:GesturesViewer.Bienvenida.jointSeleccion_SelectionChanged(System.Object,System.Windows.Controls.SelectionChangedEventArgs)">
-            <summary>
-            Metodo que es llamado cuando se realiza el evento de seleccionar una opcion del comboBox. 
-            </summary>
-            <param name="sender"></param>
-            <param name="e"></param>
-            
-        </member>
-        <member name="M:GesturesViewer.Bienvenida.iniciar_Click(System.Object,System.Windows.RoutedEventArgs)">
-            <summary>
-            Metodo que es llamado al clickear el boton de iniciar. 
-            Invoca a la ventana principal pasandole como parametro el nombre del joint que selecciono el usuario
-            </summary>
-            <param name="sender"></param>
-            <param name="e"></param>
-        </member>
-        <member name="M:GesturesViewer.Bienvenida.InitializeComponent">
-            <summary>
-            InitializeComponent
             </summary>
         </member>
         <member name="T:GesturesViewer.MainWindow">

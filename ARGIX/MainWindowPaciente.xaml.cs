@@ -338,6 +338,7 @@ namespace GesturesViewer
         {
             detectando = false;
             grabando = false;
+            
             repeticionesDisplay.Text = "";
             List<string> lista = new List<string>();
             if (diccionarioPaciente.TryGetValue("Gestos", out lista))
@@ -385,7 +386,7 @@ namespace GesturesViewer
                     reconocedorGesto.DisplayCanvas = gesturesCanvasPaciente;
                     replay.Start();
 
-                    repeticionesDisplay.Text = "DEMObotonNegroPaciente";
+                    repeticionesDisplay.Text = "DEMO";
                     repeticionesDisplay.Visibility = System.Windows.Visibility.Visible;
 
                 }
@@ -517,8 +518,8 @@ namespace GesturesViewer
                                     cargarGesto();
                                 reconocedorGesto.Add(joint.Position, kinectSensor);
                             }
-                            if (joint.JointType == articulacion && grabando)
-                                reconocedorGesto.Add(joint.Position, kinectSensor);
+                            //if (joint.JointType == articulacion && grabando)
+                            //    reconocedorGesto.Add(joint.Position, kinectSensor);
 
                             //verifica si la mano está dentro del boton
                             if (joint.JointType == JointType.HandRight)
@@ -742,13 +743,13 @@ namespace GesturesViewer
         private void botonRepetirGesto_Clicked(object sender, RoutedEventArgs e)
         {
             repitiendo_gesto = true;
-
+            
             cargarReplay();
         }
 
 
         /// <summary>
-        /// Activa la grabacion del gesto mediante el boton de la GUI
+        /// Inicia la sesion del paciente cargando los gestos a realizar (boton rojo RA)
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
@@ -780,7 +781,7 @@ namespace GesturesViewer
         /// </summary>
         public void cargarGesto()
         {
-            detectando = true;
+           
 
             List<string> lista = new List<string>();
             if (diccionarioPaciente.TryGetValue("Gestos", out lista))
