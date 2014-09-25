@@ -76,6 +76,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Configuracion.xaml.cs">
+      <DependentUpon>Configuracion.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Generics.cs" />
     <Compile Include="Joints.xaml.cs">
       <DependentUpon>Joints.xaml</DependentUpon>
@@ -86,6 +89,10 @@
     <Compile Include="MenuPrincipal.xaml.cs">
       <DependentUpon>MenuPrincipal.xaml</DependentUpon>
     </Compile>
+    <Page Include="Configuracion.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Joints.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
