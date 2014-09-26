@@ -177,6 +177,8 @@
     <Resource Include="images\Logo 2.jpg" />
     <Resource Include="images\Logo 3.jpg" />
     <Content Include="Libs\Microsoft.Kinect.dll" />
+    <Resource Include="iniciar .png" />
+    <Resource Include="iniciar.png" />
     <Resource Include="ReadMe.Coding4Fun.Toolkit.txt" />
   </ItemGroup>
   <ItemGroup>

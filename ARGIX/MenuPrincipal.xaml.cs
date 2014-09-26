@@ -337,9 +337,10 @@ namespace GesturesViewer
         {
             UnregisterEvents();
             //Se abre la ventana siguiente, para que el paciente pueda hacer su sesion
-            MainWindowPaciente paciente = new MainWindowPaciente();
+            Configuracion configuracion = new Configuracion();
+            
             this.Close();
-            paciente.Show();
+            configuracion.Show();
         } 
         private void GAME3_Click(object sender, RoutedEventArgs e)
         {

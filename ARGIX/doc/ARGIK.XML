@@ -4,6 +4,79 @@
         <name>ARGIK</name>
     </assembly>
     <members>
+        <member name="T:GesturesViewer.Configuracion">
+            <summary>
+            Lógica de interacción para Configuracion.xaml
+            </summary>
+            <summary>
+            Configuracion
+            </summary>
+        </member>
+        <member name="M:GesturesViewer.Configuracion.Kinects_StatusChanged(System.Object,Microsoft.Kinect.StatusChangedEventArgs)">
+            <summary>
+            Handles the StatusChanged event of the Kinects control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:Microsoft.Kinect.StatusChangedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:GesturesViewer.Configuracion.Window_Loaded(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Inicializa el sensor
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:GesturesViewer.Configuracion.Window_Closing(System.Object,System.ComponentModel.CancelEventArgs)">
+            <summary>
+            Cierra la ventana
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.ComponentModel.CancelEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:GesturesViewer.Configuracion.Initialize">
+            <summary>
+            Initializes this instance.
+            </summary>
+        </member>
+        <member name="M:GesturesViewer.Configuracion.kinectRuntime_SkeletonFrameReady(System.Object,Microsoft.Kinect.SkeletonFrameReadyEventArgs)">
+            <summary>
+            Se encarga de manejar los frames del esqueleto que llegan en tiempo real.
+            Llama a la funcion correspondiente para realizar el seguimiento del esqueleto
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:Microsoft.Kinect.SkeletonFrameReadyEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:GesturesViewer.Configuracion.ProcessFrame(Kinect.Toolbox.Record.ReplaySkeletonFrame)">
+            <summary>
+            Dibuja el esqueleto y el punto de seguimiento en el frame actual.
+            Inicializa la deteccion del gesto del Joint correspondiente.
+            </summary>
+            <param name="frame">The frame.</param>
+        </member>
+        <member name="M:GesturesViewer.Configuracion.kinectSensor_DepthFrameReady(System.Object,Microsoft.Kinect.DepthImageFrameReadyEventArgs)">
+            <summary>
+            Se encarga de manejar los frames de profundidad que llegan en tiempo real.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:Microsoft.Kinect.DepthImageFrameReadyEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:GesturesViewer.Configuracion.Clean">
+            <summary>
+            Libera recursos
+            </summary>
+        </member>
+        <member name="M:GesturesViewer.Configuracion.seatedMode_Unchecked_1(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Desactiva el modo "sentado" de la aplicacion
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:GesturesViewer.Configuracion.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
         <member name="T:GesturesViewer.Joints">
             <summary>
             Interaction logic for Page.xaml

@@ -86,10 +86,11 @@ namespace GesturesViewer
 
         //Para manejar los comandos por voz
         VoiceCommander voiceCommander;
+        bool seatedMode = true;
 
-
-        public MainWindowPaciente()
+        public MainWindowPaciente(bool seatedMode)
         {
+            this.seatedMode = seatedMode;
             InitializeComponent();
         }
 
@@ -551,8 +552,8 @@ namespace GesturesViewer
                 }
 
                 //Dibuja el esqueleto en la GUI
-                //skeletonDisplayManager.Draw(frame.Skeletons, seatedMode.IsChecked == true);
-                skeletonDisplayManager.Draw(frame.Skeletons, true);
+                skeletonDisplayManager.Draw(frame.Skeletons, seatedMode);
+                //skeletonDisplayManager.Draw(frame.Skeletons, true);
                 //stabilitiesList.ItemsSource = stabilities;
 
             }

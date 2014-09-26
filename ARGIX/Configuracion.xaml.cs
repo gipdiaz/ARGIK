@@ -1,16 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using System.Windows;
+using Kinect.Toolbox;
+using Kinect.Toolbox.Record;
+using System.IO;
+using Microsoft.Kinect;
+using Microsoft.Win32;
+using Kinect.Toolbox.Voice;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
+using Coding4Fun.Kinect.Wpf.Controls;
 using System.Windows.Shapes;
+using System.Xml.Serialization;
+using System.Windows.Media;
 
-namespace ARGIK
+namespace GesturesViewer
 {
 	/// <summary>
 	/// Lógica de interacción para Configuracion.xaml
@@ -30,7 +34,7 @@ namespace ARGIK
 		
 		public Configuracion()
 		{
-			this.InitializeComponent();
+			InitializeComponent();
 			
 			// A partir de este punto se requiere la inserción de código para la creación del objeto.
 		}
@@ -103,6 +107,15 @@ namespace ARGIK
                 MessageBox.Show(ex.Message);
             }
         }
+        /// <summary>
+        /// Cierra la ventana
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.ComponentModel.CancelEventArgs" /> instance containing the event data.</param>
+        public void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Clean();
+        }
 
         /// <summary>
         /// Initializes this instance.
@@ -148,6 +161,195 @@ namespace ARGIK
 
             
             }
+        /// <summary>
+        /// Se encarga de manejar los frames del esqueleto que llegan en tiempo real.
+        /// Llama a la funcion correspondiente para realizar el seguimiento del esqueleto
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="SkeletonFrameReadyEventArgs"/> instance containing the event data.</param>
+        public void kinectRuntime_SkeletonFrameReady(object sender, SkeletonFrameReadyEventArgs e)
+        {
+
+          
+
+            using (SkeletonFrame frame = e.OpenSkeletonFrame())
+            {
+                if (frame == null)
+                    return;
+
+                
+                frame.GetSkeletons(ref skeletons);
+
+                //Si no hay esqueletos frente al sensor se deshabilitan opciones y se limpian los canvas
+                if (skeletons.All(s => s.TrackingState == SkeletonTrackingState.NotTracked))
+                {
+                    //botonGrabarGesto.IsEnabled = false;
+                    //botonGrabarGestoViejo.IsEnabled = false;
+                    //gesturesCanvas.Children.Clear();
+                    kinectCanvas.Children.Clear();
+                    return;
+                }
+                ProcessFrame(frame);
+            }
+
+        }
+        /// <summary>
+        /// Dibuja el esqueleto y el punto de seguimiento en el frame actual.
+        /// Inicializa la deteccion del gesto del Joint correspondiente.
+        /// </summary>
+        /// <param name="frame">The frame.</param>
+        public void ProcessFrame(ReplaySkeletonFrame frame)
+        {
+            Dictionary<int, string> stabilities = new Dictionary<int, string>();
+            //JointType articulacion = verificarJoint(articulacion_gesto);
+
+            //Si hay esqueletos en la lista
+            if (frame.Skeletons.Length > 0)
+            {
+                //botonGrabarGesto.IsEnabled = true;
+                //botonGrabarGestoViejo.IsEnabled = true;
+                foreach (var skeleton in frame.Skeletons)
+                {
+                    if (skeleton.TrackingState != SkeletonTrackingState.Tracked)
+                        continue;
+
+
+                    contextTracker.Add(skeleton.Position.ToVector3(), skeleton.TrackingId);
+                    //stabilities.Add(skeleton.TrackingId, contextTracker.IsStableRelativeToCurrentSpeed(skeleton.TrackingId) ? "Estable" : "Inestable");
+                    if (!contextTracker.IsStableRelativeToCurrentSpeed(skeleton.TrackingId))
+                        continue;
+
+                    foreach (Joint joint in skeleton.Joints)
+                    {
+                        if (kinectSensor != null)
+                        {
+
+                            if (joint.TrackingState != JointTrackingState.Tracked)
+                                continue;
+
+                            ////Si es la Joint seleccionada para detectar o generar el gesto inicializa la deteccion 
+
+                            //if (joint.JointType == articulacion && grabando)
+                            //    reconocedorGesto.Add(joint.Position, kinectSensor);
+
+                            ////verifica si la mano está dentro del boton
+                            //if (joint.JointType == JointType.HandRight)
+                            //{
+                            //    TrackHand(joint);
+                            //}
+
+                            ////Si la Joint es la mano izquierda detecta el Swipe hacia izquierda o derecha
+                            //else if (joint.JointType == JointType.HandLeft)
+                            //{
+                            //    //if (botonDeslizar.IsChecked == true)
+                            //    //    deslizarManoIzquierda.Add(joint.Position, kinectSensor);
+
+                            //    //Habilita (si esta activada en la GUI) el manejo del mouse con la mano izquierda
+                            //    //if (controlMouse.IsChecked == true)
+                            //    //    MouseController.Current.SetHandPosition(kinectSensor, joint, skeleton);
+                            //}
+                        }
+                    }
+
+                    //Inicializa las posturas
+                    //algorithmicPostureRecognizer.TrackPostures(skeleton);
+                    //templatePostureDetector.TrackPostures(skeleton);
+
+                    //if (recordNextFrameForPosture)
+                    //{
+                    //    templatePostureDetector.AddTemplate(skeleton);
+                    //}
+                }
+
+                //Dibuja el esqueleto en la GUI
+                skeletonDisplayManager.Draw(frame.Skeletons, seatedMode.IsChecked == true);
+                //skeletonDisplayManager.Draw(frame.Skeletons, true);
+                //stabilitiesList.ItemsSource = stabilities;
+
+            }
+
+        }
+        public void kinectRuntime_ColorFrameReady(object sender, ColorImageFrameReadyEventArgs e)
+        {
+            
+            using (var frame = e.OpenColorImageFrame())
+            {
+                if (frame == null)
+                    return;
+
+                                colorManager.Update(frame);
+            }
+        }
+        /// <summary>
+        /// Se encarga de manejar los frames de profundidad que llegan en tiempo real.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="DepthImageFrameReadyEventArgs"/> instance containing the event data.</param>
+        public void kinectSensor_DepthFrameReady(object sender, DepthImageFrameReadyEventArgs e)
+        {
+            using (var frame = e.OpenDepthImageFrame())
+            {
+                if (frame == null)
+                    return;
+
+                depthManager.Update(frame);
+            }
+        }
+        /// <summary>
+        /// Libera recursos
+        /// </summary>
+        public void Clean()
+        {
+            
+            if (kinectSensor != null)
+            {
+                kinectSensor.DepthFrameReady -= kinectSensor_DepthFrameReady;
+                kinectSensor.SkeletonFrameReady -= kinectRuntime_SkeletonFrameReady;
+                kinectSensor.ColorFrameReady -= kinectRuntime_ColorFrameReady;
+                kinectSensor.Stop();
+                kinectSensor = null;
+            }
+        }
+
+
+
+        private void ATRAS_Click(object sender, RoutedEventArgs e)
+        {
+
+            MenuPrincipal menuPrincipal = new MenuPrincipal();
+            menuPrincipal.Show();
+            //Se abre la ventana siguiente, la del medico para grabar gestos
+            this.Close();
+            //ventanaMedico.Show();
+        }
+        private void INICIAR_Click(object sender, RoutedEventArgs e)
+        {
+            
+            MainWindowPaciente paciente = new MainWindowPaciente(seatedMode.IsChecked == true);
+            this.Close();
+            paciente.Show();
+            //Se abre la ventana siguiente, la del medico para grabar gestos
+           
+            //ventanaMedico.Show();
+        }
+        public void seatedMode_Checked_1(object sender, RoutedEventArgs e)
+        {
+            if (kinectSensor == null)
+                return;
+            kinectSensor.SkeletonStream.TrackingMode = SkeletonTrackingMode.Seated;
+        }
+
+        /// <summary>
+        /// Desactiva el modo "sentado" de la aplicacion
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
+        public void seatedMode_Unchecked_1(object sender, RoutedEventArgs e)
+        {
+            if (kinectSensor == null)
+                return;
+            kinectSensor.SkeletonStream.TrackingMode = SkeletonTrackingMode.Default;
+        }
 
 	}
 }
