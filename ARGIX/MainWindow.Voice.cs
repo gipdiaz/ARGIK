@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace GesturesViewer
+namespace ARGIX
 {
     // Esta parte de la clase se encarga de manejar los comandos por voz
     partial class MainWindow

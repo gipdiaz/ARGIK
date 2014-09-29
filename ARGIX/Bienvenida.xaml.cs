@@ -21,7 +21,7 @@ using Kinect.Toolbox.Voice;
 using Coding4Fun.Kinect.Wpf.Controls;
 using System.Xml.Serialization;
 
-namespace GesturesViewer
+namespace ARGIX
 {
     /// <summary>
     /// Pantalla de la aplicacion que permite seleccionar el Joint al cual se le realizara el seguimiento

@@ -14,7 +14,7 @@ using System.Windows.Shapes;
 using System.Xml.Serialization;
 using System.Windows.Media;
 
-namespace GesturesViewer
+namespace ARGIX
 {
     /// <summary>
     /// Ventana Principal de la aplicacion.

@@ -4,7 +4,7 @@ using Kinect.Toolbox;
 using System;
 using System.Runtime.Serialization.Formatters.Binary;
 
-namespace GesturesViewer
+namespace ARGIX
 {
     partial class MainWindow
     {

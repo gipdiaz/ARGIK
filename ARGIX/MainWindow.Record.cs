@@ -3,7 +3,7 @@ using System.Windows;
 using Kinect.Toolbox.Record;
 using Microsoft.Win32;
 
-namespace GesturesViewer
+namespace ARGIX
 {
     // Esta parte de la clase se encarga de manejar la grabacion de la sesion
     partial class MainWindow

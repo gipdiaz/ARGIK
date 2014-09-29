@@ -1,4 +1,4 @@
-﻿<Window x:Class="GesturesViewer.VentanaPrincipal"
+﻿<Window x:Class="ARGIX.VentanaPrincipal"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Controls="clr-namespace:Coding4Fun.Kinect.Wpf.Controls;assembly=Coding4Fun.Kinect.Wpf" 

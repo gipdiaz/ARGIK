@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Kinect;
 
-namespace GesturesViewer
+namespace ARGIX
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

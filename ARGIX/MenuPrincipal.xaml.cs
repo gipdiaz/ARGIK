@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace GesturesViewer
+namespace ARGIX
 {
     /// <summary>
     /// Lógica de interacción para MenuPrincipal.xaml

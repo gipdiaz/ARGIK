@@ -10,7 +10,7 @@ using System.Threading;
 using System.Collections.Generic;
 
 
-namespace GesturesViewer
+namespace ARGIX
 {
     // Esta parte de la clase se encarga de manejar los gestos
     partial class MainWindow
