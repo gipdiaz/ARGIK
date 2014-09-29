@@ -17,20 +17,26 @@ using System.Windows.Media;
 namespace ARGIK
 {
     /// <summary>
-    /// Ventana Principal de la aplicacion.
-    /// Se muestra el menu de comandos y la imagen del Kinect
+    /// Lógica de interacción para MainWindowPaciente.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindowPaciente 
     {
-       
-
-
-        //Joint que se trackea
-               public string articulacion_gesto { get; set; }
-
-        SerializableDictionary<string, List<string>> diccionario;
         
-      
+        string nombre_gesto;
+        int repeticion_gesto;
+        bool repitiendo_gesto;
+        string sesion_gesto;
+        string articulacion_gesto;
+
+        string letterT_KBPath = System.IO.Path.Combine(Environment.CurrentDirectory, @"data\abc.save");
+
+        String archivoPostura = System.IO.Path.Combine(Environment.CurrentDirectory, @"..\..\gestos_posturas\t.save");
+
+        bool detectando;
+        bool grabando;
+
+        SerializableDictionary<string, List<string>> diccionarioPaciente;
+
         //Sensor del Kinect
         KinectSensor kinectSensor;
 
@@ -39,7 +45,7 @@ namespace ARGIK
 
         //Gesto de la mano derecha
         TemplatedGestureDetector reconocedorGesto;
-        
+
         //Manejadores de las imagenes a color, de profundidad y esqueleto
         readonly ColorStreamManager colorManager = new ColorStreamManager();
         readonly DepthStreamManager depthManager = new DepthStreamManager();
@@ -53,23 +59,19 @@ namespace ARGIK
 
         //Trackeador del contexto
         readonly ContextTracker contextTracker = new ContextTracker();
-        
+
         //Detector de la combinacion de gestos
         ParallelCombinedGestureDetector parallelCombinedGestureDetector;
 
         SerialCombinedGestureDetector serialCombinedGestureDetector;
-        
+
         //Postura
         readonly AlgorithmicPostureDetector algorithmicPostureRecognizer = new AlgorithmicPostureDetector();
         TemplatedPostureDetector templatePostureDetector;
         private bool recordNextFrameForPosture;
-        
+
         //Mostrar la imagen de profundidad?
         bool displayDepth;
-
-        //VER
-        string circleKBPath;
-        string letterT_KBPath = System.IO.Path.Combine(Environment.CurrentDirectory, @"data\abc.save");
 
         //Para grabar y repetir las sesiones
         KinectRecorder recorder;
@@ -83,17 +85,14 @@ namespace ARGIK
 
         //Para manejar los comandos por voz
         VoiceCommander voiceCommander;
+        bool seatedMode = true;
 
-        /// <summary>
-        /// Constructor de la ventana principal
-        /// </summary>
-        /// <param name="bienvenida">The bienvenida.</param>
-        public MainWindow()
+        public MainWindowPaciente(bool seatedMode)
         {
-            //this.articulacion_gesto = jointSeleccionada;
-            //this.diccionario = joints.b;
+            this.seatedMode = seatedMode;
             InitializeComponent();
         }
+
 
         /// <summary>
         /// Handles the StatusChanged event of the Kinects control.
@@ -165,9 +164,9 @@ namespace ARGIK
             }
         }
 
-       
 
-        
+
+
         /// <summary>
         /// Initializes this instance.
         /// </summary>
@@ -176,15 +175,15 @@ namespace ARGIK
             if (kinectSensor == null)
                 return;
 
-            //repitiendo_gesto = false;
+            repitiendo_gesto = false;
 
             audioManager = new AudioStreamManager(kinectSensor.AudioSource);
             //audioBeamAngle.DataContext = audioManager;
 
-            this.botonGrabarSesion.Click += new RoutedEventHandler(botonGrabar_Clicked);
-            this.botonAzul.Click += new RoutedEventHandler(botonAzul_Clicked);
-            this.botonNegro.Click += new RoutedEventHandler(botonArticulacion_Clicked);
-            this.botonVerde.Click += new RoutedEventHandler(botonVerde_Clicked);
+            this.botonReproducirSesion.Click += new RoutedEventHandler(botonGesto_Clicked);
+            this.botonAzulPaciente.Click += new RoutedEventHandler(botonAzulPaciente_Clicked);
+            this.botonNegroPaciente.Click += new RoutedEventHandler(botonNegroPaciente_Clicked);
+            this.botonVerdePaciente.Click += new RoutedEventHandler(botonRepetirGesto_Clicked);
 
             //kinectSensor.ColorStream.Enable(ColorImageFormat.RgbResolution640x480Fps30);
             kinectSensor.ColorStream.Enable(ColorImageFormat.RgbResolution640x480Fps30);
@@ -204,22 +203,22 @@ namespace ARGIK
             kinectSensor.SkeletonFrameReady += kinectRuntime_SkeletonFrameReady;
 
             deslizarManoIzquierda = new SwipeGestureDetector();
-            //deslizarManoIzquierda.OnGestureDetected += OnGestureDetected;
+            deslizarManoIzquierda.OnGestureDetected += OnGestureDetected;
 
-            skeletonDisplayManager = new SkeletonDisplayManager(kinectSensor, kinectCanvas);
-            
+            skeletonDisplayManager = new SkeletonDisplayManager(kinectSensor, kinectCanvasPaciente);
+
             //Encender el sensor
             kinectSensor.Start();
 
             //Se añade el texto al grid para que muestre el nombre del texto
-           
+
             repeticionesDisplay.Text = "";
-            LayoutRoot.Children.Add(repeticionesDisplay);
+            LayoutRootPaciente.Children.Add(repeticionesDisplay);
             //Configura la deteccion de gestos y posturas
 
             CargarDetectorGestos();
             CargarDetectorPosturas();
-           
+
             //Controla la elevacion de la camara con el slider de la GUI
             nuiCamera = new BindableNUICamera(kinectSensor);
             //elevacionCamara.DataContext = nuiCamera;
@@ -230,24 +229,23 @@ namespace ARGIK
             StartVoiceCommander();
 
             //Mostrar en pantalla la imagen a color
-            kinectDisplay.DataContext = colorManager;
+            kinectDisplayPaciente.DataContext = colorManager;
 
             //Deshabilitar el boton de deteccion hasta que no haya un esqueleto
             //botonGrabarGesto.IsEnabled = false;
             articulacion_gesto = "";
-            }
+        }
 
-        private void botonVerde_Clicked(object sender, RoutedEventArgs e)
+        private void botonNegroPaciente_Clicked(object sender, RoutedEventArgs e)
         {
             throw new NotImplementedException();
         }
 
-        private void botonAzul_Clicked(object sender, RoutedEventArgs e)
+        private void botonAzulPaciente_Clicked(object sender, RoutedEventArgs e)
         {
             throw new NotImplementedException();
         }
 
-      
         /// <summary>
         /// Se encarga de manejar los frames de profundidad que llegan en tiempo real.
         /// </summary>
@@ -306,7 +304,7 @@ namespace ARGIK
         /// <param name="e">The <see cref="SkeletonFrameReadyEventArgs"/> instance containing the event data.</param>
         public void kinectRuntime_SkeletonFrameReady(object sender, SkeletonFrameReadyEventArgs e)
         {
-            
+
             if (replay != null && !replay.IsFinished)
                 return;
 
@@ -325,14 +323,160 @@ namespace ARGIK
                 {
                     //botonGrabarGesto.IsEnabled = false;
                     //botonGrabarGestoViejo.IsEnabled = false;
-                    gesturesCanvas.Children.Clear();
-                    kinectCanvas.Children.Clear();
+                    gesturesCanvasPaciente.Children.Clear();
+                    kinectCanvasPaciente.Children.Clear();
                     return;
                 }
                 ProcessFrame(frame);
             }
-            
+
         }
+        /// <summary>
+        /// Cargars the replay.
+        /// </summary>
+        public void cargarReplay()
+        {
+            detectando = false;
+            grabando = false;
+            
+            repeticionesDisplay.Text = "";
+            List<string> lista = new List<string>();
+            if (diccionarioPaciente.TryGetValue("Gestos", out lista))
+            {
+                if (lista.Count != 0)
+                {
+
+                    for (int i = 0; i < (lista.Count); i++)
+                    {
+                        System.Console.WriteLine(lista[i] + "- Lista");
+                    }
+
+                    //frenar la deteccion de gestos
+                    reconocedorGesto.OnGestureDetected -= OnGestureDetected;
+
+                    //Guardar nombre de gesto, repeticiones y articulaciones
+                    nombre_gesto = lista[0];
+                    repeticion_gesto = Convert.ToInt32(lista[1]);
+                    articulacion_gesto = lista[2];
+                    sesion_gesto = lista[3];
+
+                    //Mostrar repeticiones
+                    repeticionesDisplay.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
+                    repeticionesDisplay.VerticalAlignment = System.Windows.VerticalAlignment.Center;
+                    repeticionesDisplay.FontSize = 75;
+                    repeticionesDisplay.Margin = new Thickness(30, 0, 0, 0);
+                    repeticionesDisplay.Foreground = new SolidColorBrush(Colors.Red);
+
+                    //Repetir la sesion del gesto grabado 
+                    if (replay != null)
+                    {
+                        replay.SkeletonFrameReady -= replay_SkeletonFrameReady;
+                        replay.ColorImageFrameReady -= replay_ColorImageFrameReady;
+                        replay.Stop();
+                    }
+
+                    Stream recordStreamReplay = File.OpenRead(sesion_gesto);
+                    replay = new KinectReplay(recordStreamReplay);
+
+                    //replay.SkeletonFrameReady += replay_SkeletonFrameReady;
+                    replay.ColorImageFrameReady += replay_ColorImageFrameReady;
+                    //replay.DepthImageFrameReady += replay_DepthImageFrameReady;
+
+
+                    reconocedorGesto.DisplayCanvas = gesturesCanvasPaciente;
+                    replay.Start();
+
+                    repeticionesDisplay.Text = "DEMO";
+                    repeticionesDisplay.Visibility = System.Windows.Visibility.Visible;
+
+                }
+            }
+        }
+        /// <summary>
+        /// Verifica si la mano derecha esta sobre alguno de los botones de la GUI con RA
+        /// </summary>
+        /// <param name="hand">The hand.</param>
+        public void TrackHand(Joint hand)
+        {
+            // Recupera el punto de la mano
+            DepthImagePoint puntoMano = kinectSensor.CoordinateMapper.MapSkeletonPointToDepthPoint(hand.Position, DepthImageFormat.Resolution640x480Fps30);
+
+            // Recupera la posición de los botones
+            var transform1 = this.botonReproducirSesion.TransformToVisual(LayoutRootPaciente);
+            var transform2 = this.botonAzulPaciente.TransformToVisual(LayoutRootPaciente);
+            var transform3 = this.botonNegroPaciente.TransformToVisual(LayoutRootPaciente);
+            var transform4 = this.botonVerdePaciente.TransformToVisual(LayoutRootPaciente);
+
+            Point puntobotonReproducirSesion = transform1.Transform(new Point(0, 0));
+            Point puntobotonAzulPaciente = transform2.Transform(new Point(0, 0));
+            Point puntobotonNegroPaciente = transform3.Transform(new Point(0, 0));
+            Point puntobotonVerdePaciente = transform4.Transform(new Point(0, 0));
+
+            // Verifica si el punto trackeado esta sobre el boton
+            if (Math.Abs(puntoMano.X - (puntobotonReproducirSesion.X + botonReproducirSesion.Width)) < 30 && Math.Abs(puntoMano.Y - puntobotonReproducirSesion.Y) < 30)
+                botonReproducirSesion.Hovering();
+            else
+                botonReproducirSesion.Release();
+
+            if (Math.Abs(puntoMano.X - (puntobotonAzulPaciente.X + botonAzulPaciente.Width)) < 30 && Math.Abs(puntoMano.Y - puntobotonAzulPaciente.Y) < 30)
+                botonAzulPaciente.Hovering();
+            else
+                botonAzulPaciente.Release();
+
+            if (Math.Abs(puntoMano.X - (puntobotonNegroPaciente.X + botonNegroPaciente.Width)) < 30 && Math.Abs(puntoMano.Y - puntobotonNegroPaciente.Y) < 30)
+                botonNegroPaciente.Hovering();
+            else
+                botonNegroPaciente.Release();
+
+            if (Math.Abs(puntoMano.X - (puntobotonVerdePaciente.X + botonVerdePaciente.Width)) < 30 && Math.Abs(puntoMano.Y - puntobotonVerdePaciente.Y) < 30)
+                botonVerdePaciente.Hovering();
+            else
+                botonVerdePaciente.Release();
+        }
+
+        /// <summary>
+        /// Muestra la imagen de profundidad o RGB segun el usuario seleccione en la GUI
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
+        public void Depth_RGB_Click(object sender, RoutedEventArgs e)
+        {
+            displayDepth = !displayDepth;
+            if (displayDepth)
+            {
+                //viewButton.Content = "RGB";
+                kinectDisplayPaciente.DataContext = depthManager;
+            }
+            else
+            {
+                //viewButton.Content = "Profundidad";
+                kinectDisplayPaciente.DataContext = colorManager;
+            }
+        }
+        /// <summary>
+        /// Activa el modo  "sentado" de la aplicacion
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
+        public void seatedMode_Checked_1(object sender, RoutedEventArgs e)
+        {
+            if (kinectSensor == null)
+                return;
+            kinectSensor.SkeletonStream.TrackingMode = SkeletonTrackingMode.Seated;
+        }
+
+        /// <summary>
+        /// Desactiva el modo "sentado" de la aplicacion
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
+        public void seatedMode_Unchecked_1(object sender, RoutedEventArgs e)
+        {
+            if (kinectSensor == null)
+                return;
+            kinectSensor.SkeletonStream.TrackingMode = SkeletonTrackingMode.Default;
+        }
+
         /// <summary>
         /// Dibuja el esqueleto y el punto de seguimiento en el frame actual.
         /// Inicializa la deteccion del gesto del Joint correspondiente.
@@ -342,7 +486,7 @@ namespace ARGIK
         {
             Dictionary<int, string> stabilities = new Dictionary<int, string>();
             JointType articulacion = verificarJoint(articulacion_gesto);
-            
+
             //Si hay esqueletos en la lista
             if (frame.Skeletons.Length > 0)
             {
@@ -363,14 +507,19 @@ namespace ARGIK
                     {
                         if (kinectSensor != null)
                         {
-                                                    
+
                             if (joint.TrackingState != JointTrackingState.Tracked)
                                 continue;
 
                             //Si es la Joint seleccionada para detectar o generar el gesto inicializa la deteccion 
-                            
-                            if (joint.JointType == articulacion && grabando)
+                            if (joint.JointType == articulacion && replay != null && replay.IsFinished)
+                            {
+                                if (detectando == false && repitiendo_gesto == false)
+                                    cargarGesto();
                                 reconocedorGesto.Add(joint.Position, kinectSensor);
+                            }
+                            //if (joint.JointType == articulacion && grabando)
+                            //    reconocedorGesto.Add(joint.Position, kinectSensor);
 
                             //verifica si la mano está dentro del boton
                             if (joint.JointType == JointType.HandRight)
@@ -394,7 +543,7 @@ namespace ARGIK
                     //Inicializa las posturas
                     algorithmicPostureRecognizer.TrackPostures(skeleton);
                     //templatePostureDetector.TrackPostures(skeleton);
-                
+
                     //if (recordNextFrameForPosture)
                     //{
                     //    templatePostureDetector.AddTemplate(skeleton);
@@ -402,8 +551,8 @@ namespace ARGIK
                 }
 
                 //Dibuja el esqueleto en la GUI
-                //skeletonDisplayManager.Draw(frame.Skeletons, seatedMode.IsChecked == true);
-                skeletonDisplayManager.Draw(frame.Skeletons, true);
+                skeletonDisplayManager.Draw(frame.Skeletons, seatedMode);
+                //skeletonDisplayManager.Draw(frame.Skeletons, true);
                 //stabilitiesList.ItemsSource = stabilities;
 
             }
@@ -416,7 +565,7 @@ namespace ARGIK
         /// <param name="jointSeleccionada">The joint seleccionada.</param>
         /// <returns></returns>
         public JointType verificarJoint(String jointSeleccionada)
-        {            
+        {
             switch (jointSeleccionada)
             {
                 case "Cabeza": return JointType.Head;
@@ -428,25 +577,15 @@ namespace ARGIK
                 case "Rodilla Izquierda": return JointType.KneeLeft;
                 case "Pie Derecho": return JointType.FootRight;
                 case "Pie Izquierdo": return JointType.FootLeft;
-                
+
                 default: return JointType.HandRight;
             }
-        }
-
-        /// <summary>
-        /// Cierra la ventana
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.ComponentModel.CancelEventArgs" /> instance containing the event data.</param>
-        public void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            Clean();
         }
         public void nuevoClean()
         {
             if (deslizarManoIzquierda != null)
             {
-                //deslizarManoIzquierda.OnGestureDetected -= OnGestureDetected;
+                deslizarManoIzquierda.OnGestureDetected -= OnGestureDetected;
             }
 
             if (audioManager != null)
@@ -461,7 +600,7 @@ namespace ARGIK
                 parallelCombinedGestureDetector.Remove(reconocedorGesto);
             }
 
-            //CerrarDetectorGestos();
+            CerrarDetectorGestos();
 
             ClosePostureDetector();
 
@@ -485,7 +624,7 @@ namespace ARGIK
 
         public void nuevoStart()
         {
-            //deslizarManoIzquierda.OnGestureDetected -= OnGestureDetected;
+            deslizarManoIzquierda.OnGestureDetected -= OnGestureDetected;
 
             //audioManager = new AudioStreamManager(kinectSensor.AudioSource);
 
@@ -512,7 +651,7 @@ namespace ARGIK
         {
             if (deslizarManoIzquierda != null)
             {
-                //deslizarManoIzquierda.OnGestureDetected -= OnGestureDetected;
+                deslizarManoIzquierda.OnGestureDetected -= OnGestureDetected;
             }
 
             if (audioManager != null)
@@ -528,7 +667,7 @@ namespace ARGIK
                 parallelCombinedGestureDetector = null;
             }
 
-            //CerrarDetectorGestos();
+            CerrarDetectorGestos();
 
             ClosePostureDetector();
 
@@ -542,7 +681,7 @@ namespace ARGIK
             {
                 recorder.Stop();
                 recorder = null;
-            }            
+            }
             if (kinectSensor != null)
             {
                 kinectSensor.DepthFrameReady -= kinectSensor_DepthFrameReady;
@@ -554,30 +693,14 @@ namespace ARGIK
         }
 
         /// <summary>
-        /// Abre la ventana del menu Replay. Permite seleccionar el archivo de sesion a repetir.
+        /// Cierra la ventana
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
-        public void replayButton_Click(object sender, RoutedEventArgs e)
+        /// <param name="e">The <see cref="System.ComponentModel.CancelEventArgs" /> instance containing the event data.</param>
+        public void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog {Title = "Select filename", Filter = "Replay files|*.replay" };
-            if (openFileDialog.ShowDialog() == true)
-            {
-                if (replay != null)
-                {
-                    replay.SkeletonFrameReady -= replay_SkeletonFrameReady;
-                    replay.ColorImageFrameReady -= replay_ColorImageFrameReady;
-                    replay.Stop();
-                }
-                Stream recordStream = File.OpenRead(openFileDialog.FileName);
-                replay = new KinectReplay(recordStream);
-                replay.SkeletonFrameReady += replay_SkeletonFrameReady;
-                replay.ColorImageFrameReady += replay_ColorImageFrameReady;
-                replay.DepthImageFrameReady += replay_DepthImageFrameReady;
-                replay.Start();
-            }
+            Clean();
         }
-
         /// <summary>
         /// Maneja los frames de profundidad de la repeticion
         /// </summary>
@@ -613,186 +736,244 @@ namespace ARGIK
             ProcessFrame(e.SkeletonFrame);
         }
 
-        
+      
 
-       
+     
+
+        private void botonRepetirGesto_Clicked(object sender, RoutedEventArgs e)
+        {
+            repitiendo_gesto = true;
+            
+            cargarReplay();
+        }
+
 
         /// <summary>
-        /// Boton Rojo de RA, genera el XML con la lista.
+        /// Inicia la sesion del paciente cargando los gestos a realizar (boton rojo RA)
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
-        public void botonGrabar_Clicked(object sender, RoutedEventArgs e)
- 
+
+        public void botonGesto_Clicked(object sender, RoutedEventArgs e)
         {
-            if (this.botonGrabarSesion.IsChecked )
-            {
-                diccionario = new SerializableDictionary<string, List<string>>();
-                List<string> medico = new List<string>();
-                medico.Add("German Leschevich");
-                List<string> paciente = new List<string>();
-                paciente.Add("Gaston Diaz");
-                List<string> precision = new List<string>();
-                precision.Add("Media");
-                List<string> gestos = new List<string>();
 
+            //Desearilzar el diccionario
+            grabando = false;
+            repeticionesDisplay.Text = "";
+            XmlSerializer serializer = new XmlSerializer(typeof(SerializableDictionary<string, List<string>>));
+            TextReader textReader = new StreamReader(@"Gaston Diaz.xml");
+            diccionarioPaciente = (SerializableDictionary<string, List<string>>)serializer.Deserialize(textReader);
+            cargarReplay();
+            //botonDetectarGesto.Content = "Pausar Detección azul";
+            reconocedorGesto.DisplayCanvas = gesturesCanvasPaciente;
+            //Limpiar puntos cuando cierra el cuadro de dialogo
+            // gesturesCanvasPaciente.Children.Clear();
 
-                diccionario.Add("Medico", medico);
-                diccionario.Add("Paciente", paciente);
-                diccionario.Add("Precision", precision);
-                diccionario.Add("Gestos", gestos);
-            }
-            else
-            {
-
-                XmlSerializer serializer = new XmlSerializer(typeof(SerializableDictionary<string, List<string>>));
-                TextWriter textWriter = new StreamWriter(@"Gaston Diaz.xml");
-                serializer.Serialize(textWriter, diccionario);
-                textWriter.Close();
-            }//if (botonGrabar.IsChecked)
-            //{
-            //   
-            //}
             //else
             //{
-            //    
+            //    botonDetectarGesto.Content = "Detectar Gesto";
+            //    reconocedorGesto.OnGestureDetected -= OnGestureDetected;
             //}
-            
-        }
-
-        public void botonArticulacion_Clicked(object sender, RoutedEventArgs e)
-        {
-            //if (voiceCommander != null)
-            //{
-            //    voiceCommander.OrderDetected -= voiceCommander_OrderDetected;
-            //    voiceCommander.Stop();
-            //    voiceCommander = null;
-            //}
-            //if (audioManager != null)
-            //{
-            //    audioManager.Dispose();
-            //    audioManager = null;
-            //}
-
-            this.nuevoClean();
-            //this.Hide();
-            this.Visibility = Visibility.Collapsed;
-            Joints jointsNuevo = new Joints(this);
-            jointsNuevo.ShowDialog();
-            
-            this.Visibility = Visibility.Visible;
-            this.nuevoStart();
-            //this.Show();
         }
 
         /// <summary>
-        /// Verifica si la mano derecha esta sobre alguno de los botones de la GUI con RA
+        /// Activa la grabacion del gesto mediante el boton de la GUI
         /// </summary>
-        /// <param name="hand">The hand.</param>
-        public void TrackHand(Joint hand)
+        public void cargarGesto()
         {
-                // Recupera el punto de la mano
-                DepthImagePoint puntoMano = kinectSensor.CoordinateMapper.MapSkeletonPointToDepthPoint(hand.Position, DepthImageFormat.Resolution640x480Fps30);
-    
-                // Recupera la posición de los botones
-                var transform1 = this.botonGrabarSesion.TransformToVisual(LayoutRoot);
-                var transform2 = this.botonAzul .TransformToVisual(LayoutRoot);
-                var transform3 = this.botonNegro.TransformToVisual(LayoutRoot);
-                var transform4 = this.botonVerde.TransformToVisual(LayoutRoot);
+           
 
-                Point puntoBotonGrabarSesion = transform1.Transform(new Point(0, 0));
-                Point puntoBotonReproducirSesion = transform2.Transform(new Point(0, 0));
-                Point puntoBotonNegro = transform3.Transform(new Point(0, 0));
-                Point puntoBotonVerde = transform4.Transform(new Point(0, 0));
-                
-                // Verifica si el punto trackeado esta sobre el boton
-                if ( Math.Abs(puntoMano.X - (puntoBotonGrabarSesion.X + botonGrabarSesion.Width)) < 30 && Math.Abs(puntoMano.Y - puntoBotonGrabarSesion.Y) < 30 )
-                    botonGrabarSesion.Hovering();
-                else 
-                    botonGrabarSesion.Release();
-
-                if (Math.Abs(puntoMano.X - (puntoBotonReproducirSesion.X + botonAzul.Width)) < 30 && Math.Abs(puntoMano.Y - puntoBotonReproducirSesion.Y) < 30)
-                    botonAzul.Hovering();
-                else
-                    botonAzul.Release();
-
-                if (Math.Abs(puntoMano.X - (puntoBotonNegro.X + botonNegro.Width)) < 30 && Math.Abs(puntoMano.Y - puntoBotonNegro.Y) < 30)
-                    botonNegro.Hovering();
-                else
-                    botonNegro.Release();
-
-                if (Math.Abs(puntoMano.X - (puntoBotonVerde.X + botonVerde.Width)) < 30 && Math.Abs(puntoMano.Y - puntoBotonVerde.Y) < 30)
-                    botonVerde.Hovering();
-                else
-                    botonVerde.Release();
-        }
-
-        /// <summary>
-        /// Muestra la imagen de profundidad o RGB segun el usuario seleccione en la GUI
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
-        public void Depth_RGB_Click(object sender, RoutedEventArgs e)
-        {
-            displayDepth = !displayDepth;
-            if (displayDepth)
+            List<string> lista = new List<string>();
+            if (diccionarioPaciente.TryGetValue("Gestos", out lista))
             {
-                //viewButton.Content = "RGB";
-                kinectDisplay.DataContext = depthManager;
+                if (lista.Count != 0)
+                {
+
+                    for (int i = 0; i < (lista.Count); i++)
+                    {
+                        System.Console.WriteLine(lista[i] + "- Lista");
+                    }
+
+                    //Guardar nombre de gesto, repeticiones y articulaciones
+                    nombre_gesto = lista[0];
+                    repeticion_gesto = Convert.ToInt32(lista[1]);
+                    articulacion_gesto = lista[2];
+                    sesion_gesto = lista[3];
+                    System.Console.WriteLine(articulacion_gesto);
+                    //Mostrar repeticiones
+
+                    repeticionesDisplay.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
+                    repeticionesDisplay.VerticalAlignment = System.Windows.VerticalAlignment.Center;
+                    repeticionesDisplay.FontSize = 75;
+                    repeticionesDisplay.Margin = new Thickness(30, 0, 0, 0);
+                    repeticionesDisplay.Foreground = new SolidColorBrush(Colors.Red);
+
+                    //lista.RemoveRange(0, 4);
+                    //diccionarioPaciente.Remove("Gestos");
+                    //diccionarioPaciente.Add("Gestos", lista);
+
+                    //Comenzar a detectar el gesto
+                    Stream recordStream = new FileStream(nombre_gesto, FileMode.Open);
+                    reconocedorGesto = new TemplatedGestureDetector(nombre_gesto, recordStream);
+                    reconocedorGesto.OnGestureDetected += OnGestureDetected;
+                    repeticionesDisplay.Text = repeticion_gesto.ToString();
+                    MouseController.Current.ClickGestureDetector = reconocedorGesto;
+                    //gesturesCanvasPaciente.Children.Clear();
+                    reconocedorGesto.DisplayCanvas = gesturesCanvasPaciente;
+                }
+                else
+                    repeticionesDisplay.Text = "¡BIEN HECHO!";
             }
+        }
+
+        /// <summary>
+        /// Si se detecta el gesto seleccionado se muestra cuando se lo realiza correctamente
+        /// </summary>
+        /// <param name="gesture">The gesture.</param>
+        public void OnGestureDetected(string gesture)
+        {
+
+            //Obtener nombre del gesto sin extension
+            //gesture = Path.GetFileNameWithoutExtension(gesture);
+
+            repitiendo_gesto = false;
+
+            repeticion_gesto = repeticion_gesto - 1;
+            repeticionesDisplay.Text = repeticion_gesto.ToString();
+
+            //int pos = detectedGestures.Items.Add(string.Format("{0} ---- {1}", gesture, DateTime.Now));
+            //object item = detectedGestures.Items[pos];
+            //detectedGestures.ScrollIntoView(item);
+            //detectedGestures.SelectedItem = item;
+
+            if (repeticion_gesto == 0)
+            {
+                List<string> lista = new List<string>();
+                if (diccionarioPaciente.TryGetValue("Gestos", out lista))
+                {
+                    if (lista.Count != 0)
+                    {
+                        lista.RemoveRange(0, 4);
+                        diccionarioPaciente.Remove("Gestos");
+                        diccionarioPaciente.Add("Gestos", lista);
+                    }
+                }
+                reconocedorGesto.OnGestureDetected -= OnGestureDetected;
+                cargarReplay();
+            }
+        }
+
+        /// <summary>
+        /// Se inicializa el detector de gestos con un Stream default
+        /// </summary>
+        public void CargarDetectorGestos()
+        {
+            using (Stream recordStream = new MemoryStream())
+            {
+                reconocedorGesto = new TemplatedGestureDetector("Gesto", recordStream);
+                reconocedorGesto.DisplayCanvas = gesturesCanvasPaciente;
+                MouseController.Current.ClickGestureDetector = reconocedorGesto;
+
+            }
+        }
+
+
+            /// <summary>
+        /// Limpia los recursos utilizados para la deteccion/grabacion de gestos
+        /// </summary>
+        public void CerrarDetectorGestos()
+        {
+            if (reconocedorGesto == null)
+                return;
             else
             {
-                //viewButton.Content = "Profundidad";
-                kinectDisplay.DataContext = colorManager;
+                reconocedorGesto.OnGestureDetected -= OnGestureDetected;
+                
+            }
+        }
+        /// <summary>
+        /// Inicializa el comando por voz
+        /// </summary>
+        public void StartVoiceCommander()
+        {
+
+            voiceCommander.Start(kinectSensor);
+        }
+
+        /// <summary>
+        /// Verifica si se detecto una orden y realiza la accion correspondiente.
+        /// </summary>
+        /// <param name="order">La orden.</param>
+        public void voiceCommander_OrderDetected(string order)
+        {
+            System.Console.WriteLine("Orden Detectada");
+            Dispatcher.Invoke(new Action(() =>
+            {
+                //audioControl.IsChecked = false
+                // return;
+
+                System.Console.WriteLine(order);
+                switch (order)
+                {
+                   /* case "grabar gesto":
+                        grabarListaGestos();
+                        break;
+                    case "detener gesto":
+                        grabarListaGestos();
+                        break;
+                    */
+                }
+            }));
+        }
+         public void CargarDetectorPosturas()
+        {           
+            using (Stream recordStream = File.Open(archivoPostura, FileMode.OpenOrCreate))
+            {       
+                // String nombrePosture = Console.ReadLine();
+                //templatePostureDetector = new TemplatedPostureDetector("ok", recordStream);
+                //templatePostureDetector.LearningMachine.Persist(recordStream);
+                algorithmicPostureRecognizer.PostureDetected += algorithmicPostureRecognizer_PostureDetected;
+                //templatePostureDetector.PostureDetected += templatePostureDetector_PostureDetected;
             }
         }
 
         /// <summary>
-        /// Activa deteccion del gesto deslizar
+        /// Handles the Click event of the grabarPostura control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
-        public void botonDeslizar_Checked_1(object sender, RoutedEventArgs e)
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        public void grabarPostura_Click(object sender, RoutedEventArgs e)
         {
-            if (kinectSensor == null)
-                return;
-            kinectSensor.DepthStream.Range = DepthRange.Near;
-            kinectSensor.SkeletonStream.EnableTrackingInNearRange = true;
+            recordNextFrameForPosture = true;
         }
 
         /// <summary>
-        /// Desactiva deteccion del gesto deslizar
+        /// Closes the posture detector.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
-        public void botonDeslizar_Unchecked_1(object sender, RoutedEventArgs e)
+        public void ClosePostureDetector()
         {
-            if (kinectSensor == null)
+            if (templatePostureDetector == null)
                 return;
+
+            using (Stream recordStream = File.Create(letterT_KBPath))
+            {
+                templatePostureDetector.SaveState(recordStream);
             }
-
-        /// <summary>
-        /// Activa el modo  "sentado" de la aplicacion
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
-        public void seatedMode_Checked_1(object sender, RoutedEventArgs e)
-        {
-            if (kinectSensor == null)
-                return;
-            kinectSensor.SkeletonStream.TrackingMode = SkeletonTrackingMode.Seated;
+            templatePostureDetector.PostureDetected -= algorithmicPostureRecognizer_PostureDetected;
         }
 
-        /// <summary>
-        /// Desactiva el modo "sentado" de la aplicacion
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
-        public void seatedMode_Unchecked_1(object sender, RoutedEventArgs e)
+        void algorithmicPostureRecognizer_PostureDetected(string posture)
         {
-            if (kinectSensor == null)
-                return;
-            kinectSensor.SkeletonStream.TrackingMode = SkeletonTrackingMode.Default;
-        }
+            //MessageBox.Show("Give me a......." + posture);
+
+            // VER QUE CONCHA HACER CON ESTO
+            //posture = Path.GetFileNameWithoutExtension(posture);
+            //int pos = detectedGestures.Items.Add(string.Format("{0} : {1}", posture, DateTime.Now));
+            //object item = detectedGestures.Items[pos];
+            //detectedGestures.ScrollIntoView(item);
+            //detectedGestures.SelectedItem = item;
+        }       
     }
-}
+    }
+
+

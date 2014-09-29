@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ARGIX
+namespace ARGIK
 {
     /// <summary>
     /// Lógica de interacción para MenuPrincipal.xaml
@@ -333,10 +333,14 @@ namespace ARGIX
             
         }
  
-        private void GAME2_Click(object sender, RoutedEventArgs e)
+        private void PACIENTE_Click(object sender, RoutedEventArgs e)
         {
             UnregisterEvents();
-            (Application.Current.MainWindow.FindName("_mainFrame") as Frame).Source = new Uri("Game2.xaml", UriKind.Relative); 
+            //Se abre la ventana siguiente, para que el paciente pueda hacer su sesion
+            Configuracion configuracion = new Configuracion();
+            
+            this.Close();
+            configuracion.Show();
         } 
         private void GAME3_Click(object sender, RoutedEventArgs e)
         {

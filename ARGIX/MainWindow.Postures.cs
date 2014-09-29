@@ -4,7 +4,7 @@ using Kinect.Toolbox;
 using System;
 using System.Runtime.Serialization.Formatters.Binary;
 
-namespace ARGIX
+namespace ARGIK
 {
     partial class MainWindow
     {
@@ -13,7 +13,7 @@ namespace ARGIX
         /// <summary>
         /// Cargars the detector posturas.
         /// </summary>
-        void CargarDetectorPosturas()
+        public void CargarDetectorPosturas()
         {           
             using (Stream recordStream = File.Open(archivoPostura, FileMode.OpenOrCreate))
             {       
@@ -38,7 +38,7 @@ namespace ARGIX
         /// <summary>
         /// Closes the posture detector.
         /// </summary>
-        void ClosePostureDetector()
+        public void ClosePostureDetector()
         {
             if (templatePostureDetector == null)
                 return;

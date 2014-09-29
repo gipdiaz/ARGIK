@@ -10,7 +10,7 @@ using System.Threading;
 using System.Collections.Generic;
 
 
-namespace ARGIX
+namespace ARGIK
 {
     // Esta parte de la clase se encarga de manejar los gestos
     partial class MainWindow
@@ -18,7 +18,7 @@ namespace ARGIX
        
         int nroGesto = 0;
         string nombreSesion;
-        bool grabando = false;
+        public bool grabando = false;
         /// <summary>
         /// Se inicializa el detector de gestos con un Stream default
         /// </summary>
@@ -60,7 +60,7 @@ namespace ARGIX
             }
             else
             {
-                reconocedorGesto.OnGestureDetected -= OnGestureDetected;
+                //reconocedorGesto.OnGestureDetected -= OnGestureDetected;
                 CargarDetectorGestos();
                 reconocedorGesto.StartRecordTemplate();
                 grabando = true;
@@ -68,6 +68,7 @@ namespace ARGIX
                 nroGesto = nroGesto + 1;
                 nombreSesion = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "sesion"+ nroGesto +".replay");
                 DirectRecord(nombreSesion);
+                repeticionesDisplay.Text = "¡Grabando!";
             }
         }
 
@@ -77,7 +78,7 @@ namespace ARGIX
             diccionario.TryGetValue("Gestos", out lista);
             lista.Add(reconocedorGesto.LearningMachine.gestoNuevo);
             lista.Add(reconocedorGesto.LearningMachine.repeticion);
-            lista.Add(jointSeleccionada);
+            lista.Add(articulacion_gesto);
             lista.Add(nombreSesion);
             diccionario.Remove("Gestos");
             diccionario.Add("Gestos", lista);
@@ -101,7 +102,7 @@ namespace ARGIX
             }
             else
             {
-                reconocedorGesto.OnGestureDetected -= OnGestureDetected;
+                //reconocedorGesto.OnGestureDetected -= OnGestureDetected;
                 CargarDetectorGestos();
                 reconocedorGesto.StartRecordTemplate();
                 //botonGrabarGestoViejo.Content = "Pausar Grabacion Viejo";
@@ -142,45 +143,8 @@ namespace ARGIX
         //    }
         //}
 
-        /// <summary>
-        /// Si se detecta el gesto seleccionado se muestra cuando se lo realiza correctamente
-        /// </summary>
-        /// <param name="gesture">The gesture.</param>
-        public void OnGestureDetected(string gesture)
-        {
+  
 
-            //Obtener nombre del gesto sin extension
-            //gesture = Path.GetFileNameWithoutExtension(gesture);
-            
-                repeticion_gesto = repeticion_gesto - 1;
-                repeticionesDisplay.Text = repeticion_gesto.ToString();
-
-                //int pos = detectedGestures.Items.Add(string.Format("{0} ---- {1}", gesture, DateTime.Now));
-                //object item = detectedGestures.Items[pos];
-                //detectedGestures.ScrollIntoView(item);
-                //detectedGestures.SelectedItem = item;
-
-                if (repeticion_gesto == 0)
-                {
-                    reconocedorGesto.OnGestureDetected -= OnGestureDetected;
-                    cargarReplay();
-                }
-            
-
+        
         }
-
-        /// <summary>
-        /// Limpia los recursos utilizados para la deteccion/grabacion de gestos
-        /// </summary>
-        public void CerrarDetectorGestos()
-        {
-            if (reconocedorGesto == null)
-                return;
-            else
-            {
-                reconocedorGesto.OnGestureDetected -= OnGestureDetected;
-                
-            }
-        }
-    }
 }

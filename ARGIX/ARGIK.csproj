@@ -76,19 +76,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Configuracion.xaml.cs">
+      <DependentUpon>Configuracion.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Generics.cs" />
     <Compile Include="Joints.xaml.cs">
       <DependentUpon>Joints.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MainWindowPaciente.xaml.cs">
+      <DependentUpon>MainWindowPaciente.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MenuPrincipal.xaml.cs">
       <DependentUpon>MenuPrincipal.xaml</DependentUpon>
     </Compile>
-    <Compile Include="VentanaPrincipal.xaml.cs">
-      <DependentUpon>VentanaPrincipal.xaml</DependentUpon>
-    </Compile>
-    <Page Include="Bienvenida.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Configuracion.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Joints.xaml">
       <SubType>Designer</SubType>
@@ -102,9 +105,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Bienvenida.xaml.cs">
-      <DependentUpon>Bienvenida.xaml</DependentUpon>
-    </Compile>
     <Compile Include="SerializableDictionary.cs" />
     <Compile Include="MainWindow.Gestures.cs" />
     <Compile Include="MainWindow.Postures.cs" />
@@ -114,11 +114,11 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="MenuPrincipal.xaml">
+    <Page Include="MainWindowPaciente.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="VentanaPrincipal.xaml">
+    <Page Include="MenuPrincipal.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -177,6 +177,8 @@
     <Resource Include="images\Logo 2.jpg" />
     <Resource Include="images\Logo 3.jpg" />
     <Content Include="Libs\Microsoft.Kinect.dll" />
+    <Resource Include="iniciar .png" />
+    <Resource Include="iniciar.png" />
     <Resource Include="ReadMe.Coding4Fun.Toolkit.txt" />
   </ItemGroup>
   <ItemGroup>
