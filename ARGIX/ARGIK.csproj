@@ -106,7 +106,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="SerializableDictionary.cs" />
-    <Compile Include="MainWindow.Gestures.cs" />
+    <Compile Include="MainWindow.Gestos.cs" />
     <Compile Include="MainWindow.Postures.cs" />
     <Compile Include="MainWindow.Record.cs" />
     <Compile Include="MainWindow.Voice.cs" />

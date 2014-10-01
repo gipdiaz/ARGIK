@@ -87,12 +87,15 @@ namespace ARGIK
         VoiceCommander voiceCommander;
         bool seatedMode = true;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainWindowPaciente"/> class.
+        /// </summary>
+        /// <param name="seatedMode">if set to <c>true</c> [seated mode].</param>
         public MainWindowPaciente(bool seatedMode)
         {
             this.seatedMode = seatedMode;
             InitializeComponent();
         }
-
 
         /// <summary>
         /// Handles the StatusChanged event of the Kinects control.
@@ -165,8 +168,6 @@ namespace ARGIK
         }
 
 
-
-
         /// <summary>
         /// Initializes this instance.
         /// </summary>
@@ -175,9 +176,9 @@ namespace ARGIK
             if (kinectSensor == null)
                 return;
 
-            repitiendo_gesto = false;
+            this.repitiendo_gesto = false;
 
-            audioManager = new AudioStreamManager(kinectSensor.AudioSource);
+            this.audioManager = new AudioStreamManager(kinectSensor.AudioSource);
             //audioBeamAngle.DataContext = audioManager;
 
             this.botonReproducirSesion.Click += new RoutedEventHandler(botonGesto_Clicked);
@@ -224,7 +225,7 @@ namespace ARGIK
             //elevacionCamara.DataContext = nuiCamera;
 
             //Comandos que podran ser reconocidos por voz
-            voiceCommander = new VoiceCommander("grabar gesto", "detener gesto");
+            voiceCommander = new VoiceCommander("reproducir", "parar");
             voiceCommander.OrderDetected += voiceCommander_OrderDetected;
             StartVoiceCommander();
 
@@ -877,8 +878,7 @@ namespace ARGIK
             }
         }
 
-
-            /// <summary>
+        /// <summary>
         /// Limpia los recursos utilizados para la deteccion/grabacion de gestos
         /// </summary>
         public void CerrarDetectorGestos()

@@ -19,6 +19,7 @@ namespace ARGIK
         int nroGesto = 0;
         string nombreSesion;
         public bool grabando = false;
+        
         /// <summary>
         /// Se inicializa el detector de gestos con un Stream default
         /// </summary>
@@ -31,40 +32,35 @@ namespace ARGIK
                 MouseController.Current.ClickGestureDetector = reconocedorGesto;
 
             }   
-        }
-
-        
+        }        
 
         /// <summary>
         /// Se activa la grabacion del gesto
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        
         public void grabarGesto_Click(object sender, RoutedEventArgs e)
         {
             grabarListaGestos();
         }
 
+        /// <summary>
+        /// Grabars the lista gestos.
+        /// </summary>
         public void grabarListaGestos()
         {
-            
             if (reconocedorGesto.IsRecordingPath)
             {
                 StopRecord();
                 reconocedorGesto.EndRecordTemplate();
                 gesturesCanvas.Children.Clear();
-                //System.IO.File.Move(nombreSesion, System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "sesion_" + Path.GetFileNameWithoutExtension(reconocedorGesto.LearningMachine.gestoNuevo)+ ".replay"));
                 armarListaGestos();
-                
             }
             else
             {
-                //reconocedorGesto.OnGestureDetected -= OnGestureDetected;
                 CargarDetectorGestos();
                 reconocedorGesto.StartRecordTemplate();
                 grabando = true;
-                //botonGrabarGesto.Content = "Pausar Grabacion";
                 nroGesto = nroGesto + 1;
                 nombreSesion = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "sesion"+ nroGesto +".replay");
                 DirectRecord(nombreSesion);
@@ -72,6 +68,9 @@ namespace ARGIK
             }
         }
 
+        /// <summary>
+        /// Arma la lista de gestos
+        /// </summary>
         public void armarListaGestos()
         {
             List<string> lista = new List<string>();
@@ -82,30 +81,24 @@ namespace ARGIK
             lista.Add(nombreSesion);
             diccionario.Remove("Gestos");
             diccionario.Add("Gestos", lista);
-
-            //botonGrabarGesto.Content = "Grabar Gesto";
             
         }
+
         /// <summary>
         /// Se activa la grabacion del gesto
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-
         public void grabarGestoViejo_Click(object sender, RoutedEventArgs e)
         {
             if (reconocedorGesto.IsRecordingPath)
             {
                 reconocedorGesto.EndRecordTemplate();
-                //botonGrabarGestoViejo.Content = "Grabar Gesto Viejo";
-
             }
             else
             {
-                //reconocedorGesto.OnGestureDetected -= OnGestureDetected;
                 CargarDetectorGestos();
                 reconocedorGesto.StartRecordTemplate();
-                //botonGrabarGestoViejo.Content = "Pausar Grabacion Viejo";
             }
         }
 
@@ -142,9 +135,5 @@ namespace ARGIK
         //        reconocedorGesto.OnGestureDetected -= OnGestureDetected;
         //    }
         //}
-
-  
-
-        
         }
 }
