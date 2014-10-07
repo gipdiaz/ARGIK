@@ -4,7 +4,7 @@ using System.IO;
 namespace ARGIK
 {
     // Esta parte de la clase se encarga de manejar los comandos por voz
-    partial class MainWindow
+    partial class Medico
     {
         /// <summary>
         /// Inicializa el comando por voz

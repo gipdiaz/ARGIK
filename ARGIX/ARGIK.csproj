@@ -76,28 +76,28 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Configuracion.xaml.cs">
+    <Compile Include="Ventanas\Configuracion.xaml.cs">
       <DependentUpon>Configuracion.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Generics.cs" />
-    <Compile Include="Joints.xaml.cs">
-      <DependentUpon>Joints.xaml</DependentUpon>
+    <Compile Include="Otros\Generics.cs" />
+    <Compile Include="Ventanas\Articulaciones.xaml.cs">
+      <DependentUpon>Articulaciones.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainWindowPaciente.xaml.cs">
-      <DependentUpon>MainWindowPaciente.xaml</DependentUpon>
+    <Compile Include="Ventanas\Paciente\Paciente.xaml.cs">
+      <DependentUpon>Paciente.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MenuPrincipal.xaml.cs">
+    <Compile Include="Ventanas\MenuPrincipal.xaml.cs">
       <DependentUpon>MenuPrincipal.xaml</DependentUpon>
     </Compile>
-    <Page Include="Configuracion.xaml">
+    <Page Include="Ventanas\Configuracion.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Joints.xaml">
+    <Page Include="Ventanas\Articulaciones.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="Ventanas\Medico\Medico.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -105,20 +105,20 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="SerializableDictionary.cs" />
-    <Compile Include="MainWindow.Gestos.cs" />
-    <Compile Include="MainWindow.Postures.cs" />
-    <Compile Include="MainWindow.Record.cs" />
-    <Compile Include="MainWindow.Voice.cs" />
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="Otros\SerializableDictionary.cs" />
+    <Compile Include="Ventanas\Medico\Medico.Gesto.cs" />
+    <Compile Include="Ventanas\Medico\Medico.Postura.cs" />
+    <Compile Include="Ventanas\Medico\Medico.Grabacion.cs" />
+    <Compile Include="Ventanas\Medico\Medico.Voz.cs" />
+    <Compile Include="Ventanas\Medico\Medico.xaml.cs">
+      <DependentUpon>Medico.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="MainWindowPaciente.xaml">
+    <Page Include="Ventanas\Paciente\Paciente.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MenuPrincipal.xaml">
+    <Page Include="Ventanas\MenuPrincipal.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -152,38 +152,35 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="FaceTrackData.dll" />
-    <Content Include="FaceTrackLib.dll" />
-    <Resource Include="atras.png" />
-    <Resource Include="images\background.jpg" />
-    <Resource Include="images\ff.png" />
-    <Resource Include="images\rw.png" />
-    <Resource Include="images\stop.png" />
-    <Resource Include="images\vista_flag.png" />
-    <Resource Include="images\circle_blue.png" />
-    <Resource Include="images\red_blue.png" />
-    <Resource Include="images\BlackButton-Active.png" />
-    <Resource Include="images\BlackButton-Hover.png" />
-    <Resource Include="images\BlueButton-Active.png" />
-    <Resource Include="images\BlueButton-Hover.png" />
-    <Resource Include="images\GreenButton-Active.png" />
-    <Resource Include="images\GreenButton-Hover.png" />
-    <Resource Include="images\myhand.png" />
-    <Resource Include="images\RedButton-Active.png" />
-    <Resource Include="images\RedButton-Hover.png" />
-    <Resource Include="images\YellowButton-Active.png" />
-    <Resource Include="images\YellowButton-Hover.png" />
-    <Resource Include="images\Logo 1.jpg" />
-    <Resource Include="images\Logo 2.jpg" />
-    <Resource Include="images\Logo 3.jpg" />
+    <Resource Include="Images\atras.png" />
+    <Resource Include="Images\iniciar .png" />
+    <Content Include="Libs\FaceTrackData.dll" />
+    <Content Include="Libs\FaceTrackLib.dll" />
+    <Resource Include="Images\background.jpg" />
+    <Resource Include="Images\ff.png" />
+    <Resource Include="Images\rw.png" />
+    <Resource Include="Images\stop.png" />
+    <Resource Include="Images\vista_flag.png" />
+    <Resource Include="Images\circle_blue.png" />
+    <Resource Include="Images\red_blue.png" />
+    <Resource Include="Images\BlackButton-Active.png" />
+    <Resource Include="Images\BlackButton-Hover.png" />
+    <Resource Include="Images\BlueButton-Active.png" />
+    <Resource Include="Images\BlueButton-Hover.png" />
+    <Resource Include="Images\GreenButton-Active.png" />
+    <Resource Include="Images\GreenButton-Hover.png" />
+    <Resource Include="Images\myhand.png" />
+    <Resource Include="Images\RedButton-Active.png" />
+    <Resource Include="Images\RedButton-Hover.png" />
+    <Resource Include="Images\YellowButton-Active.png" />
+    <Resource Include="Images\YellowButton-Hover.png" />
+    <Resource Include="Images\Logo 1.jpg" />
+    <Resource Include="Images\Logo 2.jpg" />
+    <Resource Include="Images\Logo 3.jpg" />
     <Content Include="Libs\Microsoft.Kinect.dll" />
-    <Resource Include="iniciar .png" />
-    <Resource Include="iniciar.png" />
-    <Resource Include="ReadMe.Coding4Fun.Toolkit.txt" />
+    <Resource Include="Images\iniciar.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Recursos\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\KinectToolbox\Kinect.Toolbox.csproj">
       <Project>{2c84ce43-cdab-4541-a55a-7f849e8ac247}</Project>

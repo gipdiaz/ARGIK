@@ -20,17 +20,19 @@ namespace ARGIK
     /// Ventana Principal de la aplicacion.
     /// Se muestra el menu de comandos y la imagen del Kinect
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Medico : Window
     {
-       
 
-
-        //Joint que se trackea
-               public string articulacion_gesto { get; set; }
+        /// <summary>
+        /// Get o set articulacion_gesto.
+        /// </summary>
+        /// <value>
+        /// Articulacion a trakear
+        /// </value>
+        public string articulacion_gesto { get; set; }
 
         SerializableDictionary<string, List<string>> diccionario;
         
-      
         //Sensor del Kinect
         KinectSensor kinectSensor;
 
@@ -53,22 +55,19 @@ namespace ARGIK
 
         //Trackeador del contexto
         readonly ContextTracker contextTracker = new ContextTracker();
-        
-        //Detector de la combinacion de gestos
-        ParallelCombinedGestureDetector parallelCombinedGestureDetector;
 
-        SerialCombinedGestureDetector serialCombinedGestureDetector;
+        //SerialCombinedGestureDetector serialCombinedGestureDetector;
         
         //Postura
         readonly AlgorithmicPostureDetector algorithmicPostureRecognizer = new AlgorithmicPostureDetector();
-        TemplatedPostureDetector templatePostureDetector;
-        private bool recordNextFrameForPosture;
+        // TemplatedPostureDetector templatePostureDetector;
+        // private bool recordNextFrameForPosture;
         
         //Mostrar la imagen de profundidad?
         bool displayDepth;
 
         //VER
-        string circleKBPath;
+        //string circleKBPath;
         string letterT_KBPath = System.IO.Path.Combine(Environment.CurrentDirectory, @"data\abc.save");
 
         //Para grabar y repetir las sesiones
@@ -87,11 +86,8 @@ namespace ARGIK
         /// <summary>
         /// Constructor de la ventana principal
         /// </summary>
-        /// <param name="bienvenida">The bienvenida.</param>
-        public MainWindow()
+        public Medico()
         {
-            //this.articulacion_gesto = jointSeleccionada;
-            //this.diccionario = joints.b;
             InitializeComponent();
         }
 
@@ -164,12 +160,9 @@ namespace ARGIK
                 MessageBox.Show(ex.Message);
             }
         }
-
-       
-
         
         /// <summary>
-        /// Initializes this instance.
+        /// Inicializa los elementos de la interfaz
         /// </summary>
         public void Initialize()
         {
@@ -375,7 +368,7 @@ namespace ARGIK
                             //verifica si la mano está dentro del boton
                             if (joint.JointType == JointType.HandRight)
                             {
-                                TrackHand(joint);
+                                TrackearManoDerecha(joint);
                             }
 
                             //Si la Joint es la mano izquierda detecta el Swipe hacia izquierda o derecha
@@ -434,14 +427,8 @@ namespace ARGIK
         }
 
         /// <summary>
-        /// Cierra la ventana
+        /// Nuevoes the clean.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.ComponentModel.CancelEventArgs" /> instance containing the event data.</param>
-        public void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            Clean();
-        }
         public void nuevoClean()
         {
             if (deslizarManoIzquierda != null)
@@ -454,14 +441,6 @@ namespace ARGIK
                 audioManager.Dispose();
                 audioManager = null;
             }
-
-            if (parallelCombinedGestureDetector != null)
-            {
-                parallelCombinedGestureDetector.Remove(deslizarManoIzquierda);
-                parallelCombinedGestureDetector.Remove(reconocedorGesto);
-            }
-
-            //CerrarDetectorGestos();
 
             ClosePostureDetector();
 
@@ -483,6 +462,9 @@ namespace ARGIK
             }
         }
 
+        /// <summary>
+        /// Nuevoes the start.
+        /// </summary>
         public void nuevoStart()
         {
             //deslizarManoIzquierda.OnGestureDetected -= OnGestureDetected;
@@ -502,7 +484,6 @@ namespace ARGIK
             kinectSensor.ColorFrameReady += kinectRuntime_ColorFrameReady;
             kinectSensor.Start();
             //this.articulacion_gesto = articulacion_gesto;
-
         }
 
         /// <summary>
@@ -510,25 +491,11 @@ namespace ARGIK
         /// </summary>
         public void Clean()
         {
-            if (deslizarManoIzquierda != null)
-            {
-                //deslizarManoIzquierda.OnGestureDetected -= OnGestureDetected;
-            }
-
             if (audioManager != null)
             {
                 audioManager.Dispose();
                 audioManager = null;
             }
-
-            if (parallelCombinedGestureDetector != null)
-            {
-                parallelCombinedGestureDetector.Remove(deslizarManoIzquierda);
-                parallelCombinedGestureDetector.Remove(reconocedorGesto);
-                parallelCombinedGestureDetector = null;
-            }
-
-            //CerrarDetectorGestos();
 
             ClosePostureDetector();
 
@@ -613,17 +580,12 @@ namespace ARGIK
             ProcessFrame(e.SkeletonFrame);
         }
 
-        
-
-       
-
         /// <summary>
         /// Boton Rojo de RA, genera el XML con la lista.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
-        public void botonGrabar_Clicked(object sender, RoutedEventArgs e)
- 
+        public void botonGrabar_Clicked(object sender, RoutedEventArgs e) 
         {
             if (this.botonGrabarSesion.IsChecked )
             {
@@ -649,17 +611,15 @@ namespace ARGIK
                 TextWriter textWriter = new StreamWriter(@"Gaston Diaz.xml");
                 serializer.Serialize(textWriter, diccionario);
                 textWriter.Close();
-            }//if (botonGrabar.IsChecked)
-            //{
-            //   
-            //}
-            //else
-            //{
-            //    
-            //}
+            }
             
         }
 
+        /// <summary>
+        /// Handles the Clicked event of the botonArticulacion control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         public void botonArticulacion_Clicked(object sender, RoutedEventArgs e)
         {
             //if (voiceCommander != null)
@@ -677,7 +637,7 @@ namespace ARGIK
             this.nuevoClean();
             //this.Hide();
             this.Visibility = Visibility.Collapsed;
-            Joints jointsNuevo = new Joints(this);
+            Articulaciones jointsNuevo = new Articulaciones(this);
             jointsNuevo.ShowDialog();
             
             this.Visibility = Visibility.Visible;
@@ -689,7 +649,7 @@ namespace ARGIK
         /// Verifica si la mano derecha esta sobre alguno de los botones de la GUI con RA
         /// </summary>
         /// <param name="hand">The hand.</param>
-        public void TrackHand(Joint hand)
+        public void TrackearManoDerecha(Joint hand)
         {
                 // Recupera el punto de la mano
                 DepthImagePoint puntoMano = kinectSensor.CoordinateMapper.MapSkeletonPointToDepthPoint(hand.Position, DepthImageFormat.Resolution640x480Fps30);
@@ -748,51 +708,13 @@ namespace ARGIK
         }
 
         /// <summary>
-        /// Activa deteccion del gesto deslizar
+        /// Cierra la ventana
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
-        public void botonDeslizar_Checked_1(object sender, RoutedEventArgs e)
+        /// <param name="e">The <see cref="System.ComponentModel.CancelEventArgs" /> instance containing the event data.</param>
+        public void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (kinectSensor == null)
-                return;
-            kinectSensor.DepthStream.Range = DepthRange.Near;
-            kinectSensor.SkeletonStream.EnableTrackingInNearRange = true;
-        }
-
-        /// <summary>
-        /// Desactiva deteccion del gesto deslizar
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
-        public void botonDeslizar_Unchecked_1(object sender, RoutedEventArgs e)
-        {
-            if (kinectSensor == null)
-                return;
-            }
-
-        /// <summary>
-        /// Activa el modo  "sentado" de la aplicacion
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
-        public void seatedMode_Checked_1(object sender, RoutedEventArgs e)
-        {
-            if (kinectSensor == null)
-                return;
-            kinectSensor.SkeletonStream.TrackingMode = SkeletonTrackingMode.Seated;
-        }
-
-        /// <summary>
-        /// Desactiva el modo "sentado" de la aplicacion
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
-        public void seatedMode_Unchecked_1(object sender, RoutedEventArgs e)
-        {
-            if (kinectSensor == null)
-                return;
-            kinectSensor.SkeletonStream.TrackingMode = SkeletonTrackingMode.Default;
+            Clean();
         }
     }
 }

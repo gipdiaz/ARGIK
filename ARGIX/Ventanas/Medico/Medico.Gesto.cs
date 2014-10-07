@@ -13,7 +13,7 @@ using System.Collections.Generic;
 namespace ARGIK
 {
     // Esta parte de la clase se encarga de manejar los gestos
-    partial class MainWindow
+    partial class Medico
     {
        
         int nroGesto = 0;

@@ -6,7 +6,7 @@ using Microsoft.Win32;
 namespace ARGIK
 {
     // Esta parte de la clase se encarga de manejar la grabacion de la sesion
-    partial class MainWindow
+    partial class Medico
     {
         /// <summary>
         /// Permite ponerle un nombre al archivo de la sesion que se graba.

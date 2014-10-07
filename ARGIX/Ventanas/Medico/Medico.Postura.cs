@@ -6,7 +6,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace ARGIK
 {
-    partial class MainWindow
+    partial class Medico
     {
         String archivoPostura = Path.Combine(Environment.CurrentDirectory, @"..\..\gestos_posturas\t.save");
 
@@ -23,16 +23,6 @@ namespace ARGIK
                 algorithmicPostureRecognizer.PostureDetected += algorithmicPostureRecognizer_PostureDetected;
                 //templatePostureDetector.PostureDetected += templatePostureDetector_PostureDetected;
             }
-        }
-
-        /// <summary>
-        /// Handles the Click event of the grabarPostura control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
-        public void grabarPostura_Click(object sender, RoutedEventArgs e)
-        {
-            recordNextFrameForPosture = true;
         }
 
         /// <summary>
