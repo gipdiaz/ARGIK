@@ -4,13 +4,13 @@ using System.IO;
 namespace ARGIK
 {
     // Esta parte de la clase se encarga de manejar los comandos por voz
-    partial class Medico
+    partial class Paciente
     {
         /// <summary>
         /// Inicializa el comando por voz
         /// </summary>
         public void StartVoiceCommander()
-        {  
+        {
             voiceCommander.Start(kinectSensor);
         }
 
@@ -30,16 +30,12 @@ namespace ARGIK
                 switch (order)
                 {
                     case "grabar":
-                        grabarListaGestos();
                         break;
                     case "detener":
-                        grabarListaGestos();
                         break;
                     case "reproducir":
-                        grabarListaGestos();
                         break;
                     case "parar":
-                        grabarListaGestos();
                         break;
                 }
             }));

@@ -9,7 +9,6 @@ using System.Windows.Controls;
 using System.Threading;
 using System.Collections.Generic;
 
-
 namespace ARGIK
 {
     // Esta parte de la clase se encarga de manejar los gestos
@@ -30,9 +29,8 @@ namespace ARGIK
                 reconocedorGesto = new TemplatedGestureDetector("Gesto", recordStream);
                 reconocedorGesto.DisplayCanvas = gesturesCanvas;
                 MouseController.Current.ClickGestureDetector = reconocedorGesto;
-
-            }   
-        }        
+            }
+        }
 
         /// <summary>
         /// Se activa la grabacion del gesto
@@ -105,8 +103,8 @@ namespace ARGIK
         /// <summary>
         /// Se activa la deteccion del gesto seleccionado
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// <param name="sender">La fuente del evento</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instancia que contiene los datos del evento.</param>
         //public void deteccionGesto_Click(object sender, RoutedEventArgs e)
         //{
         //    if (botonDetectarGesto.Content.ToString() == "Detectar Gesto")

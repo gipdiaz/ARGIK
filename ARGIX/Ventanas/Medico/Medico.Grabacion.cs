@@ -12,8 +12,8 @@ namespace ARGIK
         /// Permite ponerle un nombre al archivo de la sesion que se graba.
         /// Graba la sesion
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// <param name="sender">La fuente del evento</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instancia que contiene los datos del evento.</param>
         public void recordOption_Click(object sender, RoutedEventArgs e)
         {
             if (recorder != null)

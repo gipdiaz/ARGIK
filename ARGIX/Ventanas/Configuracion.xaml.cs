@@ -41,8 +41,8 @@ namespace ARGIK
 		/// <summary>
         /// Handles the StatusChanged event of the Kinects control.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="StatusChangedEventArgs" /> instance containing the event data.</param>
+        /// <param name="sender">La fuente del evento</param>
+        /// <param name="e">The <see cref="StatusChangedEventArgs" /> instancia que contiene los datos del evento.</param>
         public void Kinects_StatusChanged(object sender, StatusChangedEventArgs e)
         {
             switch (e.Status)
@@ -79,8 +79,8 @@ namespace ARGIK
         /// <summary>
         /// Inicializa el sensor
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
+        /// <param name="sender">La fuente del evento</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instancia que contiene los datos del evento.</param>
         public void Window_Loaded(object sender, RoutedEventArgs e)
         {
             try
@@ -110,8 +110,8 @@ namespace ARGIK
         /// <summary>
         /// Cierra la ventana
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.ComponentModel.CancelEventArgs" /> instance containing the event data.</param>
+        /// <param name="sender">La fuente del evento</param>
+        /// <param name="e">The <see cref="System.ComponentModel.CancelEventArgs" /> instancia que contiene los datos del evento.</param>
         public void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             Clean();
@@ -165,8 +165,8 @@ namespace ARGIK
         /// Se encarga de manejar los frames del esqueleto que llegan en tiempo real.
         /// Llama a la funcion correspondiente para realizar el seguimiento del esqueleto
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="SkeletonFrameReadyEventArgs"/> instance containing the event data.</param>
+        /// <param name="sender">La fuente del evento</param>
+        /// <param name="e">The <see cref="SkeletonFrameReadyEventArgs"/> instancia que contiene los datos del evento.</param>
         public void kinectRuntime_SkeletonFrameReady(object sender, SkeletonFrameReadyEventArgs e)
         {
 
@@ -283,8 +283,8 @@ namespace ARGIK
         /// <summary>
         /// Se encarga de manejar los frames de profundidad que llegan en tiempo real.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="DepthImageFrameReadyEventArgs"/> instance containing the event data.</param>
+        /// <param name="sender">La fuente del evento</param>
+        /// <param name="e">The <see cref="DepthImageFrameReadyEventArgs"/> instancia que contiene los datos del evento.</param>
         public void kinectSensor_DepthFrameReady(object sender, DepthImageFrameReadyEventArgs e)
         {
             using (var frame = e.OpenDepthImageFrame())
@@ -325,7 +325,7 @@ namespace ARGIK
         private void INICIAR_Click(object sender, RoutedEventArgs e)
         {
             
-            MainWindowPaciente paciente = new MainWindowPaciente(seatedMode.IsChecked == true);
+            Paciente paciente = new Paciente(seatedMode.IsChecked == true);
             this.Close();
             paciente.Show();
             //Se abre la ventana siguiente, la del medico para grabar gestos
@@ -342,8 +342,8 @@ namespace ARGIK
         /// <summary>
         /// Desactiva el modo "sentado" de la aplicacion
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
+        /// <param name="sender">La fuente del evento</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instancia que contiene los datos del evento.</param>
         public void seatedMode_Unchecked_1(object sender, RoutedEventArgs e)
         {
             if (kinectSensor == null)

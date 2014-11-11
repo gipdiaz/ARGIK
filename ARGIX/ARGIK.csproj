@@ -83,6 +83,11 @@
     <Compile Include="Ventanas\Articulaciones.xaml.cs">
       <DependentUpon>Articulaciones.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Ventanas\Medico\Medico.Botones.cs" />
+    <Compile Include="Ventanas\Paciente\Paciente.Botones.cs" />
+    <Compile Include="Ventanas\Paciente\Paciente.Gesto.cs" />
+    <Compile Include="Ventanas\Paciente\Paciente.Postura.cs" />
+    <Compile Include="Ventanas\Paciente\Paciente.Voz.cs" />
     <Compile Include="Ventanas\Paciente\Paciente.xaml.cs">
       <DependentUpon>Paciente.xaml</DependentUpon>
     </Compile>
