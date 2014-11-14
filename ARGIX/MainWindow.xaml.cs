@@ -225,7 +225,7 @@ namespace GesturesViewer
             //elevacionCamara.DataContext = nuiCamera;
 
             //Comandos que podran ser reconocidos por voz
-            voiceCommander = new VoiceCommander("grabar gesto", "detener gesto");
+            voiceCommander = new VoiceCommander("grabar", "detener");
             voiceCommander.OrderDetected += voiceCommander_OrderDetected;
             StartVoiceCommander();
 

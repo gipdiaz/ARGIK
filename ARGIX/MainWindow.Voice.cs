@@ -30,10 +30,10 @@ namespace GesturesViewer
                 System.Console.WriteLine(order);
                 switch (order)
                 {
-                    case "grabar gesto":
+                    case "grabar":
                         grabarListaGestos();
                         break;
-                    case "detener gesto":
+                    case "detener":
                         grabarListaGestos();
                         break;
 

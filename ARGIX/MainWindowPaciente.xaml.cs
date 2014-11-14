@@ -648,6 +648,7 @@ namespace GesturesViewer
         /// <summary>
         /// Libera recursos
         /// </summary>
+        
         public void Clean()
         {
             if (deslizarManoIzquierda != null)
@@ -736,12 +737,8 @@ namespace GesturesViewer
         {
             ProcessFrame(e.SkeletonFrame);
         }
-
       
-
-     
-
-        private void botonRepetirGesto_Clicked(object sender, RoutedEventArgs e)
+       private void botonRepetirGesto_Clicked(object sender, RoutedEventArgs e)
         {
             repitiendo_gesto = true;
             
