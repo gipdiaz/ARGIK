@@ -12,6 +12,11 @@
             Configuracion
             </summary>
         </member>
+        <member name="M:ARGIK.Configuracion.#ctor(System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ARGIK.Configuracion"/> class.
+            </summary>
+        </member>
         <member name="M:ARGIK.Configuracion.Kinects_StatusChanged(System.Object,Microsoft.Kinect.StatusChangedEventArgs)">
             <summary>
             Handles the StatusChanged event of the Kinects control.
@@ -65,6 +70,20 @@
             Libera recursos
             </summary>
         </member>
+        <member name="M:ARGIK.Configuracion.ATRAS_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Handles the Click event of the ATRAS control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:ARGIK.Configuracion.seatedMode_Checked_1(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Handles the 1 event of the seatedMode_Checked control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
+        </member>
         <member name="M:ARGIK.Configuracion.seatedMode_Unchecked_1(System.Object,System.Windows.RoutedEventArgs)">
             <summary>
             Desactiva el modo "sentado" de la aplicacion
@@ -112,17 +131,17 @@
             <param name="sender">La fuente del evento</param>
             <param name="e">The <see cref="T:System.Windows.RoutedEventArgs"/> instancia que contiene los datos del evento.</param>
         </member>
+        <member name="M:ARGIK.Medico.ATRAS_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Handles the Click event of the ATRAS control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
+        </member>
         <member name="M:ARGIK.Medico.CargarDetectorGestos">
             <summary>
             Se inicializa el detector de gestos con un Stream default
             </summary>
-        </member>
-        <member name="M:ARGIK.Medico.grabarGesto_Click(System.Object,System.Windows.RoutedEventArgs)">
-            <summary>
-            Se activa la grabacion del gesto
-            </summary>
-            <param name="sender"></param>
-            <param name="e"></param>
         </member>
         <member name="M:ARGIK.Medico.grabarListaGestos">
             <summary>
@@ -181,7 +200,7 @@
             </summary>
             <param name="order">La orden.</param>
         </member>
-        <member name="M:ARGIK.Medico.#ctor">
+        <member name="M:ARGIK.Medico.#ctor(System.Boolean)">
             <summary>
             Constructor de la ventana principal
             </summary>
@@ -205,21 +224,21 @@
             Inicializa los elementos de la interfaz
             </summary>
         </member>
-        <member name="M:ARGIK.Medico.kinectSensor_DepthFrameReady(System.Object,Microsoft.Kinect.DepthImageFrameReadyEventArgs)">
+        <member name="M:ARGIK.Medico.kinect_DepthFrameReady(System.Object,Microsoft.Kinect.DepthImageFrameReadyEventArgs)">
             <summary>
             Se encarga de manejar los frames de profundidad que llegan en tiempo real.
             </summary>
             <param name="sender">La fuente del evento</param>
             <param name="e">La <see cref="T:Microsoft.Kinect.DepthImageFrameReadyEventArgs"/> instancia que contiene los datos del evento.</param>
         </member>
-        <member name="M:ARGIK.Medico.kinectRuntime_ColorFrameReady(System.Object,Microsoft.Kinect.ColorImageFrameReadyEventArgs)">
+        <member name="M:ARGIK.Medico.kinect_ColorFrameReady(System.Object,Microsoft.Kinect.ColorImageFrameReadyEventArgs)">
             <summary>
             Se encarga de manejar los frames a color (RGB) que llegan en tiempo real.
             </summary>
             <param name="sender">La fuente del evento</param>
             <param name="e">La <see cref="T:Microsoft.Kinect.ColorImageFrameReadyEventArgs"/> instancia que contiene los datos del evento.</param>
         </member>
-        <member name="M:ARGIK.Medico.kinectRuntime_SkeletonFrameReady(System.Object,Microsoft.Kinect.SkeletonFrameReadyEventArgs)">
+        <member name="M:ARGIK.Medico.kinect_SkeletonFrameReady(System.Object,Microsoft.Kinect.SkeletonFrameReadyEventArgs)">
             <summary>
             Se encarga de manejar los frames del esqueleto que llegan en tiempo real.
             Llama a la funcion correspondiente para realizar el seguimiento del esqueleto
@@ -284,12 +303,44 @@
             Paciente
             </summary>
         </member>
-        <member name="M:ARGIK.Paciente.botonGesto_Clicked(System.Object,System.Windows.RoutedEventArgs)">
+        <member name="M:ARGIK.Paciente.botonReproducirSesion_Clicked(System.Object,System.Windows.RoutedEventArgs)">
             <summary>
             Inicia la sesion del paciente cargando los gestos a realizar (boton rojo RA)
             </summary>
             <param name="sender">La fuente del evento</param>
             <param name="e">The <see cref="T:System.Windows.RoutedEventArgs"/> instancia que contiene los datos del evento.</param>
+        </member>
+        <member name="M:ARGIK.Paciente.ReproducirSesion">
+            <summary>
+            Hace lo mismo que el metodo click, pero es llamado por voz
+            </summary>
+        </member>
+        <member name="M:ARGIK.Paciente.botonRepetirGesto_Clicked(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Handles the Clicked event of the botonRepetirGesto control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:ARGIK.Paciente.RepetirGesto">
+            <summary>
+            Repetirs the replay.
+            </summary>
+        </member>
+        <member name="M:ARGIK.Paciente.botonNegroPaciente_Clicked(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Handles the Clicked event of the botonNegroPaciente control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:ARGIK.Paciente.ATRAS_Click(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Handles the Click event of the ATRAS control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
         </member>
         <member name="M:ARGIK.Paciente.CargarDetectorGestos">
             <summary>
@@ -299,6 +350,11 @@
         <member name="M:ARGIK.Paciente.cargarGesto">
             <summary>
             Activa la grabacion del gesto mediante el boton de la GUI
+            </summary>
+        </member>
+        <member name="M:ARGIK.Paciente.retirarReconocedorGesto">
+            <summary>
+            Retirars the reconocedor gesto.
             </summary>
         </member>
         <member name="M:ARGIK.Paciente.OnGestureDetected(System.String)">
@@ -312,6 +368,11 @@
             Limpia los recursos utilizados para la deteccion/grabacion de gestos
             </summary>
         </member>
+        <member name="M:ARGIK.Paciente.cargarReplay">
+            <summary>
+            Carga la repetición del gesto.
+            </summary>
+        </member>
         <member name="M:ARGIK.Paciente.CargarDetectorPosturas">
             <summary>
             Cargar el detector de posturas
@@ -320,11 +381,6 @@
         <member name="M:ARGIK.Paciente.CerrarDetectorPosturas">
             <summary>
             Cerrar el detector de posturas
-            </summary>
-        </member>
-        <member name="M:ARGIK.Paciente.ClosePostureDetector">
-            <summary>
-            Closes the posture detector.
             </summary>
         </member>
         <member name="M:ARGIK.Paciente.StartVoiceCommander">
@@ -344,13 +400,6 @@
             </summary>
             <param name="seatedMode">if set to <c>true</c> [seated mode].</param>
         </member>
-        <member name="M:ARGIK.Paciente.Kinects_StatusChanged(System.Object,Microsoft.Kinect.StatusChangedEventArgs)">
-            <summary>
-            Handles the StatusChanged event of the Kinects control.
-            </summary>
-            <param name="sender">La fuente del evento</param>
-            <param name="e">The <see cref="T:Microsoft.Kinect.StatusChangedEventArgs"/> instancia que contiene los datos del evento.</param>
-        </member>
         <member name="M:ARGIK.Paciente.Window_Loaded(System.Object,System.Windows.RoutedEventArgs)">
             <summary>
             Inicializa el sensor
@@ -358,26 +407,33 @@
             <param name="sender">La fuente del evento</param>
             <param name="e">The <see cref="T:System.Windows.RoutedEventArgs"/> instancia que contiene los datos del evento.</param>
         </member>
+        <member name="M:ARGIK.Paciente.Kinects_StatusChanged(System.Object,Microsoft.Kinect.StatusChangedEventArgs)">
+            <summary>
+            Handles the StatusChanged event of the Kinects control.
+            </summary>
+            <param name="sender">La fuente del evento</param>
+            <param name="e">The <see cref="T:Microsoft.Kinect.StatusChangedEventArgs"/> instancia que contiene los datos del evento.</param>
+        </member>
         <member name="M:ARGIK.Paciente.Initialize">
             <summary>
             Initializes this instance.
             </summary>
         </member>
-        <member name="M:ARGIK.Paciente.kinectSensor_DepthFrameReady(System.Object,Microsoft.Kinect.DepthImageFrameReadyEventArgs)">
+        <member name="M:ARGIK.Paciente.kinect_DepthFrameReady(System.Object,Microsoft.Kinect.DepthImageFrameReadyEventArgs)">
             <summary>
             Se encarga de manejar los frames de profundidad que llegan en tiempo real.
             </summary>
             <param name="sender">La fuente del evento</param>
             <param name="e">The <see cref="T:Microsoft.Kinect.DepthImageFrameReadyEventArgs"/> instancia que contiene los datos del evento.</param>
         </member>
-        <member name="M:ARGIK.Paciente.kinectRuntime_ColorFrameReady(System.Object,Microsoft.Kinect.ColorImageFrameReadyEventArgs)">
+        <member name="M:ARGIK.Paciente.kinect_ColorFrameReady(System.Object,Microsoft.Kinect.ColorImageFrameReadyEventArgs)">
             <summary>
             Se encarga de manejar los frames a color (RGB) que llegan en tiempo real.
             </summary>
             <param name="sender">La fuente del evento</param>
             <param name="e">The <see cref="T:Microsoft.Kinect.ColorImageFrameReadyEventArgs"/> instancia que contiene los datos del evento.</param>
         </member>
-        <member name="M:ARGIK.Paciente.kinectRuntime_SkeletonFrameReady(System.Object,Microsoft.Kinect.SkeletonFrameReadyEventArgs)">
+        <member name="M:ARGIK.Paciente.kinect_SkeletonFrameReady(System.Object,Microsoft.Kinect.SkeletonFrameReadyEventArgs)">
             <summary>
             Se encarga de manejar los frames del esqueleto que llegan en tiempo real.
             Llama a la funcion correspondiente para realizar el seguimiento del esqueleto
@@ -385,37 +441,11 @@
             <param name="sender">La fuente del evento</param>
             <param name="e">The <see cref="T:Microsoft.Kinect.SkeletonFrameReadyEventArgs"/> instancia que contiene los datos del evento.</param>
         </member>
-        <member name="M:ARGIK.Paciente.cargarReplay">
-            <summary>
-            Cargars the replay.
-            </summary>
-        </member>
-        <member name="M:ARGIK.Paciente.TrackHand(Microsoft.Kinect.Joint)">
+        <member name="M:ARGIK.Paciente.TrackearManoDerecha(Microsoft.Kinect.Joint)">
             <summary>
             Verifica si la mano derecha esta sobre alguno de los botones de la GUI con RA
             </summary>
             <param name="hand">The hand.</param>
-        </member>
-        <member name="M:ARGIK.Paciente.Depth_RGB_Click(System.Object,System.Windows.RoutedEventArgs)">
-            <summary>
-            Muestra la imagen de profundidad o RGB segun el usuario seleccione en la GUI
-            </summary>
-            <param name="sender">La fuente del evento</param>
-            <param name="e">The <see cref="T:System.Windows.RoutedEventArgs"/> instancia que contiene los datos del evento.</param>
-        </member>
-        <member name="M:ARGIK.Paciente.seatedMode_Checked_1(System.Object,System.Windows.RoutedEventArgs)">
-            <summary>
-            Activa el modo  "sentado" de la aplicacion
-            </summary>
-            <param name="sender">La fuente del evento</param>
-            <param name="e">The <see cref="T:System.Windows.RoutedEventArgs"/> instancia que contiene los datos del evento.</param>
-        </member>
-        <member name="M:ARGIK.Paciente.seatedMode_Unchecked_1(System.Object,System.Windows.RoutedEventArgs)">
-            <summary>
-            Desactiva el modo "sentado" de la aplicacion
-            </summary>
-            <param name="sender">La fuente del evento</param>
-            <param name="e">The <see cref="T:System.Windows.RoutedEventArgs"/> instancia que contiene los datos del evento.</param>
         </member>
         <member name="M:ARGIK.Paciente.ProcessFrame(Kinect.Toolbox.Record.ReplaySkeletonFrame)">
             <summary>
@@ -424,7 +454,7 @@
             </summary>
             <param name="frame">The frame.</param>
         </member>
-        <member name="M:ARGIK.Paciente.verificarJoint(System.String)">
+        <member name="M:ARGIK.Paciente.verificarArticulacion(System.String)">
             <summary>
             Devuelve la joint que selecciono el usuario para el seguimiento
             </summary>
@@ -434,6 +464,11 @@
         <member name="M:ARGIK.Paciente.Clean">
             <summary>
             Libera recursos
+            </summary>
+        </member>
+        <member name="M:ARGIK.Paciente.Reanudar">
+            <summary>
+            Reanudar el kinect
             </summary>
         </member>
         <member name="M:ARGIK.Paciente.Window_Closing(System.Object,System.ComponentModel.CancelEventArgs)">
@@ -477,10 +512,33 @@
             MenuPrincipal
             </summary>
         </member>
+        <member name="M:ARGIK.MenuPrincipal.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ARGIK.MenuPrincipal"/> class.
+            </summary>
+        </member>
+        <member name="M:ARGIK.MenuPrincipal.#ctor(System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ARGIK.MenuPrincipal"/> class.
+            </summary>
+        </member>
+        <member name="M:ARGIK.MenuPrincipal.Clean(Microsoft.Kinect.KinectSensor)">
+            <summary>
+            Libera recursos
+            </summary>
+        </member>
         <member name="M:ARGIK.MenuPrincipal.InitializeComponent">
             <summary>
             InitializeComponent
             </summary>
+        </member>
+        <member name="P:ARGIK.MenuPrincipal.Kinect">
+            <summary>
+            Gets or sets the kinect.
+            </summary>
+            <value>
+            The kinect.
+            </value>
         </member>
         <member name="T:TestearToolbox.App">
             <summary>

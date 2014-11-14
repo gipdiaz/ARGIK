@@ -45,7 +45,6 @@ namespace ARGIK
                 serializer.Serialize(textWriter, diccionario);
                 textWriter.Close();
             }
-
         }
 
         /// <summary>
@@ -66,6 +65,19 @@ namespace ARGIK
         private void botonAyuda_Clicked(object sender, RoutedEventArgs e)
         {
             throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Handles the Click event of the ATRAS control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void ATRAS_Click(object sender, RoutedEventArgs e)
+        {
+            MenuPrincipal menuPrincipal = new MenuPrincipal(modoSentado);
+            this.Clean();
+            this.Close();
+            menuPrincipal.Show();
         }
     }
 }

@@ -31,7 +31,7 @@
             <Button x:Name="RODILLA_IZQ" Content="Rodilla Izquierda" Click="RODILLA_IZQ_Click" Background="#FFBBD71A" FontSize="48"  Height="83.522" Canvas.Left="116.412" Canvas.Top="409.164" Width="384.09"  />
             <Button x:Name="ATRAS" Content="" Height="76.683" Canvas.Left="116.412" Canvas.Top="16.839" Width="81.217" Click="ATRAS_Click" FontSize="48" BorderBrush="Black"  >
             	<Button.Background>
-            		<ImageBrush ImageSource="images/atras.png"/>
+            		<ImageBrush ImageSource="/images/atras.png"/>
             	</Button.Background>
             </Button>
         </Canvas>

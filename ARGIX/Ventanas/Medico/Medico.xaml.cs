@@ -30,14 +30,17 @@ namespace ARGIK
         /// </value>
         public string articulacion_gesto { get; set; }
 
-            SerializableDictionary<string, List<string>> diccionario;
-        
+        bool modoSentado;
+
+        // Diccionario que contiene los datos de los gestos
+        SerializableDictionary<string, List<string>> diccionario;
+
         //Sensor del Kinect
         KinectSensor kinectSensor;
 
         // Reconocedor del gesto
         TemplatedGestureDetector reconocedorGesto;
-        
+
         //Manejadores de las imagenes a color, de profundidad y esqueleto
         readonly ColorStreamManager colorManager = new ColorStreamManager();
         readonly DepthStreamManager depthManager = new DepthStreamManager();
@@ -47,14 +50,14 @@ namespace ARGIK
         AudioStreamManager audioManager;
 
         //Texto que se muestra en pantalla con el nombre del gesto
-        TextBlock repeticionesDisplay = new TextBlock();
+        TextBlock mensajePantalla = new TextBlock();
 
         //Trackeador del contexto
         readonly ContextTracker contextTracker = new ContextTracker();
-        
+
         //Postura
         readonly AlgorithmicPostureDetector algorithmicPostureRecognizer = new AlgorithmicPostureDetector();
-        
+
         //Mostrar la imagen de profundidad?
         bool displayDepth = false;
 
@@ -70,8 +73,9 @@ namespace ARGIK
         /// <summary>
         /// Constructor de la ventana principal
         /// </summary>
-        public Medico()
+        public Medico(bool modoSentado)
         {
+            this.modoSentado = modoSentado;
             InitializeComponent();
         }
 
@@ -106,7 +110,7 @@ namespace ARGIK
                 MessageBox.Show(ex.Message);
             }
         }
-        
+
         /// <summary>
         ///Controla los eventos que tienen que ver con el cambio de estado del sensor
         /// </summary>
@@ -144,7 +148,7 @@ namespace ARGIK
                     break;
             }
         }
-        
+
         /// <summary>
         /// Inicializa los elementos de la interfaz
         /// </summary>
@@ -163,11 +167,11 @@ namespace ARGIK
             this.botonAyuda.Click += new RoutedEventHandler(botonAyuda_Clicked);
 
             // Inicializa la camara RGB, la de profundidad y el esqueleto
-            this.kinectSensor.ColorStream.Enable(ColorImageFormat.RgbResolution640x480Fps30);
-            this.kinectSensor.ColorFrameReady += kinectRuntime_ColorFrameReady;
-            this.kinectSensor.DepthStream.Enable(DepthImageFormat.Resolution320x240Fps30);
-            this.kinectSensor.DepthFrameReady += kinectSensor_DepthFrameReady;
-            this.kinectSensor.SkeletonStream.Enable(new TransformSmoothParameters
+            kinectSensor.ColorStream.Enable(ColorImageFormat.RgbResolution640x480Fps30);
+            kinectSensor.ColorFrameReady += kinect_ColorFrameReady;
+            kinectSensor.DepthStream.Enable(DepthImageFormat.Resolution320x240Fps30);
+            kinectSensor.DepthFrameReady += kinect_DepthFrameReady;
+            kinectSensor.SkeletonStream.Enable(new TransformSmoothParameters
             {
                 Smoothing = 0.5f,
                 Correction = 0.5f,
@@ -175,23 +179,28 @@ namespace ARGIK
                 JitterRadius = 0.05f,
                 MaxDeviationRadius = 0.04f
             });
-            kinectSensor.SkeletonFrameReady += kinectRuntime_SkeletonFrameReady;
+            kinectSensor.SkeletonFrameReady += kinect_SkeletonFrameReady;
 
             skeletonDisplayManager = new SkeletonDisplayManager(kinectSensor, kinectCanvas);
-            
+
             // Encender el sensor
             kinectSensor.Start();
 
             // Se añade el texto al grid para que muestre el nombre del texto
-            repeticionesDisplay.Text = "";
-            LayoutRoot.Children.Add(repeticionesDisplay);
-            
+            mensajePantalla.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
+            mensajePantalla.VerticalAlignment = System.Windows.VerticalAlignment.Center;
+            mensajePantalla.FontSize = 75;
+            mensajePantalla.Margin = new Thickness(30, 0, 0, 0);
+            mensajePantalla.Foreground = new SolidColorBrush(Colors.Red);
+            mensajePantalla.Text = "";
+            LayoutRoot.Children.Add(mensajePantalla);
+
             //Configura la deteccion de gestos y posturas
             CargarDetectorGestos();
             CargarDetectorPosturas();
 
             //Comandos que podran ser reconocidos por voz
-            voiceCommander = new VoiceCommander("grabar gesto", "detener gesto");
+            voiceCommander = new VoiceCommander("grabar", "detener", "atras");
             voiceCommander.OrderDetected += voiceCommander_OrderDetected;
             StartVoiceCommander();
 
@@ -199,14 +208,24 @@ namespace ARGIK
             kinectDisplay.DataContext = colorManager;
 
             articulacion_gesto = "";
+
+            // Se chequea el modo sentado
+            if (this.modoSentado == true)
+            {
+                kinectSensor.SkeletonStream.TrackingMode = SkeletonTrackingMode.Seated;
             }
+            else
+            {
+                kinectSensor.SkeletonStream.TrackingMode = SkeletonTrackingMode.Default;
+            }
+        }
 
         /// <summary>
         /// Se encarga de manejar los frames de profundidad que llegan en tiempo real.
         /// </summary>
         /// <param name="sender">La fuente del evento</param>
         /// <param name="e">La <see cref="DepthImageFrameReadyEventArgs"/> instancia que contiene los datos del evento.</param>
-        public void kinectSensor_DepthFrameReady(object sender, DepthImageFrameReadyEventArgs e)
+        public void kinect_DepthFrameReady(object sender, DepthImageFrameReadyEventArgs e)
         {
             using (var frame = e.OpenDepthImageFrame())
             {
@@ -227,7 +246,7 @@ namespace ARGIK
         /// </summary>
         /// <param name="sender">La fuente del evento</param>
         /// <param name="e">La <see cref="ColorImageFrameReadyEventArgs"/> instancia que contiene los datos del evento.</param>
-        public void kinectRuntime_ColorFrameReady(object sender, ColorImageFrameReadyEventArgs e)
+        public void kinect_ColorFrameReady(object sender, ColorImageFrameReadyEventArgs e)
         {
             using (var frame = e.OpenColorImageFrame())
             {
@@ -252,23 +271,21 @@ namespace ARGIK
         /// </summary>
         /// <param name="sender">La fuente del evento</param>
         /// <param name="e">La <see cref="SkeletonFrameReadyEventArgs"/> instancia que contiene los datos del evento.</param>
-        public void kinectRuntime_SkeletonFrameReady(object sender, SkeletonFrameReadyEventArgs e)
+        public void kinect_SkeletonFrameReady(object sender, SkeletonFrameReadyEventArgs e)
         {
             using (SkeletonFrame frame = e.OpenSkeletonFrame())
             {
                 if (frame == null)
                     return;
-
                 if (recorder != null && ((recorder.Options & KinectRecordOptions.Skeletons) != 0))
                     this.recorder.Record(frame);
-
                 frame.GetSkeletons(ref skeletons);
-
                 //Si no hay esqueletos frente al sensor se deshabilitan opciones y se limpian los canvas
                 if (skeletons.All(s => s.TrackingState == SkeletonTrackingState.NotTracked))
                 {
                     this.botonGrabarSesion.IsEnabled = false;
                     this.botonSeleccionarArticulacion.IsEnabled = false;
+                    this.botonAyuda.IsEnabled = false;
                     this.gesturesCanvas.Children.Clear();
                     this.kinectCanvas.Children.Clear();
                     return;
@@ -280,7 +297,6 @@ namespace ARGIK
                 }
                 ProcessFrame(frame);
             }
-            
         }
         /// <summary>
         /// Metodo principal que analiza cada frame, en el cual se procesan los gestos y las posturas.
@@ -290,7 +306,7 @@ namespace ARGIK
         {
             Dictionary<int, string> stabilities = new Dictionary<int, string>();
             JointType articulacion = verificarArticulacion(articulacion_gesto);
-            
+
             //Si hay esqueletos en la lista
             if (frame.Skeletons.Length > 0)
             {
@@ -342,7 +358,7 @@ namespace ARGIK
         /// <param name="articulacion">La articulación seleccionada</param>
         /// <returns></returns>
         public JointType verificarArticulacion(String articulacion)
-        {            
+        {
             switch (articulacion)
             {
                 case "Cabeza": return JointType.Head;
@@ -354,7 +370,7 @@ namespace ARGIK
                 case "Rodilla Izquierda": return JointType.KneeLeft;
                 case "Pie Derecho": return JointType.FootRight;
                 case "Pie Izquierdo": return JointType.FootLeft;
-                
+
                 default: return JointType.HandRight;
             }
         }
@@ -385,14 +401,14 @@ namespace ARGIK
             }
             if (kinectSensor != null)
             {
-                kinectSensor.DepthFrameReady -= kinectSensor_DepthFrameReady;
-                kinectSensor.SkeletonFrameReady -= kinectRuntime_SkeletonFrameReady;
-                kinectSensor.ColorFrameReady -= kinectRuntime_ColorFrameReady;
+                kinectSensor.DepthFrameReady -= kinect_DepthFrameReady;
+                kinectSensor.SkeletonFrameReady -= kinect_SkeletonFrameReady;
+                kinectSensor.ColorFrameReady -= kinect_ColorFrameReady;
                 kinectSensor.Stop();
                 kinectSensor = null;
             }
         }
-               
+
         /// <summary>
         /// Reanudar el kinect
         /// </summary>
@@ -406,9 +422,9 @@ namespace ARGIK
             this.voiceCommander.OrderDetected += voiceCommander_OrderDetected;
             StartVoiceCommander();
 
-            this.kinectSensor.DepthFrameReady += kinectSensor_DepthFrameReady;
-            this.kinectSensor.SkeletonFrameReady += kinectRuntime_SkeletonFrameReady;
-            this.kinectSensor.ColorFrameReady += kinectRuntime_ColorFrameReady;
+            this.kinectSensor.DepthFrameReady += kinect_DepthFrameReady;
+            this.kinectSensor.SkeletonFrameReady += kinect_SkeletonFrameReady;
+            this.kinectSensor.ColorFrameReady += kinect_ColorFrameReady;
             this.kinectSensor.Start();
             //this.articulacion_gesto = articulacion_gesto;
         }
@@ -419,33 +435,33 @@ namespace ARGIK
         /// <param name="hand">The hand.</param>
         public void TrackearManoDerecha(Joint hand)
         {
-                // Recupera el punto de la mano
-                DepthImagePoint puntoMano = kinectSensor.CoordinateMapper.MapSkeletonPointToDepthPoint(hand.Position, DepthImageFormat.Resolution640x480Fps30);
-    
-                // Recupera la posición de los botones
-                var transform1 = this.botonGrabarSesion.TransformToVisual(LayoutRoot);
-                var transform2 = this.botonAyuda .TransformToVisual(LayoutRoot);
-                var transform3 = this.botonSeleccionarArticulacion.TransformToVisual(LayoutRoot);
+            // Recupera el punto de la mano
+            DepthImagePoint puntoMano = kinectSensor.CoordinateMapper.MapSkeletonPointToDepthPoint(hand.Position, DepthImageFormat.Resolution640x480Fps30);
 
-                Point puntoBotonGrabarSesion = transform1.Transform(new Point(0, 0));
-                Point puntoBotonSeleccionarArticulacion = transform2.Transform(new Point(0, 0));
-                Point puntoBotonAyuda = transform3.Transform(new Point(0, 0));
-                
-                // Verifica si el punto trackeado esta sobre el boton
-                if ( Math.Abs(puntoMano.X - (puntoBotonGrabarSesion.X + botonGrabarSesion.Width)) < 30 && Math.Abs(puntoMano.Y - puntoBotonGrabarSesion.Y) < 30 )
-                    botonGrabarSesion.Hovering();
-                else 
-                    botonGrabarSesion.Release();
+            // Recupera la posición de los botones
+            var transform1 = this.botonGrabarSesion.TransformToVisual(LayoutRoot);
+            var transform2 = this.botonAyuda.TransformToVisual(LayoutRoot);
+            var transform3 = this.botonSeleccionarArticulacion.TransformToVisual(LayoutRoot);
 
-                if (Math.Abs(puntoMano.X - (puntoBotonSeleccionarArticulacion.X + botonAyuda.Width)) < 30 && Math.Abs(puntoMano.Y - puntoBotonSeleccionarArticulacion.Y) < 30)
-                    botonAyuda.Hovering();
-                else
-                    botonAyuda.Release();
+            Point puntoBotonGrabarSesion = transform1.Transform(new Point(0, 0));
+            Point puntoBotonSeleccionarArticulacion = transform2.Transform(new Point(0, 0));
+            Point puntoBotonAyuda = transform3.Transform(new Point(0, 0));
 
-                if (Math.Abs(puntoMano.X - (puntoBotonAyuda.X + botonSeleccionarArticulacion.Width)) < 30 && Math.Abs(puntoMano.Y - puntoBotonAyuda.Y) < 30)
-                    botonSeleccionarArticulacion.Hovering();
-                else
-                    botonSeleccionarArticulacion.Release();
+            // Verifica si el punto trackeado esta sobre el boton
+            if (Math.Abs(puntoMano.X - (puntoBotonGrabarSesion.X + botonGrabarSesion.Width)) < 30 && Math.Abs(puntoMano.Y - puntoBotonGrabarSesion.Y) < 30)
+                botonGrabarSesion.Hovering();
+            else
+                botonGrabarSesion.Release();
+
+            if (Math.Abs(puntoMano.X - (puntoBotonSeleccionarArticulacion.X + botonAyuda.Width)) < 30 && Math.Abs(puntoMano.Y - puntoBotonSeleccionarArticulacion.Y) < 30)
+                botonAyuda.Hovering();
+            else
+                botonAyuda.Release();
+
+            if (Math.Abs(puntoMano.X - (puntoBotonAyuda.X + botonSeleccionarArticulacion.Width)) < 30 && Math.Abs(puntoMano.Y - puntoBotonAyuda.Y) < 30)
+                botonSeleccionarArticulacion.Hovering();
+            else
+                botonSeleccionarArticulacion.Release();
         }
 
         /// <summary>

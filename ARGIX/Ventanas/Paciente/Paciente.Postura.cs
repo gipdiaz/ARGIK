@@ -36,20 +36,5 @@ namespace ARGIK
             //detectedGestures.ScrollIntoView(item);
             //detectedGestures.SelectedItem = item;
         }
-
-        /// <summary>
-        /// Closes the posture detector.
-        /// </summary>
-        public void ClosePostureDetector()
-        {
-            if (templatePostureDetector == null)
-                return;
-
-            using (Stream recordStream = File.Create(letterT_KBPath))
-            {
-                templatePostureDetector.SaveState(recordStream);
-            }
-            templatePostureDetector.PostureDetected -= algorithmicPostureRecognizer_PostureDetected;
-        }
     }
 }

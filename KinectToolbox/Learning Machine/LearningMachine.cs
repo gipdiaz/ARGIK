@@ -64,6 +64,7 @@ namespace Kinect.Toolbox
                 using (Stream recordStream = File.Create(gestoNuevo))
                 {
                     Persist(recordStream);
+                    recordStream.Close();
                 }
             }
             repeticion = Microsoft.VisualBasic.Interaction.InputBox("Ingrese cantidad de repeticiones: ");

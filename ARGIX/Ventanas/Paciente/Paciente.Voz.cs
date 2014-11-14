@@ -23,19 +23,17 @@ namespace ARGIK
             System.Console.WriteLine("Orden Detectada");
             Dispatcher.Invoke(new Action(() =>
             {
-                //audioControl.IsChecked = false
-                   // return;
-
                 System.Console.WriteLine(order);
                 switch (order)
                 {
-                    case "grabar":
+                    case "reproducir":
+                        ReproducirSesion();
                         break;
                     case "detener":
+                        detenerSesion();
                         break;
-                    case "reproducir":
-                        break;
-                    case "parar":
+                    case "repetir":
+                        RepetirGesto();
                         break;
                 }
             }));

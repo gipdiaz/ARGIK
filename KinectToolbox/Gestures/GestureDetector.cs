@@ -37,7 +37,7 @@ namespace Kinect.Toolbox
         {
             this.windowSize = windowSize;
             MinimalPeriodBetweenGestures = 0;
-            DisplayColor = Colors.Green;
+            DisplayColor = Colors.DarkBlue;
         }
 
         protected List<Entry> Entries

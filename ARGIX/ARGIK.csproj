@@ -159,6 +159,15 @@
   <ItemGroup>
     <Resource Include="Images\atras.png" />
     <Resource Include="Images\iniciar .png" />
+    <Resource Include="Images\left-round-128.png" />
+    <Resource Include="Images\right-round-128.png" />
+    <Resource Include="Images\cerrar-azul.png" />
+    <Resource Include="Images\x-mark-4-128.png" />
+    <Resource Include="Images\argik.png" />
+    <Resource Include="Images\medico.png" />
+    <Resource Include="Images\paciente.png" />
+    <Resource Include="Images\config.png" />
+    <Resource Include="Images\config6.png" />
     <Content Include="Libs\FaceTrackData.dll" />
     <Content Include="Libs\FaceTrackLib.dll" />
     <Resource Include="Images\background.jpg" />
@@ -180,7 +189,7 @@
     <Resource Include="Images\YellowButton-Active.png" />
     <Resource Include="Images\YellowButton-Hover.png" />
     <Resource Include="Images\Logo 1.jpg" />
-    <Resource Include="Images\Logo 2.jpg" />
+    <Resource Include="Images\logo2.jpg" />
     <Resource Include="Images\Logo 3.jpg" />
     <Content Include="Libs\Microsoft.Kinect.dll" />
     <Resource Include="Images\iniciar.png" />

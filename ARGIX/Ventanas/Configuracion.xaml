@@ -1,60 +1,41 @@
-﻿<Window x:Name="Configuracion1" x:Class="ARGIK.Configuracion"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-
-      
-              xmlns:Controls="clr-namespace:Coding4Fun.Kinect.Wpf.Controls;assembly=Coding4Fun.Kinect.Wpf" 
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      mc:Ignorable="d" 
-      d:DesignHeight="673.2" d:DesignWidth="1304.4"   
+﻿<Window 
+    x:Name="Configuracion1" x:Class="ARGIK.Configuracion"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Controls="clr-namespace:Coding4Fun.Kinect.Wpf.Controls;assembly=Coding4Fun.Kinect.Wpf" 
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    mc:Ignorable="d" 
+    d:DesignHeight="768" d:DesignWidth="1366"   
 	Title="Configuracion"
-        
-        Loaded="Window_Loaded"
-        Closing="Window_Closing" WindowStyle="None"     
-        WindowState="Maximized"
-        >
-    
+    Loaded="Window_Loaded"
+    Closing="Window_Closing" WindowStyle="None"     
+    WindowState="Maximized">
+
 
     <Grid Canvas.Top="-16" x:Name="LayoutRoot">
-
-        <Canvas Margin="10,0,-6,-0.4" RenderTransformOrigin="0.499,0.515">
+        <Canvas RenderTransformOrigin="0.499,0.515">
             <Canvas.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="Black" Offset="0"/>
-                    <GradientStop Color="#FF2B70B6" Offset="1"/>
+                    <GradientStop Color="#001933" Offset="0"/>
+                    <GradientStop Color="#006666" Offset="1"/>
                 </LinearGradientBrush>
             </Canvas.Background>
-			<Grid Width="640" Height="480" ClipToBounds="True" Name="LayoutRootConfiguracion" HorizontalAlignment="Center" VerticalAlignment="Center" Canvas.Left="233" Canvas.Top="88">
-
+            <Grid Width="640" Height="480" ClipToBounds="True" Name="LayoutRootConfiguracion" HorizontalAlignment="Center" VerticalAlignment="Center" Canvas.Left="233" Canvas.Top="150">
                 <Image x:Name="kinectDisplay" Source="{Binding Bitmap}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                   
                 <Canvas x:Name="kinectCanvas" Background="Transparent"/>
-				<Image x:Name="logo" Source="/ARGIK;component/images/Logo 2.jpg" VerticalAlignment="Top" HorizontalAlignment="Left" Width="200"/>
-                
-                
                 <Rectangle Stroke="Black" StrokeThickness="1"/>
                 <!--<Button Height="50" Width="50" VerticalAlignment="Center" HorizontalAlignment="Center"/>-->
-
-
-
-
             </Grid>
-            <TextBlock Text="Elevacion de la Camara" Canvas.Left="879" Canvas.Top="57.04" Height="25.96" Background="#FF020202" Foreground="#FFFFF6F6" FontSize="21.333"/>
-			<Button x:Name="iniciar" Click="INICIAR_Click" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Width="167.42" Height="89.96" Canvas.Left="1051" Canvas.Top="327" BorderBrush="#FFB84040">
-				<Button.Background>
-					<ImageBrush ImageSource="/images/iniciar.png"/>
-				</Button.Background>
-			</Button>
-            
+            <TextBlock Text="Elevacion de la Camara" Canvas.Left="1013" Canvas.Top="150" Height="26"  Foreground="#FFFFF6F6" FontSize="21.333"/>
             <Button x:Name="ATRAS" Content="" Height="76.683" Canvas.Left="116.412" Canvas.Top="16.839" Width="81.217" Click="ATRAS_Click" FontSize="48" BorderBrush="{x:Null}"  >
-            	<Button.Background>
-            		<ImageBrush ImageSource="/images/atras.png"/>
-            	</Button.Background>
+                <Button.Background>
+                    <ImageBrush ImageSource="/images/atras.png"/>
+                </Button.Background>
             </Button>
-            <CheckBox Content="Modo Sentado" x:Name="seatedMode" Canvas.Left="1051" Canvas.Top="196" VerticalContentAlignment="Top" Checked="seatedMode_Checked_1" Unchecked="seatedMode_Unchecked_1" Height="32.96" Width="167.42" Foreground="#FFF1F1F1" FontSize="21.333"/>
-			 
-			<Slider  Minimum="{Binding ElevationMinimum}" Maximum="{Binding ElevationMaximum}" Value="{Binding ElevationAngle, Mode=TwoWay}" x:Name="elevacionCamara" Orientation="Vertical" Grid.RowSpan="7" Height="484" Canvas.Left="966" Canvas.Top="88"/>
+            <Image x:Name="logo" Source="/images/argik.png" Canvas.Left="432" Canvas.Top="29" Height="102" Width="400"/>
+            <CheckBox Content="Modo Sentado" x:Name="seatedMode" Canvas.Left="1013" Canvas.Top="215" VerticalContentAlignment="Top" Checked="seatedMode_Checked_1" Unchecked="seatedMode_Unchecked_1" Height="33" Width="167" Foreground="#FFF1F1F1" FontSize="21.333" RenderTransformOrigin="0.228,0.576"/>
+            <Slider  Minimum="{Binding ElevationMinimum}" Maximum="{Binding ElevationMaximum}" Value="{Binding ElevationAngle, Mode=TwoWay}" x:Name="elevacionCamara" Orientation="Vertical" Grid.RowSpan="7" Height="484" Canvas.Left="966" Canvas.Top="144"/>
         </Canvas>
     </Grid>
 </Window>

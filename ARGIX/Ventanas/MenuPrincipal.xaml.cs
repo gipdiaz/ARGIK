@@ -21,7 +21,9 @@ namespace ARGIK
     /// </summary>
     public partial class MenuPrincipal : Window
     {
-        
+
+        bool modoSentado;
+
         private KinectSensor _Kinect;
         private WriteableBitmap _ColorImageBitmap;
         private Int32Rect _ColorImageBitmapRect;
@@ -34,28 +36,43 @@ namespace ARGIK
         float handX;
         float handY;
 
-      
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MenuPrincipal"/> class.
+        /// </summary>
         public MenuPrincipal()
-        { 
+        {
+            this.modoSentado = true;
             InitializeComponent();
             InitializeButtons();
             this.WindowState = System.Windows.WindowState.Maximized;
             this.WindowStyle = System.Windows.WindowStyle.None;
-
-           
-
-
             if (Generics.LoadingStatus == 0)
             {
                 Generics.ResetHandPosition(kinectButton);
                 kinectButton.Click += new RoutedEventHandler(kinectButton_Click);
                 this.Loaded += MenuPrincipal_Loaded;
                 Generics.LoadingStatus = 1;
-            }
-            
+            }   
         }
-       
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MenuPrincipal"/> class.
+        /// </summary>
+        public MenuPrincipal(bool modoSentado2)
+        {
+            this.modoSentado = modoSentado2;
+            InitializeComponent();
+            InitializeButtons();
+            this.WindowState = System.Windows.WindowState.Maximized;
+            this.WindowStyle = System.Windows.WindowStyle.None;
+            if (Generics.LoadingStatus == 0)
+            {
+                Generics.ResetHandPosition(kinectButton);
+                kinectButton.Click += new RoutedEventHandler(kinectButton_Click);
+                this.Loaded += MenuPrincipal_Loaded;
+                Generics.LoadingStatus = 1;
+            }    
+        }
 
         void MenuPrincipal_Loaded(object sender, RoutedEventArgs e)
         {
@@ -66,7 +83,7 @@ namespace ARGIK
         //initialize buttons to be checked
         private void InitializeButtons()
         {
-            buttons = new List<Button> { GAME1, GAME2 };
+            buttons = new List<Button> { GAME1, GAME2, GAME3, CERRAR };
         }
         //raise event for Kinect sensor status changed
         private void DiscoverKinectSensor()
@@ -78,10 +95,21 @@ namespace ARGIK
 
         private void UnregisterEvents()
         {
-           KinectSensor.KinectSensors.StatusChanged -= KinectSensors_StatusChanged;
-           this.Kinect.SkeletonFrameReady -= Kinect_SkeletonFrameReady;
-           this.Kinect.ColorFrameReady -= Kinect_ColorFrameReady; 
-             
+            KinectSensor.KinectSensors.StatusChanged -= KinectSensors_StatusChanged;
+            if (this._Kinect != null)
+            {
+                this._Kinect.SkeletonFrameReady -= Kinect_SkeletonFrameReady;
+                this._Kinect.ColorFrameReady -= Kinect_ColorFrameReady;
+                this._Kinect.Stop();
+                this._Kinect = null;
+            }
+            if (this.Kinect != null)
+            {
+                this.Kinect.SkeletonFrameReady -= Kinect_SkeletonFrameReady;
+                this.Kinect.ColorFrameReady -= Kinect_ColorFrameReady;
+                this.Kinect.Stop();
+                this.Kinect = null;
+            }
         }
 
         private void KinectSensors_StatusChanged(object sender, StatusChangedEventArgs e)
@@ -101,13 +129,19 @@ namespace ARGIK
                         this.Kinect = KinectSensor.KinectSensors.FirstOrDefault(x => x.Status == KinectStatus.Connected);
                         if (this.Kinect == null)
                         {
-                            MessageBox.Show("Sensor Disconnected. Please reconnect to continue.");
+                            MessageBox.Show("El sensor esta desconectado. Por favor, conectelo de nuevo.");
                         }
                     }
                     break;
             }
         }
 
+        /// <summary>
+        /// Gets or sets the kinect.
+        /// </summary>
+        /// <value>
+        /// The kinect.
+        /// </value>
         public KinectSensor Kinect
         {
             get { return this._Kinect; }
@@ -127,8 +161,6 @@ namespace ARGIK
                 }
             }
         }
-
-
 
         private void InitializeKinectSensor(KinectSensor kinectSensor)
         {
@@ -318,31 +350,50 @@ namespace ARGIK
             selected.RaiseEvent(new RoutedEventArgs(Button.ClickEvent, selected));
         }
 
-        #endregion 
-        
+        #endregion
 
         private void MEDICO_Click(object sender, RoutedEventArgs e)
         {
-            
             UnregisterEvents();
-            //Se abre la ventana siguiente, para elegir los joints
-            Medico medico = new Medico();
+            Medico medico = new Medico(modoSentado);
             this.Close();
             medico.Show();
-  
-            
         }
  
         private void PACIENTE_Click(object sender, RoutedEventArgs e)
         {
             UnregisterEvents();
-            //Se abre la ventana siguiente, para que el paciente pueda hacer su sesion
-            Configuracion configuracion = new Configuracion();
-            
+            Paciente paciente = new Paciente(modoSentado);
+            this.Close();
+            paciente.Show();
+        }
+
+        private void CONFIGURACION_Click(object sender, RoutedEventArgs e)
+        {
+            UnregisterEvents();
+            Configuracion configuracion = new Configuracion(modoSentado);
             this.Close();
             configuracion.Show();
         }
+        
+        private void CERRAR_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        /// <summary>
+        /// Libera recursos
+        /// </summary>
+        public void Clean(KinectSensor kinectSensor)
+        {
+            if (kinectSensor != null)
+            {
+                //kinectSensor.DepthFrameReady -= Kinect_DepthFrameReady;
+                kinectSensor.SkeletonFrameReady -= Kinect_SkeletonFrameReady;
+                kinectSensor.ColorFrameReady -= Kinect_ColorFrameReady;
+                kinectSensor.Stop();
+                kinectSensor = null;
+            }
+        }
     }
 }
-    
-

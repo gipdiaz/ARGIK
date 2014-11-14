@@ -14,11 +14,11 @@ namespace ARGIK
     // Esta parte de la clase se encarga de manejar los gestos
     partial class Medico
     {
-       
+
         int nroGesto = 0;
         string nombreSesion;
         public bool grabando = false;
-        
+
         /// <summary>
         /// Se inicializa el detector de gestos con un Stream default
         /// </summary>
@@ -28,18 +28,7 @@ namespace ARGIK
             {
                 reconocedorGesto = new TemplatedGestureDetector("Gesto", recordStream);
                 reconocedorGesto.DisplayCanvas = gesturesCanvas;
-                MouseController.Current.ClickGestureDetector = reconocedorGesto;
             }
-        }
-
-        /// <summary>
-        /// Se activa la grabacion del gesto
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public void grabarGesto_Click(object sender, RoutedEventArgs e)
-        {
-            grabarListaGestos();
         }
 
         /// <summary>
@@ -49,6 +38,7 @@ namespace ARGIK
         {
             if (reconocedorGesto.IsRecordingPath)
             {
+                mensajePantalla.Text = "";
                 StopRecord();
                 reconocedorGesto.EndRecordTemplate();
                 gesturesCanvas.Children.Clear();
@@ -56,13 +46,13 @@ namespace ARGIK
             }
             else
             {
+                mensajePantalla.Text = "¡Grabando!";
                 CargarDetectorGestos();
                 reconocedorGesto.StartRecordTemplate();
                 grabando = true;
                 nroGesto = nroGesto + 1;
-                nombreSesion = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "sesion"+ nroGesto +".replay");
+                nombreSesion = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "sesion" + nroGesto + ".replay");
                 DirectRecord(nombreSesion);
-                repeticionesDisplay.Text = "¡Grabando!";
             }
         }
 
@@ -79,7 +69,7 @@ namespace ARGIK
             lista.Add(nombreSesion);
             diccionario.Remove("Gestos");
             diccionario.Add("Gestos", lista);
-            
+
         }
 
         /// <summary>
@@ -99,39 +89,5 @@ namespace ARGIK
                 reconocedorGesto.StartRecordTemplate();
             }
         }
-
-        /// <summary>
-        /// Se activa la deteccion del gesto seleccionado
-        /// </summary>
-        /// <param name="sender">La fuente del evento</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instancia que contiene los datos del evento.</param>
-        //public void deteccionGesto_Click(object sender, RoutedEventArgs e)
-        //{
-        //    if (botonDetectarGesto.Content.ToString() == "Detectar Gesto")
-        //    {
-           
-        //        OpenFileDialog openFileDialog = new OpenFileDialog { Title = "Select filename", Filter = "Gestos files|*.save" };
-        //        if (openFileDialog.ShowDialog() == true)
-        //        {
-        //            Stream recordStream = new FileStream(openFileDialog.FileName, FileMode.Open);
-        //            reconocedorGesto = new TemplatedGestureDetector(openFileDialog.FileName, recordStream);
-                    
-        //            reconocedorGesto.OnGestureDetected += OnGestureDetected;
-
-        //            MouseController.Current.ClickGestureDetector = reconocedorGesto;
-
-        //            botonDetectarGesto.Content = "Pausar Detección";
-        //            reconocedorGesto.DisplayCanvas = gesturesCanvas;              
-        //        }
-
-        //        //Limpiar puntos cuando cierra el cuadro de dialogo
-        //        gesturesCanvas.Children.Clear();
-        //    }
-        //    else
-        //    {
-        //        botonDetectarGesto.Content = "Detectar Gesto";
-        //        reconocedorGesto.OnGestureDetected -= OnGestureDetected;
-        //    }
-        //}
-        }
+    }
 }
