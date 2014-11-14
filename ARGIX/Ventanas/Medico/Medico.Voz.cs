@@ -1,17 +1,16 @@
 ﻿using System;
 using System.IO;
 
-namespace GesturesViewer
+namespace ARGIK
 {
     // Esta parte de la clase se encarga de manejar los comandos por voz
-    partial class MainWindow
+    partial class Medico
     {
         /// <summary>
         /// Inicializa el comando por voz
         /// </summary>
         public void StartVoiceCommander()
-        {
-           
+        {  
             voiceCommander.Start(kinectSensor);
         }
 
@@ -24,8 +23,6 @@ namespace GesturesViewer
             System.Console.WriteLine("Orden Detectada");
             Dispatcher.Invoke(new Action(() =>
             {
-                //audioControl.IsChecked = false
-                   // return;
 
                 System.Console.WriteLine(order);
                 switch (order)
@@ -36,7 +33,9 @@ namespace GesturesViewer
                     case "detener":
                         grabarListaGestos();
                         break;
-
+                    case "atras":
+                        grabarListaGestos();
+                        break;
                 }
             }));
         }

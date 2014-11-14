@@ -1,0 +1,83 @@
+﻿<Window 
+    x:Class="ARGIK.MenuPrincipal"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:Controls="clr-namespace:Coding4Fun.Kinect.Wpf.Controls;assembly=Coding4Fun.Kinect.Wpf" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    mc:Ignorable="d" 
+    d:DesignHeight="768" d:DesignWidth="1366"
+	Title="Page">
+
+    <Window.Resources>
+        <Style x:Key="RoundButtonTemplate" TargetType="Button">
+            <Setter Property="Background" Value="Brown"/>
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="40" Background="{TemplateBinding Background}"
+                                BorderThickness="0">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center">
+                            </ContentPresenter>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    
+    <Grid Canvas.Top="-16" x:Name="LayoutRoot">
+        <Canvas>
+            <Canvas.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#001933" Offset="0"/>
+                    <GradientStop Color="#006666" Offset="1"/>
+                </LinearGradientBrush>
+            </Canvas.Background>
+            <Button x:Name="GAME1" Height="400" Width="350" Canvas.Left="90" Canvas.Top="166" Click="MEDICO_Click" Background="#FFF52222" Style="{StaticResource RoundButtonTemplate}">
+                <Image Source="/images/medico.png" HorizontalAlignment="Center" Width="192" Height="263"/>
+            </Button>
+            <Button x:Name="GAME2" Height="400" Width="350" Canvas.Left="507" Canvas.Top="166" Click="PACIENTE_Click" Background="#FF17CB6A" Style="{StaticResource RoundButtonTemplate}">
+                <Image Source="/images/paciente.png" HorizontalAlignment="Center" Width="187" Height="263"/>
+            </Button>
+            <Button x:Name="GAME3" Height="400" Width="350" Canvas.Left="919" Canvas.Top="166" Click="CONFIGURACION_Click" Background="#9999FF" Style="{StaticResource RoundButtonTemplate}">
+                <Image Source="/images/config6.png" HorizontalAlignment="Center" Width="236" Height="250"/>
+            </Button>
+            <Button x:Name="CERRAR" Content="" Height="128" Width="128" Canvas.Left="1141" Canvas.Top="17" Click="CERRAR_Click" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                <Button.Background>
+                    <ImageBrush ImageSource="/images/cerrar-azul.png"/>
+                </Button.Background>
+            </Button>
+
+            <Controls:HoverButton 
+                Margin="0" Padding="0" x:Name="kinectButton" ImageSize="50"                                           
+                ImageSource="/ARGIK;component/Images/myhand.png"  
+                ActiveImageSource="/ARGIK;component/Images/myhand.png" 
+                TimeInterval="4000"  Panel.ZIndex="1000" Canvas.Left="0" Canvas.Top="0" 
+                />
+            <Image x:Name="logo" Source="/images/argik.png" Canvas.Left="479" Canvas.Top="25" Height="102" Width="400"/>
+            <TextBlock HorizontalAlignment="Left"
+                       FontSize="20"
+                       FontFamily="arial narrow"
+                       Foreground="Gray"
+                       Text="Díaz Gastón y Leschevich Germán"
+                       VerticalAlignment="Top"
+                       Canvas.Left="552" Canvas.Top="689"/>
+            <TextBlock HorizontalAlignment="Left"
+                       FontSize="20"
+                       FontFamily="arial narrow"
+                       Foreground="Gray"
+                       Text="Interfaces Gestuales y Realidad Aumentada"
+                       VerticalAlignment="Top"
+                       Canvas.Left="519" Canvas.Top="643"/>
+            <TextBlock HorizontalAlignment="Left"
+                       FontSize="20"
+                       FontFamily="arial narrow"
+                       Foreground="Gray"
+                       Text="Universidad Nacional de la Patagonia San Juan Bosco"
+                       VerticalAlignment="Top"
+                       Canvas.Left="480" Canvas.Top="666"/>
+        </Canvas>
+    </Grid>
+</Window>

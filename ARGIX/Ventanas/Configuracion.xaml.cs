@@ -14,35 +14,43 @@ using System.Windows.Shapes;
 using System.Xml.Serialization;
 using System.Windows.Media;
 
-namespace GesturesViewer
+namespace ARGIK
 {
-	/// <summary>
-	/// Lógica de interacción para Configuracion.xaml
-	/// </summary>
-	public partial class Configuracion : Window
-	{
-		readonly ColorStreamManager colorManager = new ColorStreamManager();
+    /// <summary>
+    /// Lógica de interacción para Configuracion.xaml
+    /// </summary>
+    public partial class Configuracion : Window
+    {
+        bool modoSentado;
+
+        readonly ColorStreamManager colorManager = new ColorStreamManager();
         readonly DepthStreamManager depthManager = new DepthStreamManager();
         SkeletonDisplayManager skeletonDisplayManager;
-		readonly ContextTracker contextTracker = new ContextTracker();
-		KinectSensor kinectSensor;
-		//Manejador de la camara
+        readonly ContextTracker contextTracker = new ContextTracker();
+        KinectSensor kinectSensor;
+        //Manejador de la camara
         BindableNUICamera nuiCamera;
 
         //Lista de esqueletos detectados
         private Skeleton[] skeletons;
-		
-		public Configuracion()
-		{
-			InitializeComponent();
-			
-			// A partir de este punto se requiere la inserción de código para la creación del objeto.
-		}
-		/// <summary>
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Configuracion"/> class.
+        /// </summary>
+        public Configuracion(bool modoSentado)
+        {
+            InitializeComponent();
+            this.modoSentado = modoSentado;
+            if (this.modoSentado == true)
+                seatedMode.IsChecked = true;
+            else
+                seatedMode.IsChecked = false;
+        }
+        /// <summary>
         /// Handles the StatusChanged event of the Kinects control.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="StatusChangedEventArgs" /> instance containing the event data.</param>
+        /// <param name="sender">La fuente del evento</param>
+        /// <param name="e">The <see cref="StatusChangedEventArgs" /> instancia que contiene los datos del evento.</param>
         public void Kinects_StatusChanged(object sender, StatusChangedEventArgs e)
         {
             switch (e.Status)
@@ -79,8 +87,8 @@ namespace GesturesViewer
         /// <summary>
         /// Inicializa el sensor
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
+        /// <param name="sender">La fuente del evento</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instancia que contiene los datos del evento.</param>
         public void Window_Loaded(object sender, RoutedEventArgs e)
         {
             try
@@ -110,8 +118,8 @@ namespace GesturesViewer
         /// <summary>
         /// Cierra la ventana
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.ComponentModel.CancelEventArgs" /> instance containing the event data.</param>
+        /// <param name="sender">La fuente del evento</param>
+        /// <param name="e">The <see cref="System.ComponentModel.CancelEventArgs" /> instancia que contiene los datos del evento.</param>
         public void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             Clean();
@@ -142,16 +150,16 @@ namespace GesturesViewer
             kinectSensor.SkeletonFrameReady += kinectRuntime_SkeletonFrameReady;
 
             skeletonDisplayManager = new SkeletonDisplayManager(kinectSensor, kinectCanvas);
-            
+
             //Encender el sensor
             kinectSensor.Start();
 
-            
-           
-            
-            
-        
-           
+
+
+
+
+
+
             //Controla la elevacion de la camara con el slider de la GUI
             nuiCamera = new BindableNUICamera(kinectSensor);
             elevacionCamara.DataContext = nuiCamera;
@@ -159,25 +167,25 @@ namespace GesturesViewer
             //Mostrar en pantalla la imagen a color
             kinectDisplay.DataContext = colorManager;
 
-            
-            }
+
+        }
         /// <summary>
         /// Se encarga de manejar los frames del esqueleto que llegan en tiempo real.
         /// Llama a la funcion correspondiente para realizar el seguimiento del esqueleto
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="SkeletonFrameReadyEventArgs"/> instance containing the event data.</param>
+        /// <param name="sender">La fuente del evento</param>
+        /// <param name="e">The <see cref="SkeletonFrameReadyEventArgs"/> instancia que contiene los datos del evento.</param>
         public void kinectRuntime_SkeletonFrameReady(object sender, SkeletonFrameReadyEventArgs e)
         {
 
-          
+
 
             using (SkeletonFrame frame = e.OpenSkeletonFrame())
             {
                 if (frame == null)
                     return;
 
-                
+
                 frame.GetSkeletons(ref skeletons);
 
                 //Si no hay esqueletos frente al sensor se deshabilitan opciones y se limpian los canvas
@@ -201,7 +209,7 @@ namespace GesturesViewer
         public void ProcessFrame(ReplaySkeletonFrame frame)
         {
             Dictionary<int, string> stabilities = new Dictionary<int, string>();
-            //JointType articulacion = verificarJoint(articulacion_gesto);
+            //JointType articulacion = verificarArticulacion(articulacion_gesto);
 
             //Si hay esqueletos en la lista
             if (frame.Skeletons.Length > 0)
@@ -235,7 +243,7 @@ namespace GesturesViewer
                             ////verifica si la mano está dentro del boton
                             //if (joint.JointType == JointType.HandRight)
                             //{
-                            //    TrackHand(joint);
+                            //    TrackearManoDerecha(joint);
                             //}
 
                             ////Si la Joint es la mano izquierda detecta el Swipe hacia izquierda o derecha
@@ -246,7 +254,6 @@ namespace GesturesViewer
 
                             //    //Habilita (si esta activada en la GUI) el manejo del mouse con la mano izquierda
                             //    //if (controlMouse.IsChecked == true)
-                            //    //    MouseController.Current.SetHandPosition(kinectSensor, joint, skeleton);
                             //}
                         }
                     }
@@ -271,20 +278,20 @@ namespace GesturesViewer
         }
         public void kinectRuntime_ColorFrameReady(object sender, ColorImageFrameReadyEventArgs e)
         {
-            
+
             using (var frame = e.OpenColorImageFrame())
             {
                 if (frame == null)
                     return;
 
-                                colorManager.Update(frame);
+                colorManager.Update(frame);
             }
         }
         /// <summary>
         /// Se encarga de manejar los frames de profundidad que llegan en tiempo real.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="DepthImageFrameReadyEventArgs"/> instance containing the event data.</param>
+        /// <param name="sender">La fuente del evento</param>
+        /// <param name="e">The <see cref="DepthImageFrameReadyEventArgs"/> instancia que contiene los datos del evento.</param>
         public void kinectSensor_DepthFrameReady(object sender, DepthImageFrameReadyEventArgs e)
         {
             using (var frame = e.OpenDepthImageFrame())
@@ -295,12 +302,12 @@ namespace GesturesViewer
                 depthManager.Update(frame);
             }
         }
+
         /// <summary>
         /// Libera recursos
         /// </summary>
         public void Clean()
         {
-            
             if (kinectSensor != null)
             {
                 kinectSensor.DepthFrameReady -= kinectSensor_DepthFrameReady;
@@ -311,45 +318,44 @@ namespace GesturesViewer
             }
         }
 
-
-
+        /// <summary>
+        /// Handles the Click event of the ATRAS control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void ATRAS_Click(object sender, RoutedEventArgs e)
         {
-
-            MenuPrincipal menuPrincipal = new MenuPrincipal();
+            MenuPrincipal menuPrincipal = new MenuPrincipal(modoSentado);
+            this.Clean();
+            this.Close();
             menuPrincipal.Show();
-            //Se abre la ventana siguiente, la del medico para grabar gestos
-            this.Close();
-            //ventanaMedico.Show();
         }
-        private void INICIAR_Click(object sender, RoutedEventArgs e)
-        {
-            
-            MainWindowPaciente paciente = new MainWindowPaciente(seatedMode.IsChecked == true);
-            this.Close();
-            paciente.Show();
-            //Se abre la ventana siguiente, la del medico para grabar gestos
-           
-            //ventanaMedico.Show();
-        }
+
+        /// <summary>
+        /// Handles the 1 event of the seatedMode_Checked control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         public void seatedMode_Checked_1(object sender, RoutedEventArgs e)
         {
             if (kinectSensor == null)
                 return;
             kinectSensor.SkeletonStream.TrackingMode = SkeletonTrackingMode.Seated;
+            this.modoSentado = true;
         }
 
         /// <summary>
         /// Desactiva el modo "sentado" de la aplicacion
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
+        /// <param name="sender">La fuente del evento</param>
+        /// <param name="e">The <see cref="RoutedEventArgs" /> instancia que contiene los datos del evento.</param>
         public void seatedMode_Unchecked_1(object sender, RoutedEventArgs e)
         {
             if (kinectSensor == null)
                 return;
             kinectSensor.SkeletonStream.TrackingMode = SkeletonTrackingMode.Default;
+            this.modoSentado = false;
         }
 
-	}
+    }
 }

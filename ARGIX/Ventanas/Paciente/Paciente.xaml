@@ -1,14 +1,9 @@
-﻿<Window
-        x:Class= "GesturesViewer.MainWindowPaciente" 
-         
-        
+﻿<Window x:Class= "ARGIK.Paciente"    
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" 
         xmlns:c4f="clr-namespace:Coding4Fun.Toolkit.Controls;assembly=Coding4Fun.Toolkit.Controls"
-        xmlns:Controls="clr-namespace:Coding4Fun.Kinect.Wpf.Controls;assembly=Coding4Fun.Kinect.Wpf"
-
-                 
+        xmlns:Controls="clr-namespace:Coding4Fun.Kinect.Wpf.Controls;assembly=Coding4Fun.Kinect.Wpf"         
         Loaded="Window_Loaded"
         Closing="Window_Closing"        
         WindowState="Maximized"    
@@ -24,26 +19,28 @@
     </Window.Background>
     <Grid Width="640" Height="480" HorizontalAlignment="Center" VerticalAlignment="Center">
         <Viewbox Margin="5" Grid.RowSpan="6" Width="640" Height="480">
-            <Grid Width="640" Height="480" ClipToBounds="True" Name="LayoutRootPaciente">
+            <Grid Width="640" Height="480" ClipToBounds="True" Name="LayoutRoot">
 
                 <Rectangle Stroke="Black" StrokeThickness="1"/>
 
                 <Image x:Name="kinectDisplayPaciente" Source="{Binding Bitmap}" Width="640" Height="480"/>
 
-                <Canvas x:Name="kinectCanvasPaciente" Background="Transparent"/>
+                <Canvas x:Name="kinectCanvas" Background="Transparent"/>
 
-                <Canvas x:Name="gesturesCanvasPaciente"/>
+                <Canvas x:Name="gesturesCanvas"/>
 
                 <Controls:HoverButton Visibility="Visible" x:Name="botonReproducirSesion" ImageSize="100" ImageSource="/ARGIK;component/images/RedButton-Active.png" ActiveImageSource="/ARGIK;component/images/RedButton-Hover.png"   TimeInterval="3000"  HorizontalAlignment="Right" Height="60" Width="60"  Margin="0,0,40,300" VerticalAlignment="Center"/>
-                <Controls:HoverButton Visibility="Visible" x:Name="botonAzulPaciente" ImageSize="100" ImageSource="/ARGIK;component/images/BlueButton-Active.png" ActiveImageSource="/ARGIK;component/images/BlueButton-Hover.png"   TimeInterval="3000"   HorizontalAlignment="Right" Height="60" Width="60"  Margin="0,0,40,120" VerticalAlignment="Center" />
+                <Controls:HoverButton Visibility="Visible" x:Name="botonRepetirGesto" ImageSize="100" ImageSource="/ARGIK;component/images/BlueButton-Active.png" ActiveImageSource="/ARGIK;component/images/BlueButton-Hover.png"   TimeInterval="3000"   HorizontalAlignment="Right" Height="60" Width="60"  Margin="0,0,40,120" VerticalAlignment="Center" />
                 <Controls:HoverButton Visibility="Visible" x:Name="botonNegroPaciente" ImageSize="100" ImageSource="/ARGIK;component/images/BlackButton-Active.png" ActiveImageSource="/ARGIK;component/images/BlackButton-Hover.png"   TimeInterval="3000"   HorizontalAlignment="Right" Height="60" Width="60"  Margin="0,210.975,39.261,169.025" VerticalAlignment="Center" />
                 <Controls:HoverButton Visibility="Visible" x:Name="botonVerdePaciente" ImageSize="100" ImageSource="/ARGIK;component/images/GreenButton-Active.png" ActiveImageSource="/ARGIK;component/images/GreenButton-Hover.png"   TimeInterval="3000"   HorizontalAlignment="Right" Height="60" Width="60"  Margin="0,300.975,39.261,79.025" VerticalAlignment="Center" />
 
             </Grid>
         </Viewbox>
-        <Image x:Name="logoPaciente" Source="/ARGIK;component/images/Logo 2.jpg" VerticalAlignment="Top" HorizontalAlignment="Center" Width="200" Margin="220,-116.512,220,0"/>
-
-
+        <Image x:Name="logo" Source="/images/argik.png" Height="102" VerticalAlignment="Top" Margin="157,-128,157,0"/>
+        <Button x:Name="ATRAS" Content="" Height="77" Width="81.217" Click="ATRAS_Click" FontSize="48" BorderBrush="{x:Null}" VerticalAlignment="Top" Margin="-166,-116,724,0">
+            <Button.Background>
+                <ImageBrush ImageSource="/images/atras.png"/>
+            </Button.Background>
+        </Button>
     </Grid>
-
 </Window>
