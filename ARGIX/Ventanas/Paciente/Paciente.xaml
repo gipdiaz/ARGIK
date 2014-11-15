@@ -10,12 +10,18 @@
         Title="ARGIK" Height="768" Width="1366" MinHeight="768" MinWidth="1366" MaxHeight="768" MaxWidth="1366" WindowStyle="None" ResizeMode="NoResize">
 
     <Window.Resources>
+        <DropShadowEffect x:Key="glowEffect" BlurRadius="30"  Opacity="1" ShadowDepth="0" Color="White" RenderingBias="Quality" Direction="392"></DropShadowEffect>
+
         <Style TargetType="{x:Type TextBlock}">
+
             <Setter Property="Text" Value="Drop-Shadow" />
-            <Setter Property="FontFamily" Value="Times New Roman Bold" />
-            <Setter Property="FontSize" Value="96" />
-            <Setter Property="HorizontalAlignment" Value="Center" />
-            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="FontFamily" Value="Arial" />
+            <Setter Property="FontSize" Value="60" />
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Bottom" />
+            <Setter Property="Effect" Value="{StaticResource glowEffect}"/>
+
         </Style>
     </Window.Resources>
     <Window.Background>
