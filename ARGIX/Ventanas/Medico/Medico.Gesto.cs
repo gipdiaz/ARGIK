@@ -42,6 +42,7 @@ namespace ARGIK
                 StopRecord();
                 reconocedorGesto.EndRecordTemplate();
                 gesturesCanvas.Children.Clear();
+                grabando = false;
                 armarListaGestos();
             }
             else

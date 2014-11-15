@@ -28,10 +28,12 @@ namespace ARGIK
                 switch (order)
                 {
                     case "grabar":
+                        if (grabando == false)
                         grabarListaGestos();
                         break;
                     case "detener":
-                        grabarListaGestos();
+                        if (grabando)
+                          grabarListaGestos();
                         break;
                     case "atras":
                         grabarListaGestos();

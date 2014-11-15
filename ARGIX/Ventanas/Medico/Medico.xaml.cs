@@ -347,7 +347,7 @@ namespace ARGIK
 
                 //Dibuja el esqueleto en la GUI
                 //skeletonDisplayManager.Draw(frame.Skeletons, seatedMode.IsChecked == true);
-                skeletonDisplayManager.Draw(frame.Skeletons, true);
+                skeletonDisplayManager.Draw(frame.Skeletons, this.modoSentado);
             }
 
         }
