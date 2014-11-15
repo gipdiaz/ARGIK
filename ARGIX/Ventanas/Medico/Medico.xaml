@@ -42,9 +42,9 @@
 
 				<Canvas x:Name="gesturesCanvas"/>
 
-				<Controls:HoverButton Visibility="Visible" x:Name="botonGrabarSesion" ImageSize="100" ImageSource="/ARGIK;component/images/RedButton-Active.png" ActiveImageSource="/ARGIK;component/images/RedButton-Hover.png"   TimeInterval="3000"  HorizontalAlignment="Right" Height="60" Width="60"  Margin="0,0,40,300" VerticalAlignment="Center"/>
-				<Controls:HoverButton Visibility="Visible" x:Name="botonSeleccionarArticulacion" ImageSize="100" ImageSource="/ARGIK;component/images/BlueButton-Active.png" ActiveImageSource="/ARGIK;component/images/BlueButton-Hover.png"   TimeInterval="3000"   HorizontalAlignment="Right" Height="60" Width="60"  Margin="0,0,40,120" VerticalAlignment="Center" />
-				<Controls:HoverButton Visibility="Visible" x:Name="botonAyuda" ImageSize="100" ImageSource="/ARGIK;component/images/BlackButton-Active.png" ActiveImageSource="/ARGIK;component/images/BlackButton-Hover.png"   TimeInterval="3000"   HorizontalAlignment="Right" Height="60" Width="60"  Margin="0,210.975,39.261,169.025" VerticalAlignment="Center" />
+				<Controls:HoverButton Visibility="Visible" x:Name="botonGrabarSesion" ImageSize="100" ImageSource="/ARGIK;component/images/IniciarSesion.png" ActiveImageSource="/ARGIK;component/images/Fin.png"   TimeInterval="3000"  HorizontalAlignment="Right" Height="60" Width="60"  Margin="0,0,40,300" VerticalAlignment="Center"/>
+				<Controls:HoverButton Visibility="Visible" x:Name="botonSeleccionarArticulacion" ImageSize="100" ImageSource="/ARGIK;component/images/Articulacion.png" ActiveImageSource="/ARGIK;component/images/Articulacion.png"   TimeInterval="3000"   HorizontalAlignment="Right" Height="60" Width="60"  Margin="0,0,40,120" VerticalAlignment="Center" />
+				<Controls:HoverButton Visibility="Visible" x:Name="botonAyuda" ImageSize="100" ImageSource="/ARGIK;component/images/Ayuda.png" ActiveImageSource="/ARGIK;component/images/Ayuda.png"   TimeInterval="3000"   HorizontalAlignment="Right" Height="60" Width="60"  Margin="0,210.975,39.261,169.025" VerticalAlignment="Center" />
 			</Grid>
 		</Viewbox>
 		<Image x:Name="logo" Source="/images/argik.png" Height="102" VerticalAlignment="Top" Margin="157,-128,157,0"/>

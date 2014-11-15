@@ -168,6 +168,14 @@
     <Resource Include="Images\paciente.png" />
     <Resource Include="Images\config.png" />
     <Resource Include="Images\config6.png" />
+    <Resource Include="Images\inicio.png" />
+    <Resource Include="Images\Detener.png" />
+    <Resource Include="Images\IniciarSesion.png" />
+    <Resource Include="Images\Articulacion.png" />
+    <Resource Include="Images\Ayuda.png" />
+    <Resource Include="Images\Fin.png" />
+    <Resource Include="Images\Repetir.png" />
+    <Resource Include="Images\Salir.png" />
     <Content Include="Libs\FaceTrackData.dll" />
     <Content Include="Libs\FaceTrackLib.dll" />
     <Resource Include="Images\background.jpg" />
