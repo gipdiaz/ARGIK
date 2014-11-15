@@ -10,6 +10,13 @@
         Title="ARGIK" Height="768" Width="1366" MinHeight="768" MinWidth="1366" MaxHeight="768" MaxWidth="1366" WindowStyle="None" ResizeMode="NoResize">
 
     <Window.Resources>
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="Text" Value="Drop-Shadow" />
+            <Setter Property="FontFamily" Value="Times New Roman Bold" />
+            <Setter Property="FontSize" Value="96" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
     </Window.Resources>
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">

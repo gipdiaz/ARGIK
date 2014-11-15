@@ -187,14 +187,14 @@ namespace ARGIK
             kinectSensor.Start();
 
             // Se añade el texto al grid para que muestre el nombre del texto
-            mensajePantalla.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
-            mensajePantalla.VerticalAlignment = System.Windows.VerticalAlignment.Center;
-            mensajePantalla.FontSize = 75;
-            mensajePantalla.Margin = new Thickness(30, 0, 0, 0);
+            //mensajePantalla.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
+            //mensajePantalla.VerticalAlignment = System.Windows.VerticalAlignment.Center;
+            //mensajePantalla.FontSize = 75;
+            //mensajePantalla.Margin = new Thickness(30, 0, 0, 0);
             mensajePantalla.Foreground = new SolidColorBrush(Colors.Red);
             mensajePantalla.Text = "";
             LayoutRoot.Children.Add(mensajePantalla);
-
+            
             //Configura la deteccion de gestos y posturas
             CargarDetectorGestos();
             CargarDetectorPosturas();
