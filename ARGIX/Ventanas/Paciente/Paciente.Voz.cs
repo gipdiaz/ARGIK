@@ -35,6 +35,19 @@ namespace ARGIK
                     case "repetir":
                         RepetirGesto();
                         break;
+                    case "ayuda":
+                        if (ayudaHabilitada == false)
+                            ayudaHabilitada = true;
+                        else
+                            ayudaHabilitada = false;
+                        habilitarAyudas();
+                        break;
+                    case "salir":
+                        this.Clean();
+                        MenuPrincipal menuPrincipal = new MenuPrincipal(modoSentado);
+                        menuPrincipal.Show();
+                        this.Close();
+                        break;
                 }
             }));
         }

@@ -25,6 +25,7 @@ namespace ARGIK
         // bool detectando;
 
         bool modoSentado;
+        bool ayudaHabilitada;
 
         // Diccionario que contiene los datos de los gestos
         SerializableDictionary<string, List<string>> diccionario;
@@ -68,7 +69,7 @@ namespace ARGIK
         /// <summary>
         /// Initializes a new instance of the <see cref="Paciente"/> class.
         /// </summary>
-        /// <param name="seatedMode">if set to <c>true</c> [seated mode].</param>
+        /// <param name="modoSentado">if set to <c>true</c> [seated mode].</param>
         public Paciente(bool modoSentado)
         {
             this.modoSentado = modoSentado;
@@ -163,7 +164,7 @@ namespace ARGIK
             // Inicializa los botones de la interfaz
             botonReproducirSesion.Click += new RoutedEventHandler(botonReproducirSesion_Clicked);
             botonRepetirGesto.Click += new RoutedEventHandler(botonRepetirGesto_Clicked);
-            botonNegroPaciente.Click += new RoutedEventHandler(botonNegroPaciente_Clicked);
+            botonAyudaPaciente.Click += new RoutedEventHandler(botonAyudaPaciente_Clicked);
             botonVerdePaciente.Click += new RoutedEventHandler(botonVerdePaciente_Clicked);
 
             // Inicializa la camara RGB, la de profundidad y el esqueleto
@@ -196,12 +197,12 @@ namespace ARGIK
             mensajePantalla.Visibility = System.Windows.Visibility.Visible;
             LayoutRoot.Children.Add(mensajePantalla);
             
-            //Configura la deteccion de gestos y posturas
+            //Configura la deteccion de gestos, posturas y ayuda
             CargarDetectorGestos();
             CargarDetectorPosturas();
-
+            CargarAyudas();
             //Comandos que podran ser reconocidos por voz
-            voiceCommander = new VoiceCommander("reproducir", "detener", "repetir");
+            voiceCommander = new VoiceCommander("reproducir", "detener", "repetir", "ayuda", "salir");
             voiceCommander.OrderDetected += voiceCommander_OrderDetected;
             StartVoiceCommander();
 
@@ -308,7 +309,7 @@ namespace ARGIK
             // Recupera la posición de los botones
             var transform1 = this.botonReproducirSesion.TransformToVisual(LayoutRoot);
             var transform2 = this.botonRepetirGesto.TransformToVisual(LayoutRoot);
-            var transform3 = this.botonNegroPaciente.TransformToVisual(LayoutRoot);
+            var transform3 = this.botonAyudaPaciente.TransformToVisual(LayoutRoot);
             var transform4 = this.botonVerdePaciente.TransformToVisual(LayoutRoot);
 
             Point puntoBotonReproducirSesion = transform1.Transform(new Point(0, 0));
@@ -327,10 +328,10 @@ namespace ARGIK
             else
                 botonRepetirGesto.Release();
 
-            if (Math.Abs(puntoMano.X - (puntoBotonNegroPaciente.X + botonNegroPaciente.Width)) < 30 && Math.Abs(puntoMano.Y - puntoBotonNegroPaciente.Y) < 30)
-                botonNegroPaciente.Hovering();
+            if (Math.Abs(puntoMano.X - (puntoBotonNegroPaciente.X + botonAyudaPaciente.Width)) < 30 && Math.Abs(puntoMano.Y - puntoBotonNegroPaciente.Y) < 30)
+                botonAyudaPaciente.Hovering();
             else
-                botonNegroPaciente.Release();
+                botonAyudaPaciente.Release();
 
             if (Math.Abs(puntoMano.X - (puntoBotonVerdePaciente.X + botonVerdePaciente.Width)) < 30 && Math.Abs(puntoMano.Y - puntoBotonVerdePaciente.Y) < 30)
                 botonVerdePaciente.Hovering();
@@ -477,6 +478,37 @@ namespace ARGIK
             //this.articulacion_gesto = articulacion_gesto;
         }
 
+        private void habilitarAyudas()
+        {
+            if (ayudaHabilitada == true)
+            {
+
+                ayudaIniciarSesion.Visibility = Visibility.Visible;
+                ayudaIniciarSesionBorde.Visibility = Visibility.Visible;
+
+                ayudaRepetir.Visibility = Visibility.Visible;
+                ayudaRepetirBorde.Visibility = Visibility.Visible;
+
+                ayudaAyuda.Visibility = Visibility.Visible;
+                ayudaAyudaBorde.Visibility = Visibility.Visible;
+
+                ayudaSalir.Visibility = Visibility.Visible;
+                ayudaSalirBorde.Visibility = Visibility.Visible;
+            }
+            else
+            {
+
+                ayudaIniciarSesion.Visibility = Visibility.Collapsed;
+                ayudaIniciarSesionBorde.Visibility = Visibility.Collapsed;
+                ayudaRepetir.Visibility = Visibility.Collapsed;
+                ayudaRepetirBorde.Visibility = Visibility.Collapsed;
+                ayudaAyuda.Visibility = Visibility.Collapsed;
+                ayudaAyudaBorde.Visibility = Visibility.Collapsed;
+                ayudaSalir.Visibility = Visibility.Collapsed;
+                ayudaSalirBorde.Visibility = Visibility.Collapsed;
+            }
+        }
+
         /// <summary>
         /// Cierra la ventana
         /// </summary>
@@ -522,5 +554,6 @@ namespace ARGIK
             // ProcessFrame(e.SkeletonFrame);
             skeletonDisplayManager.Draw(e.SkeletonFrame.Skeletons, this.modoSentado);
         }
+
     }
 }

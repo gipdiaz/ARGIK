@@ -90,14 +90,18 @@ namespace ARGIK
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         /// <exception cref="System.NotImplementedException"></exception>
-        private void botonNegroPaciente_Clicked(object sender, RoutedEventArgs e)
+        private void botonAyudaPaciente_Clicked(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            if (ayudaHabilitada == false)
+                ayudaHabilitada = true;
+            else
+                ayudaHabilitada = false;
+            habilitarAyudas();
         }
 
         private void botonVerdePaciente_Clicked(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            
         }
 
         /// <summary>
@@ -111,6 +115,23 @@ namespace ARGIK
             this.Clean();
             this.Close();
             menuPrincipal.Show();
+        }
+
+        /// <summary>
+        /// Inicializa las ayudas de la ventana MEDICO
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// 
+        public void CargarAyudas()
+        {
+            ayudaHabilitada = false;
+
+            ayudaIniciarSesion.Text = "Iniciar la sesion para poder\nrealizar los movimientos";
+            ayudaRepetir.Text = "Repetir el gesto para\nvisualizar el movimiento";
+            ayudaAyuda.Text = "Activar el modo ayuda de la\naplicación";
+            ayudaSalir.Text = "Volver al menú principal";
+            habilitarAyudas();
         }
     }
 }

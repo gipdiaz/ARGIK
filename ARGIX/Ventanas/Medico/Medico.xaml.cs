@@ -13,6 +13,7 @@ using Coding4Fun.Kinect.Wpf.Controls;
 using System.Windows.Shapes;
 using System.Windows.Media;
 using System.Xml.Serialization;
+using System.Windows.Controls.Primitives;
 
 namespace ARGIK
 {
@@ -31,7 +32,8 @@ namespace ARGIK
         public string articulacion_gesto { get; set; }
 
         bool modoSentado;
-
+        bool ayudaHabilitada;
+        
         // Diccionario que contiene los datos de los gestos
         SerializableDictionary<string, List<string>> diccionario;
 
@@ -198,9 +200,14 @@ namespace ARGIK
             //Configura la deteccion de gestos y posturas
             CargarDetectorGestos();
             CargarDetectorPosturas();
+            
+            //Se definen las ayudas de cada boton
+            CargarAyudas();
+           
+           
 
             //Comandos que podran ser reconocidos por voz
-            voiceCommander = new VoiceCommander("grabar", "detener", "atras");
+            voiceCommander = new VoiceCommander("grabar", "detener", "salir", "ayuda");
             voiceCommander.OrderDetected += voiceCommander_OrderDetected;
             StartVoiceCommander();
 
@@ -217,6 +224,41 @@ namespace ARGIK
             else
             {
                 kinectSensor.SkeletonStream.TrackingMode = SkeletonTrackingMode.Default;
+            }
+        
+           
+
+
+        }
+
+        private void habilitarAyudas()
+        {
+            if (ayudaHabilitada == true)
+            {
+
+                ayudaGrabarSesion.Visibility = Visibility.Visible;
+                ayudaGrabarSesionBorde.Visibility = Visibility.Visible;
+
+                ayudaArticulaciones.Visibility = Visibility.Visible;
+                ayudaArticulacionesBorde.Visibility = Visibility.Visible;
+
+                ayudaAyuda.Visibility = Visibility.Visible;
+                ayudaAyudaBorde.Visibility = Visibility.Visible;
+
+                ayudaSalir.Visibility = Visibility.Visible;
+                ayudaSalirBorde.Visibility = Visibility.Visible;
+            }
+            else
+            {
+
+                ayudaGrabarSesion.Visibility = Visibility.Collapsed;
+                ayudaGrabarSesionBorde.Visibility = Visibility.Collapsed;
+                ayudaArticulaciones.Visibility = Visibility.Collapsed;
+                ayudaArticulacionesBorde.Visibility = Visibility.Collapsed;
+                ayudaAyuda.Visibility = Visibility.Collapsed;
+                ayudaAyudaBorde.Visibility = Visibility.Collapsed;
+                ayudaSalir.Visibility = Visibility.Collapsed;
+                ayudaSalirBorde.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -375,6 +417,7 @@ namespace ARGIK
             }
         }
 
+
         /// <summary>
         /// Libera recursos
         /// </summary>
@@ -414,8 +457,9 @@ namespace ARGIK
         /// </summary>
         public void Reanudar()
         {
-            this.audioManager = new AudioStreamManager(kinectSensor.AudioSource);
 
+
+            this.audioManager = new AudioStreamManager(kinectSensor.AudioSource);
             CargarDetectorGestos();
             CargarDetectorPosturas();
 
@@ -463,6 +507,8 @@ namespace ARGIK
             else
                 botonSeleccionarArticulacion.Release();
         }
+        
+
 
         /// <summary>
         /// Cierra la ventana

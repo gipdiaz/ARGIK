@@ -44,7 +44,7 @@ namespace ARGIK
             this.modoSentado = true;
             InitializeComponent();
             InitializeButtons();
-            this.WindowState = System.Windows.WindowState.Maximized;
+            //this.WindowState = System.Windows.WindowState.Maximized;
             this.WindowStyle = System.Windows.WindowStyle.None;
             if (Generics.LoadingStatus == 0)
             {
@@ -355,25 +355,28 @@ namespace ARGIK
         private void MEDICO_Click(object sender, RoutedEventArgs e)
         {
             UnregisterEvents();
+            Generics.LoadingStatus = 0;
             Medico medico = new Medico(modoSentado);
-            this.Close();
             medico.Show();
+            this.Close();
         }
  
         private void PACIENTE_Click(object sender, RoutedEventArgs e)
         {
             UnregisterEvents();
+            Generics.LoadingStatus = 0;
             Paciente paciente = new Paciente(modoSentado);
-            this.Close();
             paciente.Show();
+            this.Close();
         }
 
         private void CONFIGURACION_Click(object sender, RoutedEventArgs e)
         {
             UnregisterEvents();
+            Generics.LoadingStatus = 0;
             Configuracion configuracion = new Configuracion(modoSentado);
-            this.Close();
             configuracion.Show();
+            this.Close();
         }
         
         private void CERRAR_Click(object sender, RoutedEventArgs e)

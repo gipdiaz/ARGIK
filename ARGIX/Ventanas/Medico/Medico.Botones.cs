@@ -15,6 +15,7 @@ namespace ARGIK
     // Esta parte de la clase se encarga de manejar los gestos
     partial class Medico
     {
+
         /// <summary>
         /// Boton Rojo de RA, genera el XML con la lista.
         /// </summary>
@@ -64,7 +65,11 @@ namespace ARGIK
 
         private void botonAyuda_Clicked(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            if (ayudaHabilitada == false)
+                ayudaHabilitada = true;
+            else
+                ayudaHabilitada = false;
+            habilitarAyudas();
         }
 
         /// <summary>
@@ -74,10 +79,28 @@ namespace ARGIK
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void ATRAS_Click(object sender, RoutedEventArgs e)
         {
-            MenuPrincipal menuPrincipal = new MenuPrincipal(modoSentado);
+            
             this.Clean();
-            this.Close();
-            menuPrincipal.Show();
+            MenuPrincipal menuPrincipal = new MenuPrincipal(modoSentado);
+           menuPrincipal.Show();
+           this.Close();
+        }
+
+        /// <summary>
+        /// Inicializa las ayudas de la ventana MEDICO
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        /// 
+        public void CargarAyudas()
+        {
+            ayudaHabilitada = false;
+
+            ayudaGrabarSesion.Text = "Iniciar la sesion para poder\ngrabar los movimientos";
+            ayudaArticulaciones.Text = "Seleccionar la articulación que\nse utilizará para el movimiento";
+            ayudaAyuda.Text = "Activar el modo ayuda de la\naplicación";
+            ayudaSalir.Text = "Volver al menú principal";
+            habilitarAyudas();
         }
     }
 }

@@ -138,6 +138,14 @@
             <param name="sender">The source of the event.</param>
             <param name="e">The <see cref="T:System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
         </member>
+        <member name="M:ARGIK.Medico.CargarAyudas">
+            <summary>
+            Inicializa las ayudas de la ventana MEDICO
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
+            
+        </member>
         <member name="M:ARGIK.Medico.CargarDetectorGestos">
             <summary>
             Se inicializa el detector de gestos con un Stream default
@@ -327,7 +335,7 @@
             Repetirs the replay.
             </summary>
         </member>
-        <member name="M:ARGIK.Paciente.botonNegroPaciente_Clicked(System.Object,System.Windows.RoutedEventArgs)">
+        <member name="M:ARGIK.Paciente.botonAyudaPaciente_Clicked(System.Object,System.Windows.RoutedEventArgs)">
             <summary>
             Handles the Clicked event of the botonNegroPaciente control.
             </summary>
@@ -341,6 +349,14 @@
             </summary>
             <param name="sender">The source of the event.</param>
             <param name="e">The <see cref="T:System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:ARGIK.Paciente.CargarAyudas">
+            <summary>
+            Inicializa las ayudas de la ventana MEDICO
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
+            
         </member>
         <member name="M:ARGIK.Paciente.CargarDetectorGestos">
             <summary>
@@ -398,7 +414,7 @@
             <summary>
             Initializes a new instance of the <see cref="T:ARGIK.Paciente"/> class.
             </summary>
-            <param name="seatedMode">if set to <c>true</c> [seated mode].</param>
+            <param name="modoSentado">if set to <c>true</c> [seated mode].</param>
         </member>
         <member name="M:ARGIK.Paciente.Window_Loaded(System.Object,System.Windows.RoutedEventArgs)">
             <summary>

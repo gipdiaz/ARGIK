@@ -35,8 +35,18 @@ namespace ARGIK
                         if (grabando)
                           grabarListaGestos();
                         break;
-                    case "atras":
-                        grabarListaGestos();
+                    case "salir":
+                        this.Clean();
+                        MenuPrincipal menuPrincipal = new MenuPrincipal(modoSentado);
+                        menuPrincipal.Show();
+                        this.Close();
+                        break;
+                    case "ayuda":
+                        if (ayudaHabilitada == false)
+                            ayudaHabilitada = true;
+                        else
+                            ayudaHabilitada = false;
+                        habilitarAyudas();
                         break;
                 }
             }));
