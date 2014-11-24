@@ -105,11 +105,7 @@ namespace ARGIK
             habilitarAyudas();
         }
 
-        private void botonVerdePaciente_Clicked(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
+        
         /// <summary>
         /// Handles the Click event of the ATRAS control.
         /// </summary>

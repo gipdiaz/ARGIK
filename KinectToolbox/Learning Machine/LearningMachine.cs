@@ -11,7 +11,7 @@ namespace Kinect.Toolbox
     public class LearningMachine
     {
         readonly List<RecordedPath> paths;
-        int nroGesto = 0;
+        public static int nroGesto = 0;
         public LearningMachine(Stream kbStream)
         {
             if (kbStream == null || kbStream.Length == 0)
@@ -32,6 +32,7 @@ namespace Kinect.Toolbox
         }
         public string gestoNuevo { get; set; }
         public string repeticion { get; set; }
+       
 
         public string posturaNuevo { get; set; }
 
@@ -57,8 +58,8 @@ namespace Kinect.Toolbox
 
         public void GuardarGesto()
         {
-                nroGesto = nroGesto + 1;
-                gestoNuevo = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop), "gesto" + this.nroGesto + ".save");
+                LearningMachine.nroGesto = LearningMachine.nroGesto + 1;
+                gestoNuevo = System.IO.Path.Combine(System.Environment.CurrentDirectory, "gesto" + LearningMachine.nroGesto + ".save");
                 using (Stream recordStream = File.Create(gestoNuevo))
                 {
                     Persist(recordStream);

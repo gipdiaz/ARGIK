@@ -166,7 +166,7 @@ namespace ARGIK
 
                     replay.SkeletonFrameReady += replay_SkeletonFrameReady;
                     replay.ColorImageFrameReady += replay_ColorImageFrameReady;
-
+                    gesturesCanvas.Children.Clear();
                     replay.Start();
 
                     mensajePantalla.Text = "Repetición\n" + articulacion_gesto;

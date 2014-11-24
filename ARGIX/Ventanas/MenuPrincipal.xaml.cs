@@ -44,7 +44,7 @@ namespace ARGIK
             this.modoSentado = true;
             InitializeComponent();
             InitializeButtons();
-            //this.WindowState = System.Windows.WindowState.Maximized;
+            this.WindowState = System.Windows.WindowState.Maximized;
             this.WindowStyle = System.Windows.WindowStyle.None;
             if (Generics.LoadingStatus == 0)
             {

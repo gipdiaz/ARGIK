@@ -200,6 +200,7 @@ namespace ARGIK
             //Configura la deteccion de gestos y posturas
             CargarDetectorGestos();
             CargarDetectorPosturas();
+           
             //Se definen las ayudas de cada boton
             CargarAyudas();
             //Variables para voz
@@ -207,7 +208,9 @@ namespace ARGIK
                
             //Botones RA
             botonSeleccionarArticulacion.Visibility = Visibility.Hidden;
-
+            botonGrabarSesion.Visibility = Visibility.Hidden;
+            
+            botonAyuda.Visibility = Visibility.Hidden;
             //Comandos que podran ser reconocidos por voz
             voiceCommander = new VoiceCommander("grabar", "detener", "salir", "ayuda");
             voiceCommander.OrderDetected += voiceCommander_OrderDetected;
@@ -331,18 +334,15 @@ namespace ARGIK
                 //Si no hay esqueletos frente al sensor se deshabilitan opciones y se limpian los canvas
                 if (skeletons.All(s => s.TrackingState == SkeletonTrackingState.NotTracked))
                 {
-                    this.botonGrabarSesion.IsEnabled = false;
-                    this.botonSeleccionarArticulacion.IsEnabled = false;
-                    this.botonAyuda.IsEnabled = false;
+                    botonGrabarSesion.Visibility = Visibility.Hidden;
+                    if (!sesionIniciada)
+                        botonSeleccionarArticulacion.Visibility = Visibility.Hidden;
+                    botonAyuda.Visibility = Visibility.Hidden;
                     this.gesturesCanvas.Children.Clear();
                     this.kinectCanvas.Children.Clear();
                     return;
                 }
-                else
-                {
-                    this.botonGrabarSesion.IsEnabled = true;
-                    this.botonSeleccionarArticulacion.IsEnabled = true;
-                }
+               
                 ProcessFrame(frame);
             }
         }
@@ -358,6 +358,10 @@ namespace ARGIK
             //Si hay esqueletos en la lista
             if (frame.Skeletons.Length > 0)
             {
+                botonGrabarSesion.Visibility = Visibility.Visible;
+                if (sesionIniciada)
+                    botonSeleccionarArticulacion.Visibility = Visibility.Visible;
+                botonAyuda.Visibility = Visibility.Visible;
                 foreach (var skeleton in frame.Skeletons)
                 {
                     if (skeleton.TrackingState != SkeletonTrackingState.Tracked)
@@ -419,8 +423,6 @@ namespace ARGIK
                 case "Rodilla Izquierda": return JointType.KneeLeft;
                 case "Pie Derecho": return JointType.FootRight;
                 case "Pie Izquierdo": return JointType.FootLeft;
-                    
-
                 default: return JointType.HandRight;
             }
         }

@@ -166,7 +166,7 @@ namespace ARGIK
             botonReproducirSesion.Click += new RoutedEventHandler(botonReproducirSesion_Clicked);
             botonRepetirGesto.Click += new RoutedEventHandler(botonRepetirGesto_Clicked);
             botonAyudaPaciente.Click += new RoutedEventHandler(botonAyudaPaciente_Clicked);
-            botonVerdePaciente.Click += new RoutedEventHandler(botonVerdePaciente_Clicked);
+            
 
             // Inicializa la camara RGB, la de profundidad y el esqueleto
             kinectSensor.ColorStream.Enable(ColorImageFormat.RgbResolution640x480Fps30);
@@ -206,7 +206,8 @@ namespace ARGIK
             //Botones RA
             sesionIniciada = false;
             botonRepetirGesto.Visibility = Visibility.Hidden;
-            botonVerdePaciente.Visibility = Visibility.Hidden;
+            botonAyudaPaciente.Visibility = Visibility.Hidden;
+            botonReproducirSesion.Visibility = Visibility.Hidden;
 
             //Comandos que podran ser reconocidos por voz
             voiceCommander = new VoiceCommander("reproducir", "detener", "repetir", "ayuda", "salir");
@@ -297,6 +298,10 @@ namespace ARGIK
                 //Si no hay esqueletos frente al sensor se deshabilitan opciones y se limpian los canvas
                 if (skeletons.All(s => s.TrackingState == SkeletonTrackingState.NotTracked))
                 {
+                    botonReproducirSesion.Visibility = Visibility.Hidden;
+                    if (sesionIniciada == false)
+                        botonRepetirGesto.Visibility = Visibility.Hidden;
+                    botonAyudaPaciente.Visibility = Visibility.Hidden;
                     gesturesCanvas.Children.Clear();
                     kinectCanvas.Children.Clear();
                     return;
@@ -318,12 +323,13 @@ namespace ARGIK
             var transform1 = this.botonReproducirSesion.TransformToVisual(LayoutRoot);
             var transform2 = this.botonRepetirGesto.TransformToVisual(LayoutRoot);
             var transform3 = this.botonAyudaPaciente.TransformToVisual(LayoutRoot);
-            var transform4 = this.botonVerdePaciente.TransformToVisual(LayoutRoot);
+        
+
 
             Point puntoBotonReproducirSesion = transform1.Transform(new Point(0, 0));
             Point puntoBotonAzulPaciente = transform2.Transform(new Point(0, 0));
             Point puntoBotonNegroPaciente = transform3.Transform(new Point(0, 0));
-            Point puntoBotonVerdePaciente = transform4.Transform(new Point(0, 0));
+            
 
             // Verifica si el punto trackeado esta sobre el boton
             if (Math.Abs(puntoMano.X - (puntoBotonReproducirSesion.X + botonReproducirSesion.Width)) < 30 && Math.Abs(puntoMano.Y - puntoBotonReproducirSesion.Y) < 30)
@@ -341,10 +347,7 @@ namespace ARGIK
             else
                 botonAyudaPaciente.Release();
 
-            if (Math.Abs(puntoMano.X - (puntoBotonVerdePaciente.X + botonVerdePaciente.Width)) < 30 && Math.Abs(puntoMano.Y - puntoBotonVerdePaciente.Y) < 30)
-                botonVerdePaciente.Hovering();
-            else
-                botonVerdePaciente.Release();
+            
         }
 
         /// <summary>
@@ -360,8 +363,10 @@ namespace ARGIK
             //Si hay esqueletos en la lista
             if (frame.Skeletons.Length > 0)
             {
-                //botonGrabarGesto.IsEnabled = true;
-                //botonGrabarGestoViejo.IsEnabled = true;
+                botonReproducirSesion.Visibility = Visibility.Visible;
+                if (sesionIniciada)
+                    botonRepetirGesto.Visibility = Visibility.Visible;
+                botonAyudaPaciente.Visibility = Visibility.Visible;
                 foreach (var skeleton in frame.Skeletons)
                 {
                     if (skeleton.TrackingState != SkeletonTrackingState.Tracked)
@@ -406,6 +411,7 @@ namespace ARGIK
                 //skeletonDisplayManager.Draw(frame.Skeletons, true);
                 skeletonDisplayManager.Draw(frame.Skeletons, this.modoSentado);
             }
+            
 
         }
 

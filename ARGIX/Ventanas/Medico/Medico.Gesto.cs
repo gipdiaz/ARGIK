@@ -15,7 +15,7 @@ namespace ARGIK
     partial class Medico
     {
 
-        int nroGesto = 0;
+        int nroGesto =0;
         string nombreSesion;
         public bool grabando = false;
 
@@ -28,6 +28,7 @@ namespace ARGIK
             {
                 reconocedorGesto = new TemplatedGestureDetector("Gesto", recordStream);
                 reconocedorGesto.DisplayCanvas = gesturesCanvas;
+               
             }
         }
 
@@ -58,7 +59,7 @@ namespace ARGIK
                 botonGrabarSesion.Visibility = Visibility.Hidden;
                 botonSeleccionarArticulacion.Visibility = Visibility.Hidden;
                 nroGesto = nroGesto + 1;
-                nombreSesion = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "sesion" + nroGesto + ".replay");
+                nombreSesion = System.IO.Path.Combine(Environment.CurrentDirectory, "sesion" + nroGesto + ".replay");
                 DirectRecord(nombreSesion);
             }
         }
