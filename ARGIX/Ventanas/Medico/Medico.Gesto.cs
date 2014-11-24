@@ -42,6 +42,9 @@ namespace ARGIK
                 StopRecord();
                 reconocedorGesto.EndRecordTemplate();
                 gesturesCanvas.Children.Clear();
+                botonAyuda.Visibility = Visibility.Visible;
+                botonGrabarSesion.Visibility = Visibility.Visible;
+                botonSeleccionarArticulacion.Visibility = Visibility.Visible;
                 grabando = false;
                 armarListaGestos();
             }
@@ -51,6 +54,9 @@ namespace ARGIK
                 CargarDetectorGestos();
                 reconocedorGesto.StartRecordTemplate();
                 grabando = true;
+                botonAyuda.Visibility = Visibility.Hidden;
+                botonGrabarSesion.Visibility = Visibility.Hidden;
+                botonSeleccionarArticulacion.Visibility = Visibility.Hidden;
                 nroGesto = nroGesto + 1;
                 nombreSesion = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "sesion" + nroGesto + ".replay");
                 DirectRecord(nombreSesion);

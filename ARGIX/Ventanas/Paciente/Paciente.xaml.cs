@@ -490,12 +490,15 @@ namespace ARGIK
         {
             if (ayudaHabilitada == true)
             {
-
+                
                 ayudaIniciarSesion.Visibility = Visibility.Visible;
                 ayudaIniciarSesionBorde.Visibility = Visibility.Visible;
 
-                ayudaRepetir.Visibility = Visibility.Visible;
-                ayudaRepetirBorde.Visibility = Visibility.Visible;
+                if (botonRepetirGesto.Visibility == Visibility.Visible)
+                {
+                    ayudaRepetir.Visibility = Visibility.Visible;
+                    ayudaRepetirBorde.Visibility = Visibility.Visible;
+                }
 
                 ayudaAyuda.Visibility = Visibility.Visible;
                 ayudaAyudaBorde.Visibility = Visibility.Visible;

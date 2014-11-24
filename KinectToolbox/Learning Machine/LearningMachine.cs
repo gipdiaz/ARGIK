@@ -11,7 +11,7 @@ namespace Kinect.Toolbox
     public class LearningMachine
     {
         readonly List<RecordedPath> paths;
-
+        int nroGesto = 0;
         public LearningMachine(Stream kbStream)
         {
             if (kbStream == null || kbStream.Length == 0)
@@ -57,16 +57,14 @@ namespace Kinect.Toolbox
 
         public void GuardarGesto()
         {
-            SaveFileDialog saveFileDialog = new SaveFileDialog { Title = "Elija nombre de gesto", Filter = "Gestos|*.save" };
-            if (saveFileDialog.ShowDialog() == true)
-            {
-                gestoNuevo = saveFileDialog.FileName;
+                nroGesto = nroGesto + 1;
+                gestoNuevo = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop), "gesto" + this.nroGesto + ".save");
                 using (Stream recordStream = File.Create(gestoNuevo))
                 {
                     Persist(recordStream);
                     recordStream.Close();
                 }
-            }
+            
             repeticion = Microsoft.VisualBasic.Interaction.InputBox("Ingrese cantidad de repeticiones: ");
         }
 

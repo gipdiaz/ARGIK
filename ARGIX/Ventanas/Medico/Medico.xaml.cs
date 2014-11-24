@@ -235,14 +235,21 @@ namespace ARGIK
             if (ayudaHabilitada == true)
             {
 
-                ayudaGrabarSesion.Visibility = Visibility.Visible;
-                ayudaGrabarSesionBorde.Visibility = Visibility.Visible;
-
-                ayudaArticulaciones.Visibility = Visibility.Visible;
-                ayudaArticulacionesBorde.Visibility = Visibility.Visible;
-
-                ayudaAyuda.Visibility = Visibility.Visible;
-                ayudaAyudaBorde.Visibility = Visibility.Visible;
+                if (botonGrabarSesion.Visibility == Visibility.Visible)
+                {
+                    ayudaGrabarSesion.Visibility = Visibility.Visible;
+                    ayudaGrabarSesionBorde.Visibility = Visibility.Visible;
+                }
+                if (botonSeleccionarArticulacion.Visibility == Visibility.Visible)
+                {
+                    ayudaArticulaciones.Visibility = Visibility.Visible;
+                    ayudaArticulacionesBorde.Visibility = Visibility.Visible;
+                }
+                if (botonAyuda.Visibility == Visibility.Visible)
+                {
+                    ayudaAyuda.Visibility = Visibility.Visible;
+                    ayudaAyudaBorde.Visibility = Visibility.Visible;
+                }
 
                 ayudaSalir.Visibility = Visibility.Visible;
                 ayudaSalirBorde.Visibility = Visibility.Visible;

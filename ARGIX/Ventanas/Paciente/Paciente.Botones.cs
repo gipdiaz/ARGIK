@@ -51,6 +51,7 @@ namespace ARGIK
             if (this.botonReproducirSesion.IsChecked == false)
             {
                 this.botonReproducirSesion.IsChecked = true;
+                sesionIniciada = true;
                 mensajePantalla.Text = "";
                 XmlSerializer serializer = new XmlSerializer(typeof(SerializableDictionary<string, List<string>>));
                 TextReader textReader = new StreamReader(@"Gaston Diaz.xml");
@@ -64,6 +65,7 @@ namespace ARGIK
             if (this.botonReproducirSesion.IsChecked)
             {
                 this.botonReproducirSesion.IsChecked = false;
+                sesionIniciada = false;
                 diccionario = null;
                 mensajePantalla.Text = "Sesión Finalizada";
                 retirarReconocedorGesto();

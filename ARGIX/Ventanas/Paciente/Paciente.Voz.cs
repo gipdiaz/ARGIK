@@ -27,10 +27,11 @@ namespace ARGIK
                 switch (order)
                 {
                     case "reproducir":
+                        if (sesionIniciada == false)
                         ReproducirSesion();
                         break;
                     case "detener":
-                        
+                        if (sesionIniciada == true)
                         detenerSesion();
                         break;
                     case "repetir":

@@ -157,7 +157,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Sonidos\ClickRA.wav" />
     <Resource Include="Images\atras.png" />
     <Resource Include="Images\iniciar .png" />
     <Resource Include="Images\left-round-128.png" />
