@@ -30,9 +30,11 @@ namespace ARGIK
                         ReproducirSesion();
                         break;
                     case "detener":
+                        
                         detenerSesion();
                         break;
                     case "repetir":
+                        if (sesionIniciada)
                         RepetirGesto();
                         break;
                     case "ayuda":

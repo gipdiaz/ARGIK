@@ -45,6 +45,13 @@
             <Setter Property="Background" Value="#FFFAFF89"/>
             <Setter Property="CornerRadius" Value="4"/>
         </Style>
+        <!--<Style TargetType="Controls:HoverButton">
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="PreviewMouseDown">
+                    <SoundPlayerAction Source="/Sonidos/ClickRA.wav"/>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>-->
 
     </Window.Resources>
     <Window.Background>

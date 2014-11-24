@@ -52,25 +52,29 @@ namespace ARGIK
                     repeticion_gesto = Convert.ToInt32(lista[1]);
                     articulacion_gesto = lista[2];
                     sesion_gesto = lista[3];
-                    System.Console.WriteLine(articulacion_gesto);
+
 
                     //Mostrar repeticiones
-                    mensajePantalla.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
-                    mensajePantalla.VerticalAlignment = System.Windows.VerticalAlignment.Center;
-                    mensajePantalla.FontSize = 75;
-                    mensajePantalla.Margin = new Thickness(30, 0, 0, 0);
+                    //mensajePantalla.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
+                    //mensajePantalla.VerticalAlignment = System.Windows.VerticalAlignment.Center;
+                    //mensajePantalla.FontSize = 75;
+                    //mensajePantalla.Margin = new Thickness(30, 0, 0, 0);
                     mensajePantalla.Foreground = new SolidColorBrush(Colors.Red);
 
                     //Comenzar a detectar el gesto
                     Stream recordStream = new FileStream(nombre_gesto, FileMode.Open);
                     reconocedorGesto = new TemplatedGestureDetector(nombre_gesto, recordStream);
                     reconocedorGesto.OnGestureDetected += OnGestureDetected;
+                    //mensajePantalla.FontSize = 20;
                     mensajePantalla.Text = repeticion_gesto.ToString();
                     gesturesCanvas.Children.Clear();
                     reconocedorGesto.DisplayCanvas = gesturesCanvas;
                 }
                 else
+                {
                     mensajePantalla.Text = "¡BIEN HECHO!";
+                    botonRepetirGesto.Visibility = Visibility.Hidden;
+                }
                 cargar_gesto = false;
             }
         }
@@ -146,6 +150,7 @@ namespace ARGIK
 
                     //Guardar nombre de gesto, repeticiones y articulaciones
                     nombre_gesto = lista[0];
+                    articulacion_gesto = lista[2];
                     sesion_gesto = lista[3];
 
                     //Frenar cualquier repeticion que se este ejecutando
@@ -164,7 +169,7 @@ namespace ARGIK
 
                     replay.Start();
 
-                    mensajePantalla.Text = "Repetición del gesto " + nombre_gesto;
+                    mensajePantalla.Text = "Repetición\n" + articulacion_gesto;
 
                     cargar_gesto = true;
                 }

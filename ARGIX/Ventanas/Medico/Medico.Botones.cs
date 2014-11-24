@@ -38,6 +38,9 @@ namespace ARGIK
                 diccionario.Add("Paciente", paciente);
                 diccionario.Add("Precision", precision);
                 diccionario.Add("Gestos", gestos);
+
+                sesionIniciada = true;
+                botonSeleccionarArticulacion.Visibility = Visibility.Visible;
             }
             else
             {
@@ -45,6 +48,8 @@ namespace ARGIK
                 TextWriter textWriter = new StreamWriter(@"Gaston Diaz.xml");
                 serializer.Serialize(textWriter, diccionario);
                 textWriter.Close();
+                sesionIniciada = false;
+                botonSeleccionarArticulacion.Visibility = Visibility.Hidden;
             }
         }
 
@@ -56,10 +61,8 @@ namespace ARGIK
         public void botonSeleccionarArticulacion_Clicked(object sender, RoutedEventArgs e)
         {
             this.Clean();
-            this.Visibility = Visibility.Collapsed;
             Articulaciones jointsNuevo = new Articulaciones(this);
             jointsNuevo.ShowDialog();
-            this.Visibility = Visibility.Visible;
             this.Reanudar();
         }
 

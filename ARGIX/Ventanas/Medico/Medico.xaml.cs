@@ -33,7 +33,7 @@ namespace ARGIK
 
         bool modoSentado;
         bool ayudaHabilitada;
-        
+        bool sesionIniciada;
         // Diccionario que contiene los datos de los gestos
         SerializableDictionary<string, List<string>> diccionario;
 
@@ -200,11 +200,13 @@ namespace ARGIK
             //Configura la deteccion de gestos y posturas
             CargarDetectorGestos();
             CargarDetectorPosturas();
-            
             //Se definen las ayudas de cada boton
             CargarAyudas();
-           
-           
+            //Variables para voz
+            sesionIniciada = false;
+               
+            //Botones RA
+            botonSeleccionarArticulacion.Visibility = Visibility.Hidden;
 
             //Comandos que podran ser reconocidos por voz
             voiceCommander = new VoiceCommander("grabar", "detener", "salir", "ayuda");
@@ -214,7 +216,7 @@ namespace ARGIK
             //Mostrar en pantalla la imagen a color
             kinectDisplay.DataContext = colorManager;
 
-            articulacion_gesto = "";
+            articulacion_gesto = "Mano Derecha";
 
             // Se chequea el modo sentado
             if (this.modoSentado == true)
@@ -226,9 +228,6 @@ namespace ARGIK
                 kinectSensor.SkeletonStream.TrackingMode = SkeletonTrackingMode.Default;
             }
         
-           
-
-
         }
 
         private void habilitarAyudas()
@@ -401,6 +400,7 @@ namespace ARGIK
         /// <returns></returns>
         public JointType verificarArticulacion(String articulacion)
         {
+            
             switch (articulacion)
             {
                 case "Cabeza": return JointType.Head;
@@ -412,6 +412,7 @@ namespace ARGIK
                 case "Rodilla Izquierda": return JointType.KneeLeft;
                 case "Pie Derecho": return JointType.FootRight;
                 case "Pie Izquierdo": return JointType.FootLeft;
+                    
 
                 default: return JointType.HandRight;
             }
@@ -458,11 +459,21 @@ namespace ARGIK
         public void Reanudar()
         {
 
+            foreach (KinectSensor kinect in KinectSensor.KinectSensors)
+            {
+                if (kinect.Status == KinectStatus.Connected)
+                {
+                    kinectSensor = kinect;
+                    break;
+                }
+            }
 
             this.audioManager = new AudioStreamManager(kinectSensor.AudioSource);
+           
             CargarDetectorGestos();
             CargarDetectorPosturas();
 
+            voiceCommander = new VoiceCommander("grabar", "detener", "salir", "ayuda");
             this.voiceCommander.OrderDetected += voiceCommander_OrderDetected;
             StartVoiceCommander();
 
@@ -470,7 +481,7 @@ namespace ARGIK
             this.kinectSensor.SkeletonFrameReady += kinect_SkeletonFrameReady;
             this.kinectSensor.ColorFrameReady += kinect_ColorFrameReady;
             this.kinectSensor.Start();
-            //this.articulacion_gesto = articulacion_gesto;
+            this.articulacion_gesto = articulacion_gesto;
         }
 
         /// <summary>

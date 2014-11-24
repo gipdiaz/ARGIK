@@ -66,7 +66,7 @@
 
                 <Canvas x:Name="gesturesCanvas"/>
 
-                <Controls:HoverButton Visibility="Visible" x:Name="botonReproducirSesion" ImageSize="100" ImageSource="/ARGIK;component/images/IniciarSesion.png" ActiveImageSource="/ARGIK;component/images/Salir.png"   TimeInterval="3000"  HorizontalAlignment="Right" Height="60" Width="60"  Margin="0,0,40,300" VerticalAlignment="Center"/>
+                <Controls:HoverButton Visibility="Visible" x:Name="botonReproducirSesion" ImageSize="100" ImageSource="/ARGIK;component/images/IniciarSesion.png" ActiveImageSource="/ARGIK;component/images/Fin.png"   TimeInterval="3000"  HorizontalAlignment="Right" Height="60" Width="60"  Margin="0,0,40,300" VerticalAlignment="Center"/>
                 <Controls:HoverButton Visibility="Visible" x:Name="botonRepetirGesto" ImageSize="100" ImageSource="/ARGIK;component/images/Repetir.png" ActiveImageSource="/ARGIK;component/images/Repetir.png"   TimeInterval="3000"   HorizontalAlignment="Right" Height="60" Width="60"  Margin="0,0,40,120" VerticalAlignment="Center" />
                 <Controls:HoverButton Visibility="Visible" x:Name="botonAyudaPaciente" ImageSize="100" ImageSource="/ARGIK;component/images/Ayuda.png" ActiveImageSource="/ARGIK;component/images/Ayuda.png"   TimeInterval="3000"   HorizontalAlignment="Right" Height="60" Width="60"  Margin="0,210.975,39.261,169.025" VerticalAlignment="Center" />
                 <Controls:HoverButton Visibility="Visible" x:Name="botonVerdePaciente" ImageSize="100" ImageSource="/ARGIK;component/images/Salir.png" ActiveImageSource="/ARGIK;component/images/Salir.png"   TimeInterval="3000"   HorizontalAlignment="Right" Height="60" Width="60"  Margin="0,300.975,39.261,79.025" VerticalAlignment="Center" />

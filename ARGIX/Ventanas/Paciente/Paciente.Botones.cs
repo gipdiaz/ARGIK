@@ -30,12 +30,16 @@ namespace ARGIK
                 TextReader textReader = new StreamReader(@"Gaston Diaz.xml");
                 diccionario = (SerializableDictionary<string, List<string>>)serializer.Deserialize(textReader);
                 cargarReplay();
+                sesionIniciada = true;
+                botonRepetirGesto.Visibility = Visibility.Visible;
             }
             else
             {
                 diccionario = null;
                 mensajePantalla.Text = "Sesión Finalizada";
                 retirarReconocedorGesto();
+                sesionIniciada = false;
+                botonRepetirGesto.Visibility = Visibility.Hidden;
             }
         }
 

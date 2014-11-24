@@ -28,7 +28,7 @@ namespace ARGIK
                 switch (order)
                 {
                     case "grabar":
-                        if (grabando == false)
+                        if (grabando == false && sesionIniciada == true)
                         grabarListaGestos();
                         break;
                     case "detener":

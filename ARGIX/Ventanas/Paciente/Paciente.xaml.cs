@@ -26,6 +26,7 @@ namespace ARGIK
 
         bool modoSentado;
         bool ayudaHabilitada;
+        bool sesionIniciada;
 
         // Diccionario que contiene los datos de los gestos
         SerializableDictionary<string, List<string>> diccionario;
@@ -201,6 +202,12 @@ namespace ARGIK
             CargarDetectorGestos();
             CargarDetectorPosturas();
             CargarAyudas();
+
+            //Botones RA
+            sesionIniciada = false;
+            botonRepetirGesto.Visibility = Visibility.Hidden;
+            botonVerdePaciente.Visibility = Visibility.Hidden;
+
             //Comandos que podran ser reconocidos por voz
             voiceCommander = new VoiceCommander("reproducir", "detener", "repetir", "ayuda", "salir");
             voiceCommander.OrderDetected += voiceCommander_OrderDetected;
@@ -210,6 +217,7 @@ namespace ARGIK
             kinectDisplayPaciente.DataContext = colorManager;
 
             articulacion_gesto = "";
+
 
             // Se chequea el modo sentado
             if (this.modoSentado == true)
@@ -475,7 +483,7 @@ namespace ARGIK
             this.kinectSensor.SkeletonFrameReady += kinect_SkeletonFrameReady;
             this.kinectSensor.ColorFrameReady += kinect_ColorFrameReady;
             this.kinectSensor.Start();
-            //this.articulacion_gesto = articulacion_gesto;
+            
         }
 
         private void habilitarAyudas()
