@@ -364,8 +364,7 @@ namespace ARGIK
         private void ATRAS_Click(object sender, RoutedEventArgs e)
         {
 
-            MenuPrincipal menuPrincipal = new MenuPrincipal();
-            menuPrincipal.Show();
+            
             //Se abre la ventana siguiente, la del medico para grabar gestos
             this.Close();
             //ventanaMedico.Show();

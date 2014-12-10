@@ -83,8 +83,8 @@ namespace ARGIK
         private void ATRAS_Click(object sender, RoutedEventArgs e)
         {
             
-            this.Clean();
-            MenuPrincipal menuPrincipal = new MenuPrincipal(modoSentado);
+           this.Clean();
+           MenuPrincipal menuPrincipal = new MenuPrincipal(modoSentado);
            menuPrincipal.Show();
            this.Close();
         }

@@ -34,6 +34,8 @@ namespace ARGIK
         bool modoSentado;
         bool ayudaHabilitada;
         bool sesionIniciada;
+        bool vozHabilitada;
+
         // Diccionario que contiene los datos de los gestos
         SerializableDictionary<string, List<string>> diccionario;
 
@@ -212,7 +214,7 @@ namespace ARGIK
             
             botonAyuda.Visibility = Visibility.Hidden;
             //Comandos que podran ser reconocidos por voz
-            voiceCommander = new VoiceCommander("grabar", "detener", "salir", "ayuda");
+            voiceCommander = new VoiceCommander("grabar", "detener", "salir", "info");
             voiceCommander.OrderDetected += voiceCommander_OrderDetected;
             StartVoiceCommander();
 
@@ -259,8 +261,7 @@ namespace ARGIK
             }
             else
             {
-
-                ayudaGrabarSesion.Visibility = Visibility.Collapsed;
+                                ayudaGrabarSesion.Visibility = Visibility.Collapsed;
                 ayudaGrabarSesionBorde.Visibility = Visibility.Collapsed;
                 ayudaArticulaciones.Visibility = Visibility.Collapsed;
                 ayudaArticulacionesBorde.Visibility = Visibility.Collapsed;
@@ -335,14 +336,17 @@ namespace ARGIK
                 if (skeletons.All(s => s.TrackingState == SkeletonTrackingState.NotTracked))
                 {
                     botonGrabarSesion.Visibility = Visibility.Hidden;
-                    if (!sesionIniciada)
-                        botonSeleccionarArticulacion.Visibility = Visibility.Hidden;
+                    botonSeleccionarArticulacion.Visibility = Visibility.Hidden;
                     botonAyuda.Visibility = Visibility.Hidden;
+                    ayudaHabilitada = false;
+                    habilitarAyudas();
+                    vozHabilitada = false;
                     this.gesturesCanvas.Children.Clear();
                     this.kinectCanvas.Children.Clear();
                     return;
                 }
-               
+                else
+                    vozHabilitada = true;
                 ProcessFrame(frame);
             }
         }

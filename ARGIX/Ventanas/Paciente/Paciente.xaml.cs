@@ -27,6 +27,7 @@ namespace ARGIK
         bool modoSentado;
         bool ayudaHabilitada;
         bool sesionIniciada;
+        bool vozHabilitada;
 
         // Diccionario que contiene los datos de los gestos
         SerializableDictionary<string, List<string>> diccionario;
@@ -210,7 +211,7 @@ namespace ARGIK
             botonReproducirSesion.Visibility = Visibility.Hidden;
 
             //Comandos que podran ser reconocidos por voz
-            voiceCommander = new VoiceCommander("reproducir", "detener", "repetir", "ayuda", "salir");
+            voiceCommander = new VoiceCommander("reproducir", "detener", "repetir", "info", "salir");
             voiceCommander.OrderDetected += voiceCommander_OrderDetected;
             StartVoiceCommander();
 
@@ -302,10 +303,15 @@ namespace ARGIK
                     if (sesionIniciada == false)
                         botonRepetirGesto.Visibility = Visibility.Hidden;
                     botonAyudaPaciente.Visibility = Visibility.Hidden;
+                    ayudaHabilitada = false;
+                    vozHabilitada = false;
+                    habilitarAyudas();
                     gesturesCanvas.Children.Clear();
                     kinectCanvas.Children.Clear();
                     return;
                 }
+                else
+                    vozHabilitada = true;
                 ProcessFrame(frame);
             }
         }
