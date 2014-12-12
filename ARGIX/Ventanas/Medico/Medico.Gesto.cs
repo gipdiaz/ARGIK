@@ -18,7 +18,7 @@ namespace ARGIK
         int nroGesto =0;
         string nombreSesion;
         public bool grabando = false;
-
+        string nroRepeticiones;
         /// <summary>
         /// Se inicializa el detector de gestos con un Stream default
         /// </summary>
@@ -47,6 +47,13 @@ namespace ARGIK
                 botonGrabarSesion.Visibility = Visibility.Visible;
                 botonSeleccionarArticulacion.Visibility = Visibility.Visible;
                 grabando = false;
+
+                //Instanciar dialogo de repeticiones             
+
+                RepeticionesDialog rep = new RepeticionesDialog();
+                // Configure the dialog box
+                 rep.ShowDialog();
+                 nroRepeticiones = rep.repeticion;
                 armarListaGestos();
             }
             else
@@ -72,7 +79,7 @@ namespace ARGIK
             List<string> lista = new List<string>();
             diccionario.TryGetValue("Gestos", out lista);
             lista.Add(reconocedorGesto.LearningMachine.gestoNuevo);
-            lista.Add(reconocedorGesto.LearningMachine.repeticion);
+            lista.Add(nroRepeticiones);
             lista.Add(articulacion_gesto);
             lista.Add(nombreSesion);
             diccionario.Remove("Gestos");

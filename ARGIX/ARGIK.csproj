@@ -96,6 +96,9 @@
     </Compile>
     <Compile Include="Ventanas\SplashWindow.xaml.cs">
       <DependentUpon>SplashWindow.xaml</DependentUpon>
+	</Compile>
+    <Compile Include="Ventanas\RepeticionesDialog.xaml.cs">
+      <DependentUpon>RepeticionesDialog.xaml</DependentUpon>
     </Compile>
     <Page Include="Ventanas\Configuracion.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -131,6 +134,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Ventanas\SplashWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ventanas\RepeticionesDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -190,6 +197,14 @@
     <Resource Include="Images\Fin.png" />
     <Resource Include="Images\Repetir.png" />
     <Resource Include="Images\Salir.png" />
+    <Resource Include="Images\cabeza.jpg" />
+    <Resource Include="Images\Mano Derecha.jpg" />
+    <Resource Include="Images\Mano Izquierda.jpg" />
+    <Resource Include="Images\Rodilla Derecha.png" />
+    <Resource Include="Images\Rodilla Izquierda.png" />
+    <Resource Include="Images\cabeza.png" />
+    <Resource Include="Images\Mano Izquierda.png" />
+    <Resource Include="Images\Mano Derecha.png" />
     <Content Include="Libs\FaceTrackData.dll" />
     <Content Include="Libs\FaceTrackLib.dll" />
     <Resource Include="Images\background.jpg" />

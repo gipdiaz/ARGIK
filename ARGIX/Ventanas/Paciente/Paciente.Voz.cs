@@ -21,46 +21,49 @@ namespace ARGIK
         public void voiceCommander_OrderDetected(string order)
         {
             System.Console.WriteLine("Orden Detectada");
-            Dispatcher.Invoke(new Action(() =>
+            if (vozHabilitada)
             {
-                System.Console.WriteLine(order);
-                switch (order)
+                Dispatcher.Invoke(new Action(() =>
                 {
-                    case "reproducir":
-                        if (sesionIniciada == false)
-                            ReproducirSesion();
-                        break;
-                    case "detener":
-                        if (sesionIniciada == true)
-                            detenerSesion();
-                        break;
-                    case "repetir":
-                        if (sesionIniciada)
-                            RepetirGesto();
-                        break;
-                    case "ayuda":
-                        // Sonido
-                        mediaPlayer.Open(new Uri(@"../../Media/button-30.mp3", UriKind.Relative));
-                        mediaPlayer.Play();
+                    System.Console.WriteLine(order);
+                    switch (order)
+                    {
+                        case "reproducir":
+                            if (sesionIniciada == false)
+                                ReproducirSesion();
+                            break;
+                        case "detener":
+                            if (sesionIniciada == true)
+                                detenerSesion();
+                            break;
+                        case "repetir":
+                            if (sesionIniciada)
+                                RepetirGesto();
+                            break;
+                        case "info":
+                            // Sonido
+                            mediaPlayer.Open(new Uri(@"../../Media/button-30.mp3", UriKind.Relative));
+                            mediaPlayer.Play();
 
-                        if (ayudaHabilitada == false)
-                            ayudaHabilitada = true;
-                        else
-                            ayudaHabilitada = false;
-                        habilitarAyudas();
-                        break;
-                    case "salir":
-                        // Sonido
-                        mediaPlayer.Open(new Uri(@"../../Media/button-21.mp3", UriKind.Relative));
-                        mediaPlayer.Play();
+                            if (ayudaHabilitada == false)
+                                ayudaHabilitada = true;
+                            else
+                                ayudaHabilitada = false;
+                            habilitarAyudas();
+                            break;
+                        case "salir":
+                            // Sonido
+                            mediaPlayer.Open(new Uri(@"../../Media/button-21.mp3", UriKind.Relative));
+                            mediaPlayer.Play();
 
-                        this.Clean();
-                        MenuPrincipal menuPrincipal = new MenuPrincipal(modoSentado);
-                        menuPrincipal.Show();
-                        this.Close();
-                        break;
-                }
-            }));
+                            this.Clean();
+                            MenuPrincipal menuPrincipal = new MenuPrincipal(modoSentado);
+                            menuPrincipal.Show();
+                            this.Close();
+                            break;
+                    }
+                }));
+            }
         }
     }
 }

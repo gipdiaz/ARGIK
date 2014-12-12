@@ -376,7 +376,6 @@ namespace ARGIK
         }
         private void ATRAS_Click(object sender, RoutedEventArgs e)
         {
-
             // Sonido
             mediaPlayer.Open(new Uri(@"../../Media/button-21.mp3", UriKind.Relative));
             mediaPlayer.Play();
@@ -385,7 +384,6 @@ namespace ARGIK
             menuPrincipal.Show();
             //Se abre la ventana siguiente, la del medico para grabar gestos
             this.Close();
-            //ventanaMedico.Show();
         }
     }
 }

@@ -587,6 +587,19 @@
             InitializeComponent
             </summary>
         </member>
+        <member name="T:ARGIK.RepeticionesDialog">
+            <summary>
+            Lógica de interacción para RepeticionesDialog.xaml
+            </summary>
+            <summary>
+            RepeticionesDialog
+            </summary>
+        </member>
+        <member name="M:ARGIK.RepeticionesDialog.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
         <member name="T:TestearToolbox.App">
             <summary>
             Lógica de interacción para App.xaml

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using Kinect.Toolbox.Gestures.Learning_Machine;
 using Microsoft.Win32;
+using System.Windows;
+using System;
 
 
 namespace Kinect.Toolbox
@@ -12,6 +14,7 @@ namespace Kinect.Toolbox
     {
         readonly List<RecordedPath> paths;
         public static int nroGesto = 0;
+        //public string repeticiones { get; set; }
         public LearningMachine(Stream kbStream)
         {
             if (kbStream == null || kbStream.Length == 0)
@@ -31,7 +34,7 @@ namespace Kinect.Toolbox
             get { return paths; }
         }
         public string gestoNuevo { get; set; }
-        public string repeticion { get; set; }
+        
        
 
         public string posturaNuevo { get; set; }
@@ -58,17 +61,18 @@ namespace Kinect.Toolbox
 
         public void GuardarGesto()
         {
-                LearningMachine.nroGesto = LearningMachine.nroGesto + 1;
-                gestoNuevo = System.IO.Path.Combine(System.Environment.CurrentDirectory, "gesto" + LearningMachine.nroGesto + ".save");
-                using (Stream recordStream = File.Create(gestoNuevo))
-                {
-                    Persist(recordStream);
-                    recordStream.Close();
-                }
-            
-            repeticion = Microsoft.VisualBasic.Interaction.InputBox("Ingrese cantidad de repeticiones: ");
-        }
 
+            LearningMachine.nroGesto = LearningMachine.nroGesto + 1;
+            gestoNuevo = System.IO.Path.Combine(System.Environment.CurrentDirectory, "gesto" + LearningMachine.nroGesto + ".save");
+            using (Stream recordStream = File.Create(gestoNuevo))
+            {
+                Persist(recordStream);
+                recordStream.Close();
+            }
+
+            //repeticiones = Microsoft.VisualBasic.Interaction.InputBox("Ingrese cantidad de repeticiones: ");
+            
+        }
         public void AddPathPosture(RecordedPath path)
         {
             path.CloseAndPrepare();
