@@ -6,6 +6,7 @@ using Kinect.Toolbox;
 using Microsoft.Kinect;
 using Microsoft.Win32;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Threading;
 using System.Collections.Generic;
 using System.Xml.Serialization;
@@ -25,6 +26,10 @@ namespace ARGIK
         {
             if (this.botonGrabarSesion.IsChecked)
             {
+                // Sonido
+                mediaPlayer.Open(new Uri(@"../../Media/button-30.mp3", UriKind.Relative));
+                mediaPlayer.Play();
+
                 diccionario = new SerializableDictionary<string, List<string>>();
                 List<string> medico = new List<string>();
                 medico.Add("German Leschevich");
@@ -44,6 +49,10 @@ namespace ARGIK
             }
             else
             {
+                // Sonido
+                mediaPlayer.Open(new Uri(@"../../Media/button-22.mp3", UriKind.Relative));
+                mediaPlayer.Play();
+
                 XmlSerializer serializer = new XmlSerializer(typeof(SerializableDictionary<string, List<string>>));
                 TextWriter textWriter = new StreamWriter(@"Gaston Diaz.xml");
                 serializer.Serialize(textWriter, diccionario);
@@ -60,6 +69,10 @@ namespace ARGIK
         /// <param name="e">The <see cref="RoutedEventArgs"/> instancia que contiene los datos del evento.</param>
         public void botonSeleccionarArticulacion_Clicked(object sender, RoutedEventArgs e)
         {
+            // Sonido
+            mediaPlayer.Open(new Uri(@"../../Media/button-30.mp3", UriKind.Relative));
+            mediaPlayer.Play();
+
             this.Clean();
             Articulaciones jointsNuevo = new Articulaciones(this);
             jointsNuevo.ShowDialog();
@@ -68,6 +81,10 @@ namespace ARGIK
 
         private void botonAyuda_Clicked(object sender, RoutedEventArgs e)
         {
+            // Sonido
+            mediaPlayer.Open(new Uri(@"../../Media/button-30.mp3", UriKind.Relative));
+            mediaPlayer.Play();
+
             if (ayudaHabilitada == false)
                 ayudaHabilitada = true;
             else
@@ -82,19 +99,19 @@ namespace ARGIK
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void ATRAS_Click(object sender, RoutedEventArgs e)
         {
-            
+            // Sonido
+            mediaPlayer.Open(new Uri(@"../../Media/button-21.mp3", UriKind.Relative));
+            mediaPlayer.Play();
+
             this.Clean();
             MenuPrincipal menuPrincipal = new MenuPrincipal(modoSentado);
-           menuPrincipal.Show();
-           this.Close();
+            menuPrincipal.Show();
+            this.Close();
         }
 
         /// <summary>
         /// Inicializa las ayudas de la ventana MEDICO
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
-        /// 
         public void CargarAyudas()
         {
             ayudaHabilitada = false;

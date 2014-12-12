@@ -94,6 +94,9 @@
     <Compile Include="Ventanas\MenuPrincipal.xaml.cs">
       <DependentUpon>MenuPrincipal.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Ventanas\SplashWindow.xaml.cs">
+      <DependentUpon>SplashWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="Ventanas\Configuracion.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -127,6 +130,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Ventanas\SplashWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -157,6 +164,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\argik_inicio.png" />
+    <Content Include="Media\1.wav" />
+    <Content Include="Media\button-20.mp3" />
+    <Content Include="Media\button-21.mp3" />
+    <Content Include="Media\button-22.mp3" />
+    <Content Include="Media\button-30.mp3" />
+    <Content Include="Media\inicio.wma" />
     <Resource Include="Images\atras.png" />
     <Resource Include="Images\iniciar .png" />
     <Resource Include="Images\left-round-128.png" />

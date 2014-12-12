@@ -23,6 +23,9 @@ namespace ARGIK
     {
         bool modoSentado;
 
+        // Para sonidos de todo tipo
+        private MediaPlayer mediaPlayer = new MediaPlayer();
+
         readonly ColorStreamManager colorManager = new ColorStreamManager();
         readonly DepthStreamManager depthManager = new DepthStreamManager();
         SkeletonDisplayManager skeletonDisplayManager;
@@ -39,6 +42,10 @@ namespace ARGIK
         /// </summary>
         public Configuracion(bool modoSentado)
         {
+            // Sonido
+            mediaPlayer.Open(new Uri(@"../../Media/button-20.mp3", UriKind.Relative));
+            mediaPlayer.Play();
+
             InitializeComponent();
             this.modoSentado = modoSentado;
             if (this.modoSentado == true)
@@ -325,10 +332,14 @@ namespace ARGIK
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void ATRAS_Click(object sender, RoutedEventArgs e)
         {
+            // Sonido
+            mediaPlayer.Open(new Uri(@"../../Media/button-21.mp3", UriKind.Relative));
+            mediaPlayer.Play();
+
             MenuPrincipal menuPrincipal = new MenuPrincipal(modoSentado);
             this.Clean();
-            this.Close();
             menuPrincipal.Show();
+            this.Close();
         }
 
         /// <summary>

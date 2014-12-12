@@ -20,7 +20,6 @@ namespace ARGIK
     /// Interaction logic for Page.xaml
     /// </summary>
     public partial class Articulaciones : Window
-
     {
         private KinectSensor _Kinect;
         private WriteableBitmap _ColorImageBitmap;
@@ -34,11 +33,25 @@ namespace ARGIK
         float handX;
         float handY;
 
-        
+        // Para sonidos de todo tipo
+        private MediaPlayer mediaPlayer = new MediaPlayer();
+
+
+        /// <summary>
+        /// The ventana medico
+        /// </summary>
         public Medico ventanaMedico;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Articulaciones"/> class.
+        /// </summary>
+        /// <param name="ventanaMedico">The ventana medico.</param>
         public Articulaciones(Medico ventanaMedico)
         {
+            // Sonido
+            mediaPlayer.Open(new Uri(@"../../Media/button-20.mp3", UriKind.Relative));
+            mediaPlayer.Play();
+
             InitializeComponent();
             InitializeButtons();
             this.WindowState = System.Windows.WindowState.Maximized;
@@ -57,7 +70,7 @@ namespace ARGIK
         //initialize buttons to be checked
         private void InitializeButtons()
         {
-            buttons = new List<Button> { CABEZA,MANO_DER,MANO_IZQ,RODILLA_DER,RODILLA_IZQ };
+            buttons = new List<Button> { CABEZA, MANO_DER, MANO_IZQ, RODILLA_DER, RODILLA_IZQ };
         }
         //raise event for Kinect sensor status changed
         private void DiscoverKinectSensor()
@@ -316,7 +329,7 @@ namespace ARGIK
             ventanaMedico.articulacion_gesto = "Cabeza";
 
             //Se abre la ventana siguiente, la del medico para grabar gestos
-            
+
             this.Close();
             //ventanaMedico.Show();
         }
@@ -331,7 +344,7 @@ namespace ARGIK
             //ventanaMedico.inicializar();
             //ventanaMedico.Show();
 
-            
+
         }
         private void MANO_IZQ_Click(object sender, RoutedEventArgs e)
         {
@@ -363,6 +376,10 @@ namespace ARGIK
         }
         private void ATRAS_Click(object sender, RoutedEventArgs e)
         {
+
+            // Sonido
+            mediaPlayer.Open(new Uri(@"../../Media/button-21.mp3", UriKind.Relative));
+            mediaPlayer.Play();
 
             MenuPrincipal menuPrincipal = new MenuPrincipal();
             menuPrincipal.Show();

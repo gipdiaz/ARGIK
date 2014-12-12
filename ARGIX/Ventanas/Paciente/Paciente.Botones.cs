@@ -60,6 +60,9 @@ namespace ARGIK
             }
         }
 
+        /// <summary>
+        /// Deteners the sesion.
+        /// </summary>
         public void detenerSesion()
         {
             if (this.botonReproducirSesion.IsChecked)
@@ -113,10 +116,15 @@ namespace ARGIK
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void ATRAS_Click(object sender, RoutedEventArgs e)
         {
-            MenuPrincipal menuPrincipal = new MenuPrincipal(modoSentado);
+            // Sonido
+            mediaPlayer.Open(new Uri(@"../../Media/button-21.mp3", UriKind.Relative));
+            mediaPlayer.Play();
+
             this.Clean();
-            this.Close();
+            MenuPrincipal menuPrincipal = new MenuPrincipal(modoSentado);
             menuPrincipal.Show();
+            this.Close();
+            
         }
 
         /// <summary>

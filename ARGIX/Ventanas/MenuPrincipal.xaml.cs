@@ -23,6 +23,7 @@ namespace ARGIK
     {
 
         bool modoSentado;
+        private MediaPlayer mediaPlayer = new MediaPlayer();
 
         private KinectSensor _Kinect;
         private WriteableBitmap _ColorImageBitmap;
@@ -43,18 +44,19 @@ namespace ARGIK
         {
             this.modoSentado = true;
             InitializeComponent();
+            new SplashWindow().ShowDialog();
             InitializeButtons();
-            this.WindowState = System.Windows.WindowState.Maximized;
-            this.WindowStyle = System.Windows.WindowStyle.None;
+            //this.WindowState = System.Windows.WindowState.Maximized;
+            //this.WindowStyle = System.Windows.WindowStyle.None;
             if (Generics.LoadingStatus == 0)
             {
                 Generics.ResetHandPosition(kinectButton);
                 kinectButton.Click += new RoutedEventHandler(kinectButton_Click);
                 this.Loaded += MenuPrincipal_Loaded;
                 Generics.LoadingStatus = 1;
-            }   
+            }
         }
-        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="MenuPrincipal"/> class.
         /// </summary>
@@ -71,13 +73,13 @@ namespace ARGIK
                 kinectButton.Click += new RoutedEventHandler(kinectButton_Click);
                 this.Loaded += MenuPrincipal_Loaded;
                 Generics.LoadingStatus = 1;
-            }    
+            }
         }
 
         void MenuPrincipal_Loaded(object sender, RoutedEventArgs e)
         {
-            DiscoverKinectSensor(); 
-        } 
+            DiscoverKinectSensor();
+        }
         #region "Hand Gesture"
 
         //initialize buttons to be checked
@@ -191,7 +193,6 @@ namespace ARGIK
                 }
 
                 this.FrameSkeletons = new Skeleton[this.Kinect.SkeletonStream.FrameSkeletonArrayLength];
-
             }
         }
 
@@ -360,7 +361,7 @@ namespace ARGIK
             medico.Show();
             this.Close();
         }
- 
+
         private void PACIENTE_Click(object sender, RoutedEventArgs e)
         {
             UnregisterEvents();
@@ -378,7 +379,7 @@ namespace ARGIK
             configuracion.Show();
             this.Close();
         }
-        
+
         private void CERRAR_Click(object sender, RoutedEventArgs e)
         {
             this.Close();

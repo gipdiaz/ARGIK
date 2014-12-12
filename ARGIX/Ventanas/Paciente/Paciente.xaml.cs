@@ -45,6 +45,9 @@ namespace ARGIK
         //Manejador del audio
         AudioStreamManager audioManager;
 
+        // Para sonidos de todo tipo
+        private MediaPlayer mediaPlayer = new MediaPlayer();
+
         //Texto que se muestra en pantalla con el nombre del gesto
         TextBlock mensajePantalla = new TextBlock();
 
@@ -73,6 +76,10 @@ namespace ARGIK
         /// <param name="modoSentado">if set to <c>true</c> [seated mode].</param>
         public Paciente(bool modoSentado)
         {
+            // Sonido
+            mediaPlayer.Open(new Uri(@"../../Media/button-20.mp3", UriKind.Relative));
+            mediaPlayer.Play();
+
             this.modoSentado = modoSentado;
             InitializeComponent();
         }

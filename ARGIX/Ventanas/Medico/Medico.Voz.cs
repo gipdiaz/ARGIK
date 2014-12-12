@@ -10,7 +10,7 @@ namespace ARGIK
         /// Inicializa el comando por voz
         /// </summary>
         public void StartVoiceCommander()
-        {  
+        {
             voiceCommander.Start(kinectSensor);
         }
 
@@ -29,19 +29,26 @@ namespace ARGIK
                 {
                     case "grabar":
                         if (grabando == false && sesionIniciada == true)
-                        grabarListaGestos();
+                            grabarListaGestos();
                         break;
                     case "detener":
                         if (grabando)
-                          grabarListaGestos();
+                            grabarListaGestos();
                         break;
                     case "salir":
+                        // Sonido
+                        mediaPlayer.Open(new Uri(@"../../Media/button-21.mp3", UriKind.Relative));
+                        mediaPlayer.Play();
                         this.Clean();
                         MenuPrincipal menuPrincipal = new MenuPrincipal(modoSentado);
                         menuPrincipal.Show();
                         this.Close();
                         break;
                     case "ayuda":
+                        // Sonido
+                        mediaPlayer.Open(new Uri(@"../../Media/button-30.mp3", UriKind.Relative));
+                        mediaPlayer.Play();
+
                         if (ayudaHabilitada == false)
                             ayudaHabilitada = true;
                         else

@@ -28,17 +28,21 @@ namespace ARGIK
                 {
                     case "reproducir":
                         if (sesionIniciada == false)
-                        ReproducirSesion();
+                            ReproducirSesion();
                         break;
                     case "detener":
                         if (sesionIniciada == true)
-                        detenerSesion();
+                            detenerSesion();
                         break;
                     case "repetir":
                         if (sesionIniciada)
-                        RepetirGesto();
+                            RepetirGesto();
                         break;
                     case "ayuda":
+                        // Sonido
+                        mediaPlayer.Open(new Uri(@"../../Media/button-30.mp3", UriKind.Relative));
+                        mediaPlayer.Play();
+
                         if (ayudaHabilitada == false)
                             ayudaHabilitada = true;
                         else
@@ -46,6 +50,10 @@ namespace ARGIK
                         habilitarAyudas();
                         break;
                     case "salir":
+                        // Sonido
+                        mediaPlayer.Open(new Uri(@"../../Media/button-21.mp3", UriKind.Relative));
+                        mediaPlayer.Play();
+
                         this.Clean();
                         MenuPrincipal menuPrincipal = new MenuPrincipal(modoSentado);
                         menuPrincipal.Show();

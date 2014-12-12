@@ -37,6 +37,9 @@ namespace ARGIK
         // Diccionario que contiene los datos de los gestos
         SerializableDictionary<string, List<string>> diccionario;
 
+        // Para sonidos de todo tipo
+        private MediaPlayer mediaPlayer = new MediaPlayer();
+
         //Sensor del Kinect
         KinectSensor kinectSensor;
 
@@ -77,6 +80,10 @@ namespace ARGIK
         /// </summary>
         public Medico(bool modoSentado)
         {
+            // Sonido
+            mediaPlayer.Open(new Uri(@"../../Media/button-20.mp3", UriKind.Relative));
+            mediaPlayer.Play();
+
             this.modoSentado = modoSentado;
             InitializeComponent();
         }
@@ -150,6 +157,7 @@ namespace ARGIK
                     break;
             }
         }
+
 
         /// <summary>
         /// Inicializa los elementos de la interfaz

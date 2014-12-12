@@ -104,6 +104,17 @@
             Articulaciones
             </summary>
         </member>
+        <member name="F:ARGIK.Articulaciones.ventanaMedico">
+            <summary>
+            The ventana medico
+            </summary>
+        </member>
+        <member name="M:ARGIK.Articulaciones.#ctor(ARGIK.Medico)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ARGIK.Articulaciones"/> class.
+            </summary>
+            <param name="ventanaMedico">The ventana medico.</param>
+        </member>
         <member name="M:ARGIK.Articulaciones.InitializeComponent">
             <summary>
             InitializeComponent
@@ -142,9 +153,6 @@
             <summary>
             Inicializa las ayudas de la ventana MEDICO
             </summary>
-            <param name="sender">The source of the event.</param>
-            <param name="e">The <see cref="T:System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
-            
         </member>
         <member name="M:ARGIK.Medico.CargarDetectorGestos">
             <summary>
@@ -321,6 +329,11 @@
         <member name="M:ARGIK.Paciente.ReproducirSesion">
             <summary>
             Hace lo mismo que el metodo click, pero es llamado por voz
+            </summary>
+        </member>
+        <member name="M:ARGIK.Paciente.detenerSesion">
+            <summary>
+            Deteners the sesion.
             </summary>
         </member>
         <member name="M:ARGIK.Paciente.botonRepetirGesto_Clicked(System.Object,System.Windows.RoutedEventArgs)">
@@ -555,6 +568,24 @@
             <value>
             The kinect.
             </value>
+        </member>
+        <member name="T:ARGIK.SplashWindow">
+            <summary>
+            Interaction logic for splash.xaml
+            </summary>
+            <summary>
+            SplashWindow
+            </summary>
+        </member>
+        <member name="M:ARGIK.SplashWindow.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ARGIK.SplashWindow"/> class.
+            </summary>
+        </member>
+        <member name="M:ARGIK.SplashWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
         </member>
         <member name="T:TestearToolbox.App">
             <summary>

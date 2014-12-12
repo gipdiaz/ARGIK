@@ -7,8 +7,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     mc:Ignorable="d" 
     d:DesignHeight="768" d:DesignWidth="1366"
-    WindowState="Maximized"  
-	Title="ARGIK">
+    Loaded="MenuPrincipal_Loaded"
+	Title="ARGIK" ResizeMode="NoResize" WindowStyle="None" WindowState="Maximized">
 
     <Window.Resources>
         <Style x:Key="RoundButtonTemplate" TargetType="Button">
