@@ -14,6 +14,7 @@ namespace Kinect.Toolbox
     {
         readonly List<RecordedPath> paths;
         public static int nroGesto = 0;
+        //public string repeticiones { get; set; }
         public LearningMachine(Stream kbStream)
         {
             if (kbStream == null || kbStream.Length == 0)
@@ -33,7 +34,7 @@ namespace Kinect.Toolbox
             get { return paths; }
         }
         public string gestoNuevo { get; set; }
-        public string repeticion { get; set; }
+        
        
 
         public string posturaNuevo { get; set; }
@@ -69,7 +70,7 @@ namespace Kinect.Toolbox
                 recordStream.Close();
             }
 
-            repeticion = Microsoft.VisualBasic.Interaction.InputBox("Ingrese cantidad de repeticiones: ");
+            //repeticiones = Microsoft.VisualBasic.Interaction.InputBox("Ingrese cantidad de repeticiones: ");
             
         }
         public void AddPathPosture(RecordedPath path)

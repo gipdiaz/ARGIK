@@ -35,6 +35,8 @@ namespace ARGIK
         bool ayudaHabilitada;
         bool sesionIniciada;
         bool vozHabilitada;
+        //Dialogo de repeticiones
+        RepeticionesDialog rep;
 
         // Diccionario que contiene los datos de los gestos
         SerializableDictionary<string, List<string>> diccionario;
@@ -170,6 +172,8 @@ namespace ARGIK
             this.botonSeleccionarArticulacion.Click += new RoutedEventHandler(botonSeleccionarArticulacion_Clicked);
             this.botonAyuda.Click += new RoutedEventHandler(botonAyuda_Clicked);
 
+            
+            
             // Inicializa la camara RGB, la de profundidad y el esqueleto
             kinectSensor.ColorStream.Enable(ColorImageFormat.RgbResolution640x480Fps30);
             kinectSensor.ColorFrameReady += kinect_ColorFrameReady;

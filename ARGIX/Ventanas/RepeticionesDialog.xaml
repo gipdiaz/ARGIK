@@ -1,0 +1,22 @@
+﻿<Window 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    x:Class="ARGIK.RepeticionesDialog"
+    xmlns:local="clr-namespace:ARGIK"
+    Title="Repeticiones"
+    Height="190"
+    Width="300"
+    MinHeight="10"
+    MinWidth="300"
+    ResizeMode="CanResizeWithGrip"
+    ShowInTaskbar="False"
+    WindowStartupLocation="CenterOwner" WindowStyle="None">
+    <Grid Background="#FF46B0C7">
+        <TextBlock VerticalAlignment="Top" Height="66" Text="Seleccione cantidad de repeticiones" TextAlignment="Center" FontSize="16" FontWeight="Bold" FontStyle="Italic" FontFamily="Arial"/>
+        <StackPanel VerticalAlignment="Bottom">
+            <Button x:Name="boton1"  Click="boton1_Clicked" IsCancel="True" Content="3" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="107.765,0" Width="76.47" Height="26.96"/>
+            <Button x:Name="boton2"   Click="boton2_Clicked" IsCancel="True" Content="4" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="107.765,0" Width="76.47" Height="24.96"/>
+            <Button x:Name="boton3" Click="boton3_Clicked" IsCancel="True" Content="5" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="107.765,0" Width="76.47" Height="25.96"/>
+        </StackPanel>
+    </Grid>
+</Window>
