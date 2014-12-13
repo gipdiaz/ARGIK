@@ -345,17 +345,17 @@ namespace ARGIK
             
 
             // Verifica si el punto trackeado esta sobre el boton
-            if (Math.Abs(puntoMano.X - (puntoBotonReproducirSesion.X + botonReproducirSesion.Width)) < 30 && Math.Abs(puntoMano.Y - puntoBotonReproducirSesion.Y) < 30)
+            if (Math.Abs(puntoMano.X - (puntoBotonReproducirSesion.X + botonReproducirSesion.Width)) < 30 && Math.Abs(puntoMano.Y - puntoBotonReproducirSesion.Y) < 30 && botonReproducirSesion.Visibility == Visibility.Visible)
                 botonReproducirSesion.Hovering();
             else
                 botonReproducirSesion.Release();
 
-            if (Math.Abs(puntoMano.X - (puntoBotonAzulPaciente.X + botonRepetirGesto.Width)) < 30 && Math.Abs(puntoMano.Y - puntoBotonAzulPaciente.Y) < 30)
+            if (Math.Abs(puntoMano.X - (puntoBotonAzulPaciente.X + botonRepetirGesto.Width)) < 30 && Math.Abs(puntoMano.Y - puntoBotonAzulPaciente.Y) < 30 && botonRepetirGesto.Visibility == Visibility.Visible)
                 botonRepetirGesto.Hovering();
             else
                 botonRepetirGesto.Release();
 
-            if (Math.Abs(puntoMano.X - (puntoBotonNegroPaciente.X + botonAyudaPaciente.Width)) < 30 && Math.Abs(puntoMano.Y - puntoBotonNegroPaciente.Y) < 30)
+            if (Math.Abs(puntoMano.X - (puntoBotonNegroPaciente.X + botonAyudaPaciente.Width)) < 30 && Math.Abs(puntoMano.Y - puntoBotonNegroPaciente.Y) < 30 && botonAyudaPaciente.Visibility == Visibility.Visible)
                 botonAyudaPaciente.Hovering();
             else
                 botonAyudaPaciente.Release();
@@ -524,6 +524,8 @@ namespace ARGIK
 
                 ayudaSalir.Visibility = Visibility.Visible;
                 ayudaSalirBorde.Visibility = Visibility.Visible;
+                ayudaVoz.Visibility = Visibility.Visible;
+                ayudaVozBorde.Visibility = Visibility.Visible;
             }
             else
             {
@@ -536,6 +538,8 @@ namespace ARGIK
                 ayudaAyudaBorde.Visibility = Visibility.Collapsed;
                 ayudaSalir.Visibility = Visibility.Collapsed;
                 ayudaSalirBorde.Visibility = Visibility.Collapsed;
+                ayudaVoz.Visibility = Visibility.Collapsed;
+                ayudaVozBorde.Visibility = Visibility.Collapsed;
             }
         }
 

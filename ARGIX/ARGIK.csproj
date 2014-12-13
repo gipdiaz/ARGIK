@@ -96,7 +96,7 @@
     </Compile>
     <Compile Include="Ventanas\SplashWindow.xaml.cs">
       <DependentUpon>SplashWindow.xaml</DependentUpon>
-	</Compile>
+    </Compile>
     <Compile Include="Ventanas\RepeticionesDialog.xaml.cs">
       <DependentUpon>RepeticionesDialog.xaml</DependentUpon>
     </Compile>
@@ -172,6 +172,7 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\argik_inicio.png" />
+    <Resource Include="Images\argik - sin letras.png" />
     <Content Include="Media\1.wav" />
     <Content Include="Media\button-20.mp3" />
     <Content Include="Media\button-21.mp3" />

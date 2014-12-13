@@ -36,6 +36,7 @@
             <Image x:Name="logo" Source="/images/argik.png" Canvas.Left="432" Canvas.Top="29" Height="102" Width="400"/>
             <CheckBox Content="Modo Sentado" x:Name="seatedMode" Canvas.Left="1013" Canvas.Top="215" VerticalContentAlignment="Top" Checked="seatedMode_Checked_1" Unchecked="seatedMode_Unchecked_1" Height="33" Width="167" Foreground="#FFF1F1F1" FontSize="21.333" RenderTransformOrigin="0.228,0.576"/>
             <Slider  Minimum="{Binding ElevationMinimum}" Maximum="{Binding ElevationMaximum}" Value="{Binding ElevationAngle, Mode=TwoWay}" x:Name="elevacionCamara" Orientation="Vertical" Grid.RowSpan="7" Height="484" Canvas.Left="966" Canvas.Top="144"/>
+            <Label Content="Configuración"  VerticalAlignment="Top" FontFamily="Arial" FontSize="26.667" Foreground="#FFF09529" Canvas.Left="837" Canvas.Top="29" Width="640" FontWeight="Bold"/>
         </Canvas>
     </Grid>
 </Window>

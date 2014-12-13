@@ -35,9 +35,7 @@ namespace ARGIK
         bool ayudaHabilitada;
         bool sesionIniciada;
         bool vozHabilitada;
-        //Dialogo de repeticiones
-        RepeticionesDialog rep;
-
+        
         // Diccionario que contiene los datos de los gestos
         SerializableDictionary<string, List<string>> diccionario;
 
@@ -270,10 +268,12 @@ namespace ARGIK
 
                 ayudaSalir.Visibility = Visibility.Visible;
                 ayudaSalirBorde.Visibility = Visibility.Visible;
+                ayudaVoz.Visibility = Visibility.Visible;
+                ayudaVozBorde.Visibility = Visibility.Visible;
             }
             else
             {
-                                ayudaGrabarSesion.Visibility = Visibility.Collapsed;
+                ayudaGrabarSesion.Visibility = Visibility.Collapsed;
                 ayudaGrabarSesionBorde.Visibility = Visibility.Collapsed;
                 ayudaArticulaciones.Visibility = Visibility.Collapsed;
                 ayudaArticulacionesBorde.Visibility = Visibility.Collapsed;
@@ -281,6 +281,8 @@ namespace ARGIK
                 ayudaAyudaBorde.Visibility = Visibility.Collapsed;
                 ayudaSalir.Visibility = Visibility.Collapsed;
                 ayudaSalirBorde.Visibility = Visibility.Collapsed;
+                ayudaVoz.Visibility = Visibility.Collapsed;
+                ayudaVozBorde.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -528,17 +530,17 @@ namespace ARGIK
             Point puntoBotonAyuda = transform3.Transform(new Point(0, 0));
 
             // Verifica si el punto trackeado esta sobre el boton
-            if (Math.Abs(puntoMano.X - (puntoBotonGrabarSesion.X + botonGrabarSesion.Width)) < 30 && Math.Abs(puntoMano.Y - puntoBotonGrabarSesion.Y) < 30)
+            if (Math.Abs(puntoMano.X - (puntoBotonGrabarSesion.X + botonGrabarSesion.Width)) < 30 && Math.Abs(puntoMano.Y - puntoBotonGrabarSesion.Y) < 30 && botonGrabarSesion.Visibility == Visibility.Visible)
                 botonGrabarSesion.Hovering();
             else
                 botonGrabarSesion.Release();
 
-            if (Math.Abs(puntoMano.X - (puntoBotonSeleccionarArticulacion.X + botonAyuda.Width)) < 30 && Math.Abs(puntoMano.Y - puntoBotonSeleccionarArticulacion.Y) < 30)
+            if (Math.Abs(puntoMano.X - (puntoBotonSeleccionarArticulacion.X + botonAyuda.Width)) < 30 && Math.Abs(puntoMano.Y - puntoBotonSeleccionarArticulacion.Y) < 30 && botonAyuda.Visibility == Visibility.Visible)
                 botonAyuda.Hovering();
             else
                 botonAyuda.Release();
 
-            if (Math.Abs(puntoMano.X - (puntoBotonAyuda.X + botonSeleccionarArticulacion.Width)) < 30 && Math.Abs(puntoMano.Y - puntoBotonAyuda.Y) < 30)
+            if (Math.Abs(puntoMano.X - (puntoBotonAyuda.X + botonSeleccionarArticulacion.Width)) < 30 && Math.Abs(puntoMano.Y - puntoBotonAyuda.Y) < 30 && botonSeleccionarArticulacion.Visibility == Visibility.Visible)
                 botonSeleccionarArticulacion.Hovering();
             else
                 botonSeleccionarArticulacion.Release();

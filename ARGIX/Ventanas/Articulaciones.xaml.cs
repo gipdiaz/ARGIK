@@ -380,8 +380,6 @@ namespace ARGIK
             mediaPlayer.Open(new Uri(@"../../Media/button-21.mp3", UriKind.Relative));
             mediaPlayer.Play();
 
-            MenuPrincipal menuPrincipal = new MenuPrincipal();
-            menuPrincipal.Show();
             //Se abre la ventana siguiente, la del medico para grabar gestos
             this.Close();
         }

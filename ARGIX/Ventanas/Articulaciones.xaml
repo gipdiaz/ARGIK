@@ -11,7 +11,7 @@
 	Title="Articulacion">
 
     <Grid Canvas.Top="-16" x:Name="LayoutRoot">
-
+        
         <Canvas>
             <Canvas.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -19,6 +19,7 @@
                     <GradientStop Color="#006666" Offset="1"/>
                 </LinearGradientBrush>
             </Canvas.Background>
+            <TextBlock Text="Seleccione Articulación" Canvas.Left="921.314" Canvas.Top="16.839" Height="45.96" Width="305.713" Foreground="#FFA8A8E4" FontFamily="Arial" FontSize="29.333" />
             <Controls:HoverButton Margin="0" Padding="0" x:Name="kinectButton" ImageSize="50"                                           
                                 ImageSource="/WpfApplication1;component/Images/myhand.png"  
                                 ActiveImageSource="/WpfApplication1;component/Images/myhand.png" 

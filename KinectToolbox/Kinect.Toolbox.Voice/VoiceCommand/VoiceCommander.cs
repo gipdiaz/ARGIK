@@ -65,7 +65,8 @@ namespace Kinect.Toolbox.Voice
             speechRecognitionEngine.LoadGrammar(grammar);
 
             source.AutomaticGainControlEnabled = false;
-            source.BeamAngleMode = BeamAngleMode.Adaptive;
+            source.ManualBeamAngle = +10;
+            source.NoiseSuppression = true;
             source.EchoCancellationMode = EchoCancellationMode.CancellationAndSuppression;
 
             using (Stream sourceStream = source.Start())
