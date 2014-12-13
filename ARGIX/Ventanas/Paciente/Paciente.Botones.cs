@@ -24,6 +24,10 @@ namespace ARGIK
         {
             if (this.botonReproducirSesion.IsChecked)
             {
+                // Sonido
+                mediaPlayer.Open(new Uri(@"../../Media/button-30.mp3", UriKind.Relative));
+                mediaPlayer.Play();
+
                 //Desearilzar el diccionario
                 mensajePantalla.Text = "";
                 XmlSerializer serializer = new XmlSerializer(typeof(SerializableDictionary<string, List<string>>));
@@ -35,6 +39,10 @@ namespace ARGIK
             }
             else
             {
+                // Sonido
+                mediaPlayer.Open(new Uri(@"../../Media/button-22.mp3", UriKind.Relative));
+                mediaPlayer.Play();
+
                 diccionario = null;
                 mensajePantalla.Text = "Sesión Finalizada";
                 retirarReconocedorGesto();
@@ -50,6 +58,10 @@ namespace ARGIK
         {
             if (this.botonReproducirSesion.IsChecked == false)
             {
+                // Sonido
+                mediaPlayer.Open(new Uri(@"../../Media/button-30.mp3", UriKind.Relative));
+                mediaPlayer.Play();
+
                 this.botonReproducirSesion.IsChecked = true;
                 sesionIniciada = true;
                 mensajePantalla.Text = "";
@@ -67,6 +79,10 @@ namespace ARGIK
         {
             if (this.botonReproducirSesion.IsChecked)
             {
+                // Sonido
+                mediaPlayer.Open(new Uri(@"../../Media/button-22.mp3", UriKind.Relative));
+                mediaPlayer.Play();
+
                 this.botonReproducirSesion.IsChecked = false;
                 sesionIniciada = false;
                 diccionario = null;
@@ -82,6 +98,10 @@ namespace ARGIK
         /// <param name="e">The <see cref="RoutedEventArgs" /> instance containing the event data.</param>
         private void botonRepetirGesto_Clicked(object sender, RoutedEventArgs e)
         {
+            // Sonido
+            mediaPlayer.Open(new Uri(@"../../Media/button-30.mp3", UriKind.Relative));
+            mediaPlayer.Play();
+
             cargarReplay();
         }
 
@@ -90,6 +110,10 @@ namespace ARGIK
         /// </summary>
         private void RepetirGesto()
         {
+            // Sonido
+            mediaPlayer.Open(new Uri(@"../../Media/button-30.mp3", UriKind.Relative));
+            mediaPlayer.Play();
+
             cargarReplay();
         }
 
@@ -101,6 +125,10 @@ namespace ARGIK
         /// <exception cref="System.NotImplementedException"></exception>
         private void botonAyudaPaciente_Clicked(object sender, RoutedEventArgs e)
         {
+            // Sonido
+            mediaPlayer.Open(new Uri(@"../../Media/button-30.mp3", UriKind.Relative));
+            mediaPlayer.Play();
+
             if (ayudaHabilitada == false)
                 ayudaHabilitada = true;
             else
