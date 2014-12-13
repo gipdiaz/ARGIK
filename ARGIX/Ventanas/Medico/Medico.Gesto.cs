@@ -51,7 +51,7 @@ namespace ARGIK
                 //Instanciar dialogo de repeticiones             
 
                 RepeticionesDialog rep = new RepeticionesDialog();
-                // Configure the dialog box
+                // Mostrar dialogo de repeticiones
                  rep.ShowDialog();
                  nroRepeticiones = rep.repeticion;
                 armarListaGestos();

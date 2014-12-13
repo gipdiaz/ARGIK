@@ -1,8 +1,9 @@
 ﻿<Window 
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    x:Class="ARGIK.RepeticionesDialog"
     xmlns:local="clr-namespace:ARGIK"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+    x:Class="ARGIK.RepeticionesDialog"
     Title="Repeticiones"
     Height="190"
     Width="300"
@@ -11,12 +12,28 @@
     ResizeMode="CanResizeWithGrip"
     ShowInTaskbar="False"
     WindowStartupLocation="CenterOwner" WindowStyle="None">
-    <Grid Background="#FF46B0C7">
-        <TextBlock VerticalAlignment="Top" Height="66" Text="Seleccione cantidad de repeticiones" TextAlignment="Center" FontSize="16" FontWeight="Bold" FontStyle="Italic" FontFamily="Arial"/>
-        <StackPanel VerticalAlignment="Bottom">
-            <Button x:Name="boton1"  Click="boton1_Clicked" IsCancel="True" Content="3" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="107.765,0" Width="76.47" Height="26.96"/>
-            <Button x:Name="boton2"   Click="boton2_Clicked" IsCancel="True" Content="4" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="107.765,0" Width="76.47" Height="24.96"/>
-            <Button x:Name="boton3" Click="boton3_Clicked" IsCancel="True" Content="5" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="107.765,0" Width="76.47" Height="25.96"/>
-        </StackPanel>
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF99FFFF" Offset="0"/>
+                <GradientStop Color="#FFFBFBFB" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Image Source="/images/argik.png" Margin="46.021,0,50.021,117" HorizontalAlignment="Center" VerticalAlignment="Center" Height="65" Width="195.958"/>
+        <TextBlock VerticalAlignment="Top" Height="22" Text="Seleccione cantidad de repeticiones" TextAlignment="Center" FontSize="16" FontWeight="Bold" FontStyle="Italic" FontFamily="Arial" Margin="1,81,-1,0"/>
+        <Canvas VerticalAlignment="Bottom">
+            <Button x:Name="boton1"  Click="boton1_Clicked" IsCancel="True" Content="3"  Width="76" Height="27" Canvas.Left="13" Canvas.Top="-58" BorderBrush="Black" />
+            <Button x:Name="boton2"   Click="boton2_Clicked" IsCancel="True" Content="4" HorizontalAlignment="Center" VerticalAlignment="Center" Width="76" Height="27" Canvas.Left="103" Canvas.Top="-58" BorderBrush="Black"/>
+            <Button x:Name="boton3" Click="boton3_Clicked" IsCancel="True" Content="5" HorizontalAlignment="Center" VerticalAlignment="Center" Width="76" Height="27" Canvas.Left="195" Canvas.Top="-58" BorderBrush="Black">
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                        <GradientStop Color="#FFF3F3F3" Offset="0"/>
+                        <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
+                        <GradientStop Color="#FFDDDDDD" Offset="0.5"/>
+                        <GradientStop Color="#FFD1D1D1" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+        </Canvas>
     </Grid>
 </Window>

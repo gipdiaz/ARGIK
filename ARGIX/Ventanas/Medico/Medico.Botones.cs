@@ -60,6 +60,7 @@ namespace ARGIK
                 sesionIniciada = false;
                 botonSeleccionarArticulacion.Visibility = Visibility.Hidden;
             }
+            habilitarAyudas();
         }
 
         /// <summary>
@@ -117,9 +118,10 @@ namespace ARGIK
             ayudaHabilitada = false;
 
             ayudaGrabarSesion.Text = "Iniciar la sesion para poder\ngrabar los movimientos";
-            ayudaArticulaciones.Text = "Seleccionar la articulación que\nse utilizará para el movimiento";
-            ayudaAyuda.Text = "Activar el modo ayuda de la\naplicación";
+            ayudaArticulaciones.Text = "Seleccionar la articulación que\nse utilizará para grabar el gesto";
+            ayudaAyuda.Text = "Activar/Desactivar el modo \nayuda de la aplicación";
             ayudaSalir.Text = "Volver al menú principal";
+            ayudaVoz.Text = "*************Comandos de voz*************\n\nGRABAR ---> Iniciar la grabación del gesto\nDETENER ---> Finalizar grabación del gesto\nINFO ---> Activar/Desactivar Ayuda\nSALIR ---> Volver al Menú Principal";
             habilitarAyudas();
         }
     }

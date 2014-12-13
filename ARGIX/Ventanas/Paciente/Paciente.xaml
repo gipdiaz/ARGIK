@@ -11,7 +11,6 @@
 
     <Window.Resources>
         <DropShadowEffect x:Key="glowEffect" BlurRadius="30"  Opacity="1" ShadowDepth="0" Color="White" RenderingBias="Quality" Direction="392"></DropShadowEffect>
-
         <Style TargetType="{x:Type TextBlock}">
 
             <Setter Property="Text" Value="Drop-Shadow" />
@@ -31,7 +30,7 @@
             <Setter Property="VerticalAlignment" Value="Top"/>
             <Setter Property="HorizontalAlignment"  Value="Left"/>
             <Setter Property= "FontFamily" Value="Arial Black" />
-            <!--<Setter Property="Effect" Value="null"/>-->
+           
             <Setter Property="Foreground">
                 <Setter.Value>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -46,6 +45,7 @@
             <Setter Property="Background" Value="#FFFAFF89"/>
             <Setter Property="CornerRadius" Value="4"/>
         </Style>
+        
     </Window.Resources>
     
     <Window.Background>
@@ -76,26 +76,31 @@
         <Image x:Name="logo" Source="/images/argik.png" Height="102" VerticalAlignment="Top" Margin="157,-128,157,0"/>
         
         <!--AYUDAS-->
-        <Border Style="{StaticResource bordeAyuda}" Margin="614,84,-162.075,362" Name="ayudaIniciarSesionBorde">
-            <TextBlock Style="{StaticResource Ayuda}" Name="ayudaIniciarSesion">
+        <Border Style="{StaticResource bordeAyuda}" Margin="614,84,-270,348" Name="ayudaIniciarSesionBorde">
+            <TextBlock Style="{StaticResource Ayuda}" Name="ayudaIniciarSesion" FontSize="16">
             </TextBlock>
         </Border>
-        <Border Style="{StaticResource bordeAyuda}" Margin="614,171,-162.075,277.985" Name="ayudaRepetirBorde">
-            <TextBlock Style="{StaticResource Ayuda}" Name="ayudaRepetir">
+        <Border Style="{StaticResource bordeAyuda}" Margin="614,171,-270,261" Name="ayudaRepetirBorde">
+            <TextBlock Style="{StaticResource Ayuda}" Name="ayudaRepetir" FontSize="16">
             </TextBlock>
         </Border>
-        <Border Style="{StaticResource bordeAyuda}" Margin="614,252,-162.075,195.493" Name="ayudaAyudaBorde">
-            <TextBlock Style="{StaticResource Ayuda}" Name="ayudaAyuda">
+        <Border Style="{StaticResource bordeAyuda}" Margin="614,252,-270,178" Name="ayudaAyudaBorde">
+            <TextBlock Style="{StaticResource Ayuda}" Name="ayudaAyuda" FontSize="16">
             </TextBlock>
         </Border>
-        <Border Style="{StaticResource bordeAyuda}" Margin="-79,-88.5,537,534.5" Name="ayudaSalirBorde">
-            <TextBlock Style="{StaticResource Ayuda}" Name="ayudaSalir">
+        <Border Style="{StaticResource bordeAyuda}" Margin="-115.392,-85.5,537.392,531.5" Name="ayudaSalirBorde">
+            <TextBlock Style="{StaticResource Ayuda}" Name="ayudaSalir" FontSize="16">
             </TextBlock>
         </Border>
-        <Button x:Name="ATRAS" Content="" Height="77" Width="81.217" Click="ATRAS_Click" FontSize="48" BorderBrush="{x:Null}" VerticalAlignment="Top" Margin="-166,-116,724,0">
+        <Border Style="{StaticResource bordeAyuda}" Margin="136,485,100,-136" Name="ayudaVozBorde">
+            <TextBlock Style="{StaticResource Ayuda}" Name="ayudaVoz" FontSize="16">
+            </TextBlock>
+        </Border>
+        <Button x:Name="ATRAS" Content="" Height="77" Width="81.217" Click="ATRAS_Click" FontSize="48" BorderBrush="{x:Null}" VerticalAlignment="Top" Margin="-201.609,-109,760.391,0">
             <Button.Background>
                 <ImageBrush ImageSource="/images/atras.png"/>
             </Button.Background>
         </Button>
+        <Label Content="Paciente"  VerticalAlignment="Top" Margin="619,-109,-619,0" FontFamily="Arial" FontSize="32" Foreground="#FF0C7E16" FontWeight="Bold" BorderBrush="#FF080808"/>
     </Grid>
 </Window>

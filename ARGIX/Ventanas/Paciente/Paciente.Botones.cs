@@ -22,6 +22,7 @@ namespace ARGIK
         /// <param name="e">The <see cref="RoutedEventArgs" /> instancia que contiene los datos del evento.</param>
         public void botonReproducirSesion_Clicked(object sender, RoutedEventArgs e)
         {
+
             if (this.botonReproducirSesion.IsChecked)
             {
                 // Sonido
@@ -36,6 +37,7 @@ namespace ARGIK
                 cargarReplay();
                 sesionIniciada = true;
                 botonRepetirGesto.Visibility = Visibility.Visible;
+                habilitarAyudas();
             }
             else
             {
@@ -48,6 +50,7 @@ namespace ARGIK
                 retirarReconocedorGesto();
                 sesionIniciada = false;
                 botonRepetirGesto.Visibility = Visibility.Hidden;
+                habilitarAyudas();
             }
         }
 
@@ -69,7 +72,13 @@ namespace ARGIK
                 TextReader textReader = new StreamReader(@"Gaston Diaz.xml");
                 diccionario = (SerializableDictionary<string, List<string>>)serializer.Deserialize(textReader);
                 cargarReplay();
+                botonRepetirGesto.Visibility = Visibility.Visible;
+                habilitarAyudas();
+                
+                
             }
+            
+
         }
 
         /// <summary>
@@ -88,7 +97,10 @@ namespace ARGIK
                 diccionario = null;
                 mensajePantalla.Text = "Sesión Finalizada";
                 retirarReconocedorGesto();
+                botonRepetirGesto.Visibility = Visibility.Hidden;
+                habilitarAyudas();
             }
+            
         }
 
         /// <summary>
@@ -165,10 +177,11 @@ namespace ARGIK
         {
             ayudaHabilitada = false;
 
-            ayudaIniciarSesion.Text = "Iniciar la sesion para poder\nrealizar los movimientos";
+            ayudaIniciarSesion.Text = "Iniciar/Finalizar la sesion";
             ayudaRepetir.Text = "Repetir el gesto para\nvisualizar el movimiento";
-            ayudaAyuda.Text = "Activar el modo ayuda de la\naplicación";
+            ayudaAyuda.Text = "Activar/Desactivar el modo\n ayuda de la aplicación";
             ayudaSalir.Text = "Volver al menú principal";
+            ayudaVoz.Text = "*************Comandos de voz*************\n\nREPRODUCIR -->Iniciar la sesion de gestos\nDETENER ---> Finalizar la sesión\nREPETIR ---> Repetir demostración del gesto\nINFO ---> Activar/Desactivar Ayuda\nSALIR ---> Volver al Menú Principal";
             habilitarAyudas();
         }
     }

@@ -15,7 +15,6 @@
         <Style TargetType="{x:Type TextBlock}">
 
             <Setter Property="Text" Value="Drop-Shadow" />
-
             <Setter Property="FontSize" Value="60" />
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="HorizontalAlignment" Value="Left" />
@@ -26,7 +25,7 @@
         <Style BasedOn="{StaticResource {x:Type TextBlock}}"
        TargetType="TextBlock"
        x:Key="Ayuda">
-            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontSize" Value="16"/>
             <Setter Property="VerticalAlignment" Value="Top"/>
             <Setter Property="HorizontalAlignment"  Value="Left"/>
             <Setter Property= "FontFamily" Value="Arial Black" />
@@ -45,14 +44,7 @@
             <Setter Property="Background" Value="#FFFAFF89"/>
             <Setter Property="CornerRadius" Value="4"/>
         </Style>
-        <!--<Style TargetType="Controls:HoverButton">
-            <Style.Triggers>
-                <EventTrigger RoutedEvent="PreviewMouseDown">
-                    <SoundPlayerAction Source="/Sonidos/ClickRA.wav"/>
-                </EventTrigger>
-            </Style.Triggers>
-        </Style>-->
-
+        
     </Window.Resources>
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -80,28 +72,35 @@
             </Grid>
 		</Viewbox>
 		<Image x:Name="logo" Source="/images/argik.png" Height="102" VerticalAlignment="Top" Margin="157,-128,157,0"/>
-        
         <!--AYUDAS-->
-        <Border Style="{StaticResource bordeAyuda}" Margin="614,84,-177,362" Name="ayudaGrabarSesionBorde">
+        <Border Style="{StaticResource bordeAyuda}" Margin="614,84,-255,349" Name="ayudaGrabarSesionBorde">
             <TextBlock Style="{StaticResource Ayuda}" Name="ayudaGrabarSesion">
             	   	</TextBlock>
         </Border>
-        <Border Style="{StaticResource bordeAyuda}" Margin="614,171,-177,275" Name="ayudaArticulacionesBorde">
+        
+        <Border Style="{StaticResource bordeAyuda}" Margin="614,171,-255,261" Name="ayudaArticulacionesBorde">
             <TextBlock Style="{StaticResource Ayuda}" Name="ayudaArticulaciones">
             </TextBlock>
         </Border>
-        <Border Style="{StaticResource bordeAyuda}" Margin="614,252,-177,194" Name="ayudaAyudaBorde">
+        <Border Style="{StaticResource bordeAyuda}" Margin="614,252,-255,177" Name="ayudaAyudaBorde">
             <TextBlock Style="{StaticResource Ayuda}" Name="ayudaAyuda">
             </TextBlock>
         </Border>
-        <Border Style="{StaticResource bordeAyuda}" Margin="-79,-88.5,537,534.5" Name="ayudaSalirBorde">
+        <Border Style="{StaticResource bordeAyuda}" Margin="-126,-89,544,535" Name="ayudaSalirBorde">
             <TextBlock Style="{StaticResource Ayuda}" Name="ayudaSalir">
             </TextBlock>
         </Border>
-        <Button x:Name="ATRAS" Content="" Height="77" Width="81.217" Click="ATRAS_Click" FontSize="48" BorderBrush="{x:Null}" VerticalAlignment="Top" Margin="-166,-116,724,0">
+		<Border Style="{StaticResource bordeAyuda}" Margin="142,492,94,-126" Name="ayudaVozBorde">
+            <TextBlock Style="{StaticResource Ayuda}" Name="ayudaVoz" FontSize="16">
+            </TextBlock>
+        </Border>
+        <Label Content="Médico"  VerticalAlignment="Top" Margin="673,-109,-673,0" FontFamily="Arial" FontSize="26.667" Foreground="#FF0237EA" FontWeight="Bold" BorderBrush="#FF0071BC"/>
+        <Button x:Name="ATRAS" Content="" Height="77" Width="81.217" Click="ATRAS_Click" FontSize="48" BorderBrush="{x:Null}" VerticalAlignment="Top" Margin="-208,-116,766,0">
 			<Button.Background>
 				<ImageBrush ImageSource="/images/atras.png"/>
 			</Button.Background>
 		</Button>
+        
     </Grid>    
+    
 </Window>
