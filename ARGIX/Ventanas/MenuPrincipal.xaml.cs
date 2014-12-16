@@ -382,6 +382,10 @@ namespace ARGIK
 
         private void CERRAR_Click(object sender, RoutedEventArgs e)
         {
+            // Sonido
+            mediaPlayer.Open(new Uri(@"../../Media/button-21.mp3", UriKind.Relative));
+            mediaPlayer.Play();
+
             this.Close();
         }
 

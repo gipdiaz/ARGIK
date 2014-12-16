@@ -73,7 +73,8 @@ namespace ARGIK
                 else
                 {
                     mensajePantalla.Text = "¡BIEN HECHO!";
-                    botonRepetirGesto.Visibility = Visibility.Hidden;
+                    detenerSesion();
+                    //botonRepetirGesto.Visibility = Visibility.Hidden;
                 }
                 cargar_gesto = false;
             }

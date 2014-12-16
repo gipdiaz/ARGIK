@@ -174,7 +174,7 @@ namespace ARGIK
             botonReproducirSesion.Click += new RoutedEventHandler(botonReproducirSesion_Clicked);
             botonRepetirGesto.Click += new RoutedEventHandler(botonRepetirGesto_Clicked);
             botonAyudaPaciente.Click += new RoutedEventHandler(botonAyudaPaciente_Clicked);
-            
+
 
             // Inicializa la camara RGB, la de profundidad y el esqueleto
             kinectSensor.ColorStream.Enable(ColorImageFormat.RgbResolution640x480Fps30);
@@ -205,7 +205,7 @@ namespace ARGIK
             mensajePantalla.Text = "";
             mensajePantalla.Visibility = System.Windows.Visibility.Visible;
             LayoutRoot.Children.Add(mensajePantalla);
-            
+
             //Configura la deteccion de gestos, posturas y ayuda
             CargarDetectorGestos();
             CargarDetectorPosturas();
@@ -307,8 +307,7 @@ namespace ARGIK
                 if (skeletons.All(s => s.TrackingState == SkeletonTrackingState.NotTracked))
                 {
                     botonReproducirSesion.Visibility = Visibility.Hidden;
-                    if (sesionIniciada == false)
-                        botonRepetirGesto.Visibility = Visibility.Hidden;
+                    botonRepetirGesto.Visibility = Visibility.Hidden;
                     botonAyudaPaciente.Visibility = Visibility.Hidden;
                     ayudaHabilitada = false;
                     vozHabilitada = false;
@@ -336,13 +335,13 @@ namespace ARGIK
             var transform1 = this.botonReproducirSesion.TransformToVisual(LayoutRoot);
             var transform2 = this.botonRepetirGesto.TransformToVisual(LayoutRoot);
             var transform3 = this.botonAyudaPaciente.TransformToVisual(LayoutRoot);
-        
+
 
 
             Point puntoBotonReproducirSesion = transform1.Transform(new Point(0, 0));
             Point puntoBotonAzulPaciente = transform2.Transform(new Point(0, 0));
             Point puntoBotonNegroPaciente = transform3.Transform(new Point(0, 0));
-            
+
 
             // Verifica si el punto trackeado esta sobre el boton
             if (Math.Abs(puntoMano.X - (puntoBotonReproducirSesion.X + botonReproducirSesion.Width)) < 30 && Math.Abs(puntoMano.Y - puntoBotonReproducirSesion.Y) < 30 && botonReproducirSesion.Visibility == Visibility.Visible)
@@ -360,7 +359,7 @@ namespace ARGIK
             else
                 botonAyudaPaciente.Release();
 
-            
+
         }
 
         /// <summary>
@@ -424,7 +423,7 @@ namespace ARGIK
                 //skeletonDisplayManager.Draw(frame.Skeletons, true);
                 skeletonDisplayManager.Draw(frame.Skeletons, this.modoSentado);
             }
-            
+
 
         }
 
@@ -483,6 +482,13 @@ namespace ARGIK
                 kinectSensor.Stop();
                 kinectSensor = null;
             }
+
+            if (replay != null)
+            {
+                replay.SkeletonFrameReady -= replay_SkeletonFrameReady;
+                replay.ColorImageFrameReady -= replay_ColorImageFrameReady;
+                replay.Stop();
+            }
         }
 
         /// <summary>
@@ -502,14 +508,14 @@ namespace ARGIK
             this.kinectSensor.SkeletonFrameReady += kinect_SkeletonFrameReady;
             this.kinectSensor.ColorFrameReady += kinect_ColorFrameReady;
             this.kinectSensor.Start();
-            
+
         }
 
         private void habilitarAyudas()
         {
             if (ayudaHabilitada == true)
             {
-                
+
                 ayudaIniciarSesion.Visibility = Visibility.Visible;
                 ayudaIniciarSesionBorde.Visibility = Visibility.Visible;
 

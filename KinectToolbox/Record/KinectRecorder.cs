@@ -99,6 +99,7 @@ namespace Kinect.Toolbox.Record
             writer.Close();
             writer.Dispose();
 
+            recordStream.Close();
             recordStream.Dispose();
             recordStream = null;
         }

@@ -32,8 +32,10 @@
         <Canvas>
             <Canvas.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#001933" Offset="0"/>
-                    <GradientStop Color="#006666" Offset="1"/>
+                    <GradientStop Color="#FFB9BBFF" Offset="0" />
+                    <GradientStop Color="Azure" Offset="1" />
+                    <!--<GradientStop Color="#001933" Offset="0"/>
+                    <GradientStop Color="#006666" Offset="1"/>-->
                 </LinearGradientBrush>
             </Canvas.Background>
             <Button x:Name="GAME1" Height="400" Width="350" Canvas.Left="90" Canvas.Top="166" Click="MEDICO_Click" Background="#FFF52222" Style="{StaticResource RoundButtonTemplate}">

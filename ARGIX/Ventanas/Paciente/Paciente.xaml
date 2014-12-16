@@ -11,39 +11,28 @@
 
     <Window.Resources>
         <DropShadowEffect x:Key="glowEffect" BlurRadius="30"  Opacity="1" ShadowDepth="0" Color="White" RenderingBias="Quality" Direction="392"></DropShadowEffect>
-        <Style TargetType="{x:Type TextBlock}">
-
-            <Setter Property="Text" Value="Drop-Shadow" />
-            <Setter Property="FontFamily" Value="Arial" />
-            <Setter Property="FontSize" Value="60" />
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="HorizontalAlignment" Value="Left" />
-            <Setter Property="VerticalAlignment" Value="Bottom" />
-            <Setter Property="Effect" Value="{StaticResource glowEffect}"/>
-
-        </Style>
         <!--estilo de la ayuda-->
         <Style BasedOn="{StaticResource {x:Type TextBlock}}"
-       TargetType="TextBlock"
-       x:Key="Ayuda">
-            <Setter Property="FontSize" Value="12"/>
+               TargetType="TextBlock"
+               x:Key="Ayuda">
+            <Setter Property="FontSize" Value="20"/>
             <Setter Property="VerticalAlignment" Value="Top"/>
             <Setter Property="HorizontalAlignment"  Value="Left"/>
-            <Setter Property= "FontFamily" Value="Arial Black" />
-           
+            <Setter Property="Padding" Value="5,5,0,0"  />
+            <Setter Property= "FontFamily" Value="Tahoma" />
+            <Setter Property="FontWeight" Value="Normal"/>
             <Setter Property="Foreground">
                 <Setter.Value>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FF90DDDD" Offset="0"/>
-                        <GradientStop Color="Black"/>
+                        <GradientStop Color="#FF171C4F"/>
                     </LinearGradientBrush>
                 </Setter.Value>
             </Setter>
         </Style>
         <!--Estilo del rectangulo de la ayuda-->
         <Style TargetType="Border" x:Key="bordeAyuda">
-            <Setter Property="Background" Value="#FFFAFF89"/>
-            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="Background" Value="Azure"/>
+            <Setter Property="CornerRadius" Value="10"/>
         </Style>
         
     </Window.Resources>
@@ -76,15 +65,15 @@
         <Image x:Name="logo" Source="/images/argik.png" Height="102" VerticalAlignment="Top" Margin="157,-128,157,0"/>
         
         <!--AYUDAS-->
-        <Border Style="{StaticResource bordeAyuda}" Margin="614,84,-270,348" Name="ayudaIniciarSesionBorde">
+        <Border Style="{StaticResource bordeAyuda}" Margin="621.5,62,-262.5,353.5" Name="ayudaIniciarSesionBorde" Width="281">
             <TextBlock Style="{StaticResource Ayuda}" Name="ayudaIniciarSesion" FontSize="16">
             </TextBlock>
         </Border>
-        <Border Style="{StaticResource bordeAyuda}" Margin="614,171,-270,261" Name="ayudaRepetirBorde">
+        <Border Style="{StaticResource bordeAyuda}" Margin="621.5,150.499,-262.5,265.001" Name="ayudaRepetirBorde" Width="281">
             <TextBlock Style="{StaticResource Ayuda}" Name="ayudaRepetir" FontSize="16">
             </TextBlock>
         </Border>
-        <Border Style="{StaticResource bordeAyuda}" Margin="614,252,-270,178" Name="ayudaAyudaBorde">
+        <Border Style="{StaticResource bordeAyuda}" Margin="621.5,234.834,-262.5,181.666" Name="ayudaAyudaBorde" Width="281">
             <TextBlock Style="{StaticResource Ayuda}" Name="ayudaAyuda" FontSize="16">
             </TextBlock>
         </Border>
@@ -101,6 +90,7 @@
                 <ImageBrush ImageSource="/images/atras.png"/>
             </Button.Background>
         </Button>
-        <Label Content="Paciente"  VerticalAlignment="Top" Margin="619,-109,-619,0" FontFamily="Arial" FontSize="32" Foreground="#FF0C7E16" FontWeight="Bold" BorderBrush="#FF080808"/>
+        <Image Margin="-256.683,5,708.683,205" Source="/ARGIK;component/Images/paciente.png" Stretch="Fill" Width="188" Height="270"/>
+        <Label Content="PACIENTE"  VerticalAlignment="Top" Margin="-242.5,304.195,728.5,0" FontFamily="Bookman Old Style" FontSize="26.667" Foreground="#FFD6DC93" BorderBrush="#FF0071BC"/>
     </Grid>
 </Window>

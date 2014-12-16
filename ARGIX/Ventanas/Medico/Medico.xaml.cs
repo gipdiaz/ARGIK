@@ -205,7 +205,7 @@ namespace ARGIK
             //mensajePantalla.VerticalAlignment = System.Windows.VerticalAlignment.Center;
             //mensajePantalla.FontSize = 75;
             //mensajePantalla.Margin = new Thickness(30, 0, 0, 0);
-            mensajePantalla.Foreground = new SolidColorBrush(Colors.Red);
+            mensajePantalla.Foreground = new SolidColorBrush(Colors.DarkGreen);
             mensajePantalla.Text = "";
             LayoutRoot.Children.Add(mensajePantalla);
             
@@ -242,6 +242,8 @@ namespace ARGIK
             {
                 kinectSensor.SkeletonStream.TrackingMode = SkeletonTrackingMode.Default;
             }
+
+            nroGesto = 0;
         
         }
 

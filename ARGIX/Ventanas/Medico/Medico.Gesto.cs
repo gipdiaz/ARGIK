@@ -15,7 +15,7 @@ namespace ARGIK
     partial class Medico
     {
 
-        int nroGesto =0;
+        int nroGesto;
         string nombreSesion;
         public bool grabando = false;
         string nroRepeticiones;

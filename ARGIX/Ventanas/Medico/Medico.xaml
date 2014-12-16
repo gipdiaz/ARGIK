@@ -11,96 +11,98 @@
 
     <Window.Resources>
         <DropShadowEffect x:Key="glowEffect" BlurRadius="30"  Opacity="1" ShadowDepth="0" Color="White" RenderingBias="Quality" Direction="392"></DropShadowEffect>
-     
-        <Style TargetType="{x:Type TextBlock}">
 
+        <Style TargetType="{x:Type TextBlock}">
             <Setter Property="Text" Value="Drop-Shadow" />
             <Setter Property="FontSize" Value="60" />
             <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="HorizontalAlignment" Value="Left" />
-            <Setter Property="VerticalAlignment" Value="Bottom" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Top" />
             <Setter Property="Effect" Value="{StaticResource glowEffect}"/>
         </Style>
+
         <!--estilo de la ayuda-->
         <Style BasedOn="{StaticResource {x:Type TextBlock}}"
-       TargetType="TextBlock"
-       x:Key="Ayuda">
-            <Setter Property="FontSize" Value="16"/>
+               TargetType="TextBlock"
+               x:Key="Ayuda">
+            <Setter Property="FontSize" Value="20"/>
             <Setter Property="VerticalAlignment" Value="Top"/>
             <Setter Property="HorizontalAlignment"  Value="Left"/>
-            <Setter Property= "FontFamily" Value="Arial Black" />
-            <!--<Setter Property="Effect" Value="null"/>-->
+            <Setter Property="Padding" Value="5,5,0,0"  />
+            <Setter Property= "FontFamily" Value="Tahoma" />
+            <Setter Property="FontWeight" Value="Normal"/>
             <Setter Property="Foreground">
                 <Setter.Value>
-                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="#FF90DDDD" Offset="0"/>
-                            <GradientStop Color="Black"/>
-                        </LinearGradientBrush>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF171C4F"/>
+                    </LinearGradientBrush>
                 </Setter.Value>
             </Setter>
         </Style>
         <!--Estilo del rectangulo de la ayuda-->
         <Style TargetType="Border" x:Key="bordeAyuda">
-            <Setter Property="Background" Value="#FFFAFF89"/>
-            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="Background" Value="Azure"/>
+            <Setter Property="CornerRadius" Value="10"/>
         </Style>
-        
     </Window.Resources>
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-            <GradientStop Color="#001933" Offset="0"/>
-            <GradientStop Color="#006666" Offset="1"/>
+            <GradientStop Color="#FFB9BBFF" Offset="0" />
+            <GradientStop Color="#FFB9BBFF" Offset="0" />
+            <!--<GradientStop Color="#001933" Offset="0"/>
+            <GradientStop Color="#006666" Offset="1"/>-->
         </LinearGradientBrush>
     </Window.Background>
     <Grid Width="640" Height="480" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="363,144">
-       
-            <Viewbox Margin="5" Grid.RowSpan="6" Width="640" Height="480">
-			<Grid Width="640" Height="480" ClipToBounds="True" x:Name="LayoutRoot">
 
-				<Rectangle Stroke="Black" StrokeThickness="1"/>
+        <Viewbox Margin="5" Grid.RowSpan="6" Width="640" Height="480">
+            <Grid Width="640" Height="480" ClipToBounds="True" x:Name="LayoutRoot">
 
-				<Image x:Name="kinectDisplay" Source="{Binding Bitmap}" Width="640" Height="480"/>
+                <Rectangle Stroke="Black" StrokeThickness="1"/>
 
-				<Canvas x:Name="kinectCanvas" Background="Transparent" Margin="0,-7,0,7"/>
+                <Image x:Name="kinectDisplay" Source="{Binding Bitmap}" Width="640" Height="480"/>
 
-				<Canvas x:Name="gesturesCanvas"/>
-                
+                <Canvas x:Name="kinectCanvas" Background="Transparent" Margin="0,-7,0,7"/>
+
+                <Canvas x:Name="gesturesCanvas"/>
+
                 <Controls:HoverButton Visibility="Visible"  x:Name="botonGrabarSesion" ImageSize="100" ImageSource="/ARGIK;component/images/IniciarSesion.png" ActiveImageSource="/ARGIK;component/images/Fin.png" TimeInterval="3000"  HorizontalAlignment="Right" Height="60" Width="60"  Margin="0,0,40,300" VerticalAlignment="Center"/>
                 <Controls:HoverButton Visibility="Visible" x:Name="botonSeleccionarArticulacion" ImageSize="100" ImageSource="/ARGIK;component/images/Articulacion.png" ActiveImageSource="/ARGIK;component/images/Articulacion.png"   TimeInterval="3000"   HorizontalAlignment="Right" Height="60" Width="60"  Margin="0,0,40,120" VerticalAlignment="Center" />
-				<Controls:HoverButton Visibility="Visible" x:Name="botonAyuda" ImageSize="100" ImageSource="/ARGIK;component/images/Ayuda.png" ActiveImageSource="/ARGIK;component/images/Ayuda.png"   TimeInterval="3000"   HorizontalAlignment="Right" Height="60" Width="60"  Margin="0,210.975,39.261,169.025" VerticalAlignment="Center" />
-                
+                <Controls:HoverButton Visibility="Visible" x:Name="botonAyuda" ImageSize="100" ImageSource="/ARGIK;component/images/Ayuda.png" ActiveImageSource="/ARGIK;component/images/Ayuda.png"   TimeInterval="3000"   HorizontalAlignment="Right" Height="60" Width="60"  Margin="0,210.975,39.261,169.025" VerticalAlignment="Center" />
+
             </Grid>
-		</Viewbox>
-		<Image x:Name="logo" Source="/images/argik.png" Height="102" VerticalAlignment="Top" Margin="157,-128,157,0"/>
+        </Viewbox>
+        <Image x:Name="logo" Source="/images/argik.png" Height="102" VerticalAlignment="Top" Margin="157,-128,157,0"/>
         <!--AYUDAS-->
-        <Border Style="{StaticResource bordeAyuda}" Margin="614,84,-255,349" Name="ayudaGrabarSesionBorde">
-            <TextBlock Style="{StaticResource Ayuda}" Name="ayudaGrabarSesion">
-            	   	</TextBlock>
+        <Border Style="{StaticResource bordeAyuda}" Margin="620,62.75,-261,352.749" Name="ayudaGrabarSesionBorde" Height="64.5">
+            <TextBlock Style="{StaticResource Ayuda}" x:Name="ayudaGrabarSesion" FontSize="21.333" FontFamily="Tahoma" Text="Iniciar la sesio">
+            </TextBlock>
         </Border>
-        
-        <Border Style="{StaticResource bordeAyuda}" Margin="614,171,-255,261" Name="ayudaArticulacionesBorde">
+
+        <Border Style="{StaticResource bordeAyuda}" Margin="620,149.504,-261,265.996" Name="ayudaArticulacionesBorde">
             <TextBlock Style="{StaticResource Ayuda}" Name="ayudaArticulaciones">
             </TextBlock>
         </Border>
-        <Border Style="{StaticResource bordeAyuda}" Margin="614,252,-255,177" Name="ayudaAyudaBorde">
+        <Border Style="{StaticResource bordeAyuda}" Margin="620,234.499,-261,181.001" Name="ayudaAyudaBorde">
             <TextBlock Style="{StaticResource Ayuda}" Name="ayudaAyuda">
             </TextBlock>
         </Border>
-        <Border Style="{StaticResource bordeAyuda}" Margin="-126,-89,544,535" Name="ayudaSalirBorde">
+        <Border Style="{StaticResource bordeAyuda}" Margin="-115.5,-93.5,533.5,539.5" Name="ayudaSalirBorde">
             <TextBlock Style="{StaticResource Ayuda}" Name="ayudaSalir">
             </TextBlock>
         </Border>
-		<Border Style="{StaticResource bordeAyuda}" Margin="142,492,94,-126" Name="ayudaVozBorde">
+        <Border Style="{StaticResource bordeAyuda}" Margin="142,492,94,-126" Name="ayudaVozBorde">
             <TextBlock Style="{StaticResource Ayuda}" Name="ayudaVoz" FontSize="16">
             </TextBlock>
         </Border>
-        <Label Content="Médico"  VerticalAlignment="Top" Margin="673,-109,-673,0" FontFamily="Arial" FontSize="26.667" Foreground="#FF0237EA" FontWeight="Bold" BorderBrush="#FF0071BC"/>
+        <Label Content="MÉDICO"  VerticalAlignment="Top" Margin="-242.5,304.195,751,0" FontFamily="Bookman Old Style" FontSize="26.667" Foreground="#FFD6DC93" BorderBrush="#FF0071BC"/>
         <Button x:Name="ATRAS" Content="" Height="77" Width="81.217" Click="ATRAS_Click" FontSize="48" BorderBrush="{x:Null}" VerticalAlignment="Top" Margin="-208,-116,766,0">
-			<Button.Background>
-				<ImageBrush ImageSource="/images/atras.png"/>
-			</Button.Background>
-		</Button>
-        
-    </Grid>    
-    
+            <Button.Background>
+                <ImageBrush ImageSource="/images/atras.png"/>
+            </Button.Background>
+        </Button>
+        <Image Margin="-260.5,5,712,204.309" Source="/ARGIK;component/Images/medico.png" Stretch="Fill"/>
+
+    </Grid>
+
 </Window>

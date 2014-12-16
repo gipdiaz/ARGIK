@@ -74,10 +74,10 @@ namespace ARGIK
                 cargarReplay();
                 botonRepetirGesto.Visibility = Visibility.Visible;
                 habilitarAyudas();
-                
-                
+
+
             }
-            
+
 
         }
 
@@ -99,8 +99,12 @@ namespace ARGIK
                 retirarReconocedorGesto();
                 botonRepetirGesto.Visibility = Visibility.Hidden;
                 habilitarAyudas();
+
+                replay.SkeletonFrameReady -= replay_SkeletonFrameReady;
+                replay.ColorImageFrameReady -= replay_ColorImageFrameReady;
+                replay.Dispose();
+                replay.Stop();
             }
-            
         }
 
         /// <summary>
@@ -148,7 +152,7 @@ namespace ARGIK
             habilitarAyudas();
         }
 
-        
+
         /// <summary>
         /// Handles the Click event of the ATRAS control.
         /// </summary>
@@ -164,7 +168,6 @@ namespace ARGIK
             MenuPrincipal menuPrincipal = new MenuPrincipal(modoSentado);
             menuPrincipal.Show();
             this.Close();
-            
         }
 
         /// <summary>

@@ -35,6 +35,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>argik.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Coding4Fun.Kinect.Wpf, Version=1.7.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -173,6 +176,8 @@
   <ItemGroup>
     <Resource Include="Images\argik_inicio.png" />
     <Resource Include="Images\argik - sin letras.png" />
+    <Resource Include="argik.ico" />
+    <Resource Include="Images\argik.ico" />
     <Content Include="Media\1.wav" />
     <Content Include="Media\button-20.mp3" />
     <Content Include="Media\button-21.mp3" />

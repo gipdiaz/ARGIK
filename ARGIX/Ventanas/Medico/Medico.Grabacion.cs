@@ -8,6 +8,7 @@ namespace ARGIK
     // Esta parte de la clase se encarga de manejar la grabacion de la sesion
     partial class Medico
     {
+        Stream recordStream;
         /// <summary>
         /// Permite ponerle un nombre al archivo de la sesion que se graba.
         /// Graba la sesion
@@ -34,7 +35,7 @@ namespace ARGIK
         /// <param name="targetFileName">Name of the target file.</param>
         public void DirectRecord(string targetFileName)
         {
-            Stream recordStream = File.Create(targetFileName);
+            recordStream = File.Create(targetFileName);
             recorder = new KinectRecorder(KinectRecordOptions.Skeletons | KinectRecordOptions.Color, recordStream);
             //recordOption.Content = "Parar Grabación";
         }
@@ -48,6 +49,10 @@ namespace ARGIK
             {
                 recorder.Stop();
                 recorder = null;
+                
+                recordStream.Dispose();
+                recordStream.Close();
+                recordStream = null;
                 //recordOption.Content = "Grabar Sesión";
                 return;
             }
