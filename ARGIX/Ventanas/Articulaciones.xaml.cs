@@ -344,7 +344,6 @@ namespace ARGIK
             //ventanaMedico.inicializar();
             //ventanaMedico.Show();
 
-
         }
         private void MANO_IZQ_Click(object sender, RoutedEventArgs e)
         {
@@ -359,6 +358,7 @@ namespace ARGIK
 
         private void RODILLA_DER_Click(object sender, RoutedEventArgs e)
         {
+            UnregisterEvents();
             ventanaMedico.articulacion_gesto = "Rodilla Derecha";
 
             //Se abre la ventana siguiente, la del medico para grabar gestos
@@ -368,6 +368,7 @@ namespace ARGIK
 
         private void RODILLA_IZQ_Click(object sender, RoutedEventArgs e)
         {
+            UnregisterEvents();
             ventanaMedico.articulacion_gesto = "Rodilla Izquierda";
 
             //Se abre la ventana siguiente, la del medico para grabar gestos
@@ -379,7 +380,8 @@ namespace ARGIK
             // Sonido
             mediaPlayer.Open(new Uri(@"../../Media/button-21.mp3", UriKind.Relative));
             mediaPlayer.Play();
-
+            
+            UnregisterEvents();
             //Se abre la ventana siguiente, la del medico para grabar gestos
             this.Close();
         }
