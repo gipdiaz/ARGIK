@@ -498,6 +498,25 @@ namespace ARGIK
                     break;
                 }
             }
+            //this.kinectSensor.DepthFrameReady += kinect_DepthFrameReady;
+            //this.kinectSensor.SkeletonFrameReady += kinect_SkeletonFrameReady;
+            //this.kinectSensor.ColorFrameReady += kinect_ColorFrameReady;
+            this.kinectSensor.ColorStream.Enable(ColorImageFormat.RgbResolution640x480Fps30);
+            this.kinectSensor.ColorFrameReady += kinect_ColorFrameReady;
+            this.kinectSensor.DepthStream.Enable(DepthImageFormat.Resolution320x240Fps30);
+            this.kinectSensor.DepthFrameReady += kinect_DepthFrameReady;
+            this.kinectSensor.SkeletonStream.Enable(new TransformSmoothParameters
+            {
+                Smoothing = 0.5f,
+                Correction = 0.5f,
+                Prediction = 0.5f,
+                JitterRadius = 0.05f,
+                MaxDeviationRadius = 0.04f
+            });
+            this.kinectSensor.SkeletonFrameReady += kinect_SkeletonFrameReady;
+
+            skeletonDisplayManager = new SkeletonDisplayManager(kinectSensor, kinectCanvas);
+            this.kinectSensor.Start();
 
             this.audioManager = new AudioStreamManager(kinectSensor.AudioSource);
            
@@ -507,12 +526,8 @@ namespace ARGIK
             voiceCommander = new VoiceCommander("grabar", "detener", "salir", "ayuda");
             this.voiceCommander.OrderDetected += voiceCommander_OrderDetected;
             StartVoiceCommander();
-
-            this.kinectSensor.DepthFrameReady += kinect_DepthFrameReady;
-            this.kinectSensor.SkeletonFrameReady += kinect_SkeletonFrameReady;
-            this.kinectSensor.ColorFrameReady += kinect_ColorFrameReady;
-            this.kinectSensor.Start();
             this.articulacion_gesto = articulacion_gesto;
+            
         }
 
         /// <summary>
