@@ -455,6 +455,9 @@ namespace ARGIK
         /// </summary>
         public void Clean()
         {
+            //gesturesCanvas.Children.Clear();
+            //kinectCanvas.Children.Clear();
+
             if (audioManager != null)
             {
                 audioManager.Dispose();
@@ -474,13 +477,20 @@ namespace ARGIK
                 recorder.Stop();
                 recorder = null;
             }
+            //if (skeletonDisplayManager != null)
+            //    skeletonDisplayManager = null;
             if (kinectSensor != null)
             {
                 kinectSensor.DepthFrameReady -= kinect_DepthFrameReady;
                 kinectSensor.SkeletonFrameReady -= kinect_SkeletonFrameReady;
                 kinectSensor.ColorFrameReady -= kinect_ColorFrameReady;
+
+                kinectSensor.ColorStream.Disable();
+                kinectSensor.DepthStream.Disable();
+                kinectSensor.SkeletonStream.Disable();
+
                 kinectSensor.Stop();
-                kinectSensor = null;
+                kinectSensor = null;    
             }
         }
 
@@ -498,6 +508,7 @@ namespace ARGIK
                     break;
                 }
             }
+            
             //this.kinectSensor.DepthFrameReady += kinect_DepthFrameReady;
             //this.kinectSensor.SkeletonFrameReady += kinect_SkeletonFrameReady;
             //this.kinectSensor.ColorFrameReady += kinect_ColorFrameReady;
@@ -518,14 +529,14 @@ namespace ARGIK
             skeletonDisplayManager = new SkeletonDisplayManager(kinectSensor, kinectCanvas);
             this.kinectSensor.Start();
 
-            this.audioManager = new AudioStreamManager(kinectSensor.AudioSource);
-           
             CargarDetectorGestos();
             CargarDetectorPosturas();
 
-            voiceCommander = new VoiceCommander("grabar", "detener", "salir", "ayuda");
+            this.audioManager = new AudioStreamManager(kinectSensor.AudioSource);
+            voiceCommander = new VoiceCommander("grabar", "detener", "salir", "info");
             this.voiceCommander.OrderDetected += voiceCommander_OrderDetected;
             StartVoiceCommander();
+
             this.articulacion_gesto = articulacion_gesto;
             
         }
