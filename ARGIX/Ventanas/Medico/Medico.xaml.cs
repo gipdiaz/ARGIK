@@ -272,6 +272,7 @@ namespace ARGIK
                 ayudaSalirBorde.Visibility = Visibility.Visible;
                 ayudaVoz.Visibility = Visibility.Visible;
                 ayudaVozBorde.Visibility = Visibility.Visible;
+                comandosVoz.Visibility = Visibility.Visible;
             }
             else
             {
@@ -285,6 +286,7 @@ namespace ARGIK
                 ayudaSalirBorde.Visibility = Visibility.Collapsed;
                 ayudaVoz.Visibility = Visibility.Collapsed;
                 ayudaVozBorde.Visibility = Visibility.Collapsed;
+                comandosVoz.Visibility = Visibility.Collapsed;
             }
         }
 

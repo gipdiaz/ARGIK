@@ -10,7 +10,30 @@
         Title="ARGIK" Height="768" Width="1366" MinHeight="768" MinWidth="1366" MaxHeight="768" MaxWidth="1366" WindowStyle="None" ResizeMode="NoResize">
 
     <Window.Resources>
+        <Style x:Key="RoundButtonTemplate" TargetType="Button">
+            <Setter Property="Background" Value="Brown"/>
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="40" Background="{TemplateBinding Background}"
+                                BorderThickness="0">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center">
+                            </ContentPresenter>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <DropShadowEffect x:Key="glowEffect" BlurRadius="30"  Opacity="1" ShadowDepth="0" Color="White" RenderingBias="Quality" Direction="392"></DropShadowEffect>
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="Text" Value="" />
+            <Setter Property="FontSize" Value="60" />
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="Effect" Value="{StaticResource glowEffect}"/>
+        </Style>
         <!--estilo de la ayuda-->
         <Style BasedOn="{StaticResource {x:Type TextBlock}}"
                TargetType="TextBlock"
@@ -34,20 +57,20 @@
             <Setter Property="Background" Value="Azure"/>
             <Setter Property="CornerRadius" Value="10"/>
         </Style>
-        
+
     </Window.Resources>
-    
+
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-            <GradientStop Color="#FF201F29" Offset="0.017"/>
-            <GradientStop Color="#FF0A194D" Offset="1"/>
+            <GradientStop Color="#FFB9BBFF" Offset="0" />
+            <GradientStop Color="Azure" Offset="2" />
         </LinearGradientBrush>
     </Window.Background>
     <Grid Width="640" Height="480" HorizontalAlignment="Center" VerticalAlignment="Center">
         <Viewbox Margin="5" Grid.RowSpan="6" Width="640" Height="480">
             <Grid Width="640" Height="480" ClipToBounds="True" Name="LayoutRoot">
 
-                <Rectangle Stroke="Black" StrokeThickness="1"/>
+                <Rectangle Stroke="Black" StrokeThickness="0"/>
 
                 <Image x:Name="kinectDisplayPaciente" Source="{Binding Bitmap}" Width="640" Height="480"/>
 
@@ -58,12 +81,12 @@
                 <Controls:HoverButton Visibility="Visible" x:Name="botonReproducirSesion" ImageSize="100" ImageSource="/ARGIK;component/images/IniciarSesion.png" ActiveImageSource="/ARGIK;component/images/Fin.png"   TimeInterval="3000"  HorizontalAlignment="Right" Height="60" Width="60"  Margin="0,0,40,300" VerticalAlignment="Center"/>
                 <Controls:HoverButton Visibility="Visible" x:Name="botonRepetirGesto" ImageSize="100" ImageSource="/ARGIK;component/images/Repetir.png" ActiveImageSource="/ARGIK;component/images/Repetir.png"   TimeInterval="3000"   HorizontalAlignment="Right" Height="60" Width="60"  Margin="0,0,40,120" VerticalAlignment="Center" />
                 <Controls:HoverButton Visibility="Visible" x:Name="botonAyudaPaciente" ImageSize="100" ImageSource="/ARGIK;component/images/Ayuda.png" ActiveImageSource="/ARGIK;component/images/Ayuda.png"   TimeInterval="3000"   HorizontalAlignment="Right" Height="60" Width="60"  Margin="0,210.975,39.261,169.025" VerticalAlignment="Center" />
-                
+
 
             </Grid>
         </Viewbox>
         <Image x:Name="logo" Source="/images/argik.png" Height="102" VerticalAlignment="Top" Margin="157,-128,157,0"/>
-        
+
         <!--AYUDAS-->
         <Border Style="{StaticResource bordeAyuda}" Margin="621.5,62,-262.5,353.5" Name="ayudaIniciarSesionBorde" Width="281">
             <TextBlock Style="{StaticResource Ayuda}" Name="ayudaIniciarSesion" FontSize="16">
@@ -81,16 +104,16 @@
             <TextBlock Style="{StaticResource Ayuda}" Name="ayudaSalir" FontSize="16">
             </TextBlock>
         </Border>
-        <Border Style="{StaticResource bordeAyuda}" Margin="136,485,100,-136" Name="ayudaVozBorde">
-            <TextBlock Style="{StaticResource Ayuda}" Name="ayudaVoz" FontSize="16">
-            </TextBlock>
+        <Border Style="{StaticResource bordeAyuda}" Margin="136,485,101,-120" Name="ayudaVozBorde">
+            <TextBlock Style="{StaticResource Ayuda}" x:Name="ayudaVoz" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"><Run Language="es-es" Text="Reproducir -&gt; Iniciar la sesión"/><LineBreak/><Run Language="es-es" Text="Repetir&#x9;   -&gt; Repite el video del gesto"/><LineBreak/><Run Language="es-es" Text="Info     &#x9;   -&gt; Activar o desactivar la ayuda"/><LineBreak/><Run Language="es-es" Text="Salir &#x9;   -&gt; Volver al menú principal"/><Run Text=" "/></TextBlock>
         </Border>
-        <Button x:Name="ATRAS" Content="" Height="77" Width="81.217" Click="ATRAS_Click" FontSize="48" BorderBrush="{x:Null}" VerticalAlignment="Top" Margin="-201.609,-109,760.391,0">
+        <Button x:Name="ATRAS" Content="" Height="77" Width="81.217" Click="ATRAS_Click" FontSize="48" VerticalAlignment="Top" Margin="-201.609,-109,760.391,0" Style="{StaticResource RoundButtonTemplate}">
             <Button.Background>
                 <ImageBrush ImageSource="/images/atras.png"/>
             </Button.Background>
         </Button>
         <Image Margin="-256.683,5,708.683,205" Source="/ARGIK;component/Images/paciente.png" Stretch="Fill" Width="188" Height="270"/>
-        <Label Content="PACIENTE"  VerticalAlignment="Top" Margin="-242.5,304.195,728.5,0" FontFamily="Bookman Old Style" FontSize="26.667" Foreground="#FFD6DC93" BorderBrush="#FF0071BC"/>
+        <Label Content="PACIENTE"  VerticalAlignment="Top" Margin="-242.5,304.195,728.5,0" FontFamily="Bookman Old Style" FontSize="26.667" Foreground="#FF171C4F" BorderBrush="#FF0071BC"/>
+        <Label Content="COMANDOS&#xA;    DE VOZ"  VerticalAlignment="Top" Margin="-74,509,560,-92" FontFamily="Bookman Old Style" FontSize="21.333" Foreground="#FF171C4F" BorderBrush="#FF0071BC" Height="63" Name="comandosVoz"/>
     </Grid>
 </Window>

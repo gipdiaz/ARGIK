@@ -47,7 +47,7 @@
             <Button x:Name="GAME3" Height="400" Width="350" Canvas.Left="919" Canvas.Top="166" Click="CONFIGURACION_Click" Background="#9999FF" Style="{StaticResource RoundButtonTemplate}">
                 <Image Source="/images/config6.png" HorizontalAlignment="Center" Width="236" Height="250"/>
             </Button>
-            <Button x:Name="CERRAR" Content="" Height="128" Width="128" Canvas.Left="1141" Canvas.Top="17" Click="CERRAR_Click" BorderThickness="0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+            <Button x:Name="CERRAR" Content="" Height="128" Width="128" Canvas.Left="1141" Canvas.Top="16" Click="CERRAR_Click" Style="{StaticResource RoundButtonTemplate}">
                 <Button.Background>
                     <ImageBrush ImageSource="/images/cerrar-azul.png"/>
                 </Button.Background>

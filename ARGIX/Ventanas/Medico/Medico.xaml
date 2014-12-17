@@ -10,10 +10,25 @@
         Title="ARGIK" Height="768" Width="1366" MinHeight="768" MinWidth="1366" MaxHeight="768" MaxWidth="1366" WindowStyle="None" ResizeMode="NoResize">
 
     <Window.Resources>
+        <Style x:Key="RoundButtonTemplate" TargetType="Button">
+            <Setter Property="Background" Value="Brown"/>
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="40" Background="{TemplateBinding Background}"
+                                BorderThickness="0">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center">
+                            </ContentPresenter>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <DropShadowEffect x:Key="glowEffect" BlurRadius="30"  Opacity="1" ShadowDepth="0" Color="White" RenderingBias="Quality" Direction="392"></DropShadowEffect>
 
         <Style TargetType="{x:Type TextBlock}">
-            <Setter Property="Text" Value="Drop-Shadow" />
+            <Setter Property="Text" Value="" />
             <Setter Property="FontSize" Value="60" />
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="HorizontalAlignment" Value="Center" />
@@ -48,7 +63,7 @@
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
             <GradientStop Color="#FFB9BBFF" Offset="0" />
-            <GradientStop Color="#FFB9BBFF" Offset="0" />
+            <GradientStop Color="Azure" Offset="2" />
             <!--<GradientStop Color="#001933" Offset="0"/>
             <GradientStop Color="#006666" Offset="1"/>-->
         </LinearGradientBrush>
@@ -58,7 +73,7 @@
         <Viewbox Margin="5" Grid.RowSpan="6" Width="640" Height="480">
             <Grid Width="640" Height="480" ClipToBounds="True" x:Name="LayoutRoot">
 
-                <Rectangle Stroke="Black" StrokeThickness="1"/>
+                <Rectangle Stroke="Black" StrokeThickness="0"/>
 
                 <Image x:Name="kinectDisplay" Source="{Binding Bitmap}" Width="640" Height="480"/>
 
@@ -75,7 +90,7 @@
         <Image x:Name="logo" Source="/images/argik.png" Height="102" VerticalAlignment="Top" Margin="157,-128,157,0"/>
         <!--AYUDAS-->
         <Border Style="{StaticResource bordeAyuda}" Margin="620,62.75,-261,352.749" Name="ayudaGrabarSesionBorde" Height="64.5">
-            <TextBlock Style="{StaticResource Ayuda}" x:Name="ayudaGrabarSesion" FontSize="21.333" FontFamily="Tahoma" Text="Iniciar la sesio">
+            <TextBlock Style="{StaticResource Ayuda}" x:Name="ayudaGrabarSesion">
             </TextBlock>
         </Border>
 
@@ -91,17 +106,17 @@
             <TextBlock Style="{StaticResource Ayuda}" Name="ayudaSalir">
             </TextBlock>
         </Border>
-        <Border Style="{StaticResource bordeAyuda}" Margin="142,492,94,-126" Name="ayudaVozBorde">
-            <TextBlock Style="{StaticResource Ayuda}" Name="ayudaVoz" FontSize="16">
-            </TextBlock>
+        <Border Style="{StaticResource bordeAyuda}" Margin="104,490,117,-124" Name="ayudaVozBorde">
+            <TextBlock Style="{StaticResource Ayuda}" x:Name="ayudaVoz" Height="114" Width="419"><Run Language="es-es" Text="Grabar &#x9;-&gt; Iniciar la grabación del gesto"/><LineBreak/><Run Language="es-es" Text="Detener&#x9;-&gt; Detener la grabación del gesto"/><LineBreak/><Run Language="es-es" Text="Info     &#x9;-&gt; Activar o desactivar la ayuda"/><LineBreak/><Run Language="es-es" Text="Salir &#x9;-&gt; Volver al menú principal"/><LineBreak/><Run Language="es-es"/><Run Text=" "/></TextBlock>
         </Border>
-        <Label Content="MÉDICO"  VerticalAlignment="Top" Margin="-242.5,304.195,751,0" FontFamily="Bookman Old Style" FontSize="26.667" Foreground="#FFD6DC93" BorderBrush="#FF0071BC"/>
-        <Button x:Name="ATRAS" Content="" Height="77" Width="81.217" Click="ATRAS_Click" FontSize="48" BorderBrush="{x:Null}" VerticalAlignment="Top" Margin="-208,-116,766,0">
+        <Label Content="MÉDICO"  VerticalAlignment="Top" Margin="-242.5,304.195,751,0" FontFamily="Bookman Old Style" FontSize="26.667" Foreground="#FF171C4F" BorderBrush="#FF0071BC"/>
+        <Button x:Name="ATRAS" Content="" Height="77" Width="81.217" Click="ATRAS_Click" FontSize="48" VerticalAlignment="Top" Margin="-208,-116,766,0" Style="{StaticResource RoundButtonTemplate}">
             <Button.Background>
                 <ImageBrush ImageSource="/images/atras.png"/>
             </Button.Background>
         </Button>
         <Image Margin="-260.5,5,712,204.309" Source="/ARGIK;component/Images/medico.png" Stretch="Fill"/>
+        <Label Content="COMANDOS&#xD;&#xA;    DE VOZ"  VerticalAlignment="Top" Margin="-71.5,511.696,557,-95" FontFamily="Bookman Old Style" FontSize="21.333" Foreground="#FF171C4F" BorderBrush="#FF0071BC" Height="63.304" Name="comandosVoz"/>
 
     </Grid>
 

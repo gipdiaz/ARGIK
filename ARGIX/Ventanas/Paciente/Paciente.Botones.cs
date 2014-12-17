@@ -184,7 +184,7 @@ namespace ARGIK
             ayudaRepetir.Text = "Repetir el gesto para\nvisualizar el movimiento";
             ayudaAyuda.Text = "Activar/Desactivar el modo\n ayuda de la aplicación";
             ayudaSalir.Text = "Volver al menú principal";
-            ayudaVoz.Text = "*************Comandos de voz*************\n\nREPRODUCIR -->Iniciar la sesion de gestos\nDETENER ---> Finalizar la sesión\nREPETIR ---> Repetir demostración del gesto\nINFO ---> Activar/Desactivar Ayuda\nSALIR ---> Volver al Menú Principal";
+            //ayudaVoz.Text = "*************Comandos de voz*************\n\nREPRODUCIR -->Iniciar la sesion de gestos\nDETENER ---> Finalizar la sesión\nREPETIR ---> Repetir demostración del gesto\nINFO ---> Activar/Desactivar Ayuda\nSALIR ---> Volver al Menú Principal";
             habilitarAyudas();
         }
     }

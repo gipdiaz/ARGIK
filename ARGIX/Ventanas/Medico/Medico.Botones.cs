@@ -121,7 +121,7 @@ namespace ARGIK
             ayudaArticulaciones.Text = "Seleccionar la articulación que\nse utilizará para grabar el gesto";
             ayudaAyuda.Text = "Activar/Desactivar el modo \nayuda de la aplicación";
             ayudaSalir.Text = "Volver al menú principal";
-            ayudaVoz.Text = "*************Comandos de voz*************\n\nGRABAR ---> Iniciar la grabación del gesto\nDETENER ---> Finalizar grabación del gesto\nINFO ---> Activar/Desactivar Ayuda\nSALIR ---> Volver al Menú Principal";
+            //ayudaVoz.Text = "COMANDOS DE VOZ \nGRABAR -> Iniciar la grabación del gesto\nDETENER -> Finalizar grabación del gesto\nINFO -> Activar/Desactivar Ayuda\nSALIR -> Volver al Menú Principal";
             habilitarAyudas();
         }
     }
