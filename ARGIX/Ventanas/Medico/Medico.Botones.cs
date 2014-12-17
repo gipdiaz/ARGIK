@@ -77,6 +77,7 @@ namespace ARGIK
             this.Clean();
             Articulaciones jointsNuevo = new Articulaciones(this);
             jointsNuevo.ShowDialog();
+            //System.Console.WriteLine("A");
             this.Reanudar();
         }
 
