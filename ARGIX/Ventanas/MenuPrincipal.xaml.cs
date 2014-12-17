@@ -42,7 +42,7 @@ namespace ARGIK
         /// </summary>
         public MenuPrincipal()
         {
-            this.modoSentado = true;
+            this.modoSentado = false;
             InitializeComponent();
             new SplashWindow().ShowDialog();
             InitializeButtons();
